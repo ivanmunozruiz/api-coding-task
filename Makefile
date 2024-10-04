@@ -68,7 +68,7 @@ enter-container: ## Entra en el contenedor de PHP
 
 asyncapi-resolve: ## AsyncAPI generation
 	docker run --rm -v $(PWD)/doc/asyncapi:/project wework/speccy resolve asyncapi.yaml > gen/asyncapi.yaml
-	## git add ./gen/asyncapi.yaml
+	git add ./gen/asyncapi.yaml
 
 asyncapi-lint: ## AsyncAPI validation
 	docker run --rm -v $(PWD)/doc/asyncapi:/tmp -w /tmp stoplight/spectral lint asyncapi.yaml
@@ -76,6 +76,7 @@ asyncapi-lint: ## AsyncAPI validation
 
 openapi-resolve: ## Genera la especificación OpenAPI
 	docker run --rm -v $(PWD)/doc/openapi:/project wework/speccy resolve openapi.yaml > gen/openapi.yaml
+	git add ./gen/openapi.yaml
 
 openapi-lint: ## OpenAPI validation
 	docker run --rm -v $(PWD)/doc/openapi:/tmp -w /tmp stoplight/spectral lint openapi.yaml

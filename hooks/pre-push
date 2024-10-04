@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+LC_ALL=C
+commands=(local-ci)
+for cmd in "${commands[@]}"; do
+  echo "Running 'make ${cmd}'"
+  make DISABLE_INTERACTIVE=1 "${cmd}"
+  cmd_status=$?
+  if [[ ${cmd_status} != 0 ]]; then
+    echo "
+         _
+        | |__  _   _  __ _
+        | '_ \| | | |/ _  |
+        | |_) | |_| | (_| |  with make $cmd
+        |_.__/ \__,_|\__, |
+                     |___/
+        "
+    echo ""
+    exit ${cmd_status}
+  fi
+done
+
+exit 0

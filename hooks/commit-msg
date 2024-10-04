@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+LC_ALL=C
+
+commit_message=$(head -n1 "$1")
+allowed_commit="^(chore|build|docs|fix|feat|lint|merge|style|perf|refactor|revert|test)(\([a-zA-Z]([^)]*)\))?!?:.[a-zA-Z \/-_]{1,255}"
+message="Invalid commit. The commit must comply with the naming conventions: $allowed_commit.
+
+         Please read https://www.conventionalcommits.org/"
+
+if [[ ! ${commit_message} =~ $allowed_commit ]]
+then
+    echo "
+         _
+        | |__  _   _  __ _
+        | '_ \| | | |/ _  |
+        | |_) | |_| | (_| |
+        |_.__/ \__,_|\__, |
+                     |___/
+
+        $message
+
+        "
+    echo ""
+    exit 1
+fi
+
+exit 0

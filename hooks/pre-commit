@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+LC_ALL=C
+branch_name="$(git rev-parse --abbrev-ref HEAD)"
+allowed_branch="^(main|develop|test|migration|((feature|bugfix|hotfix|story)\/[A-Z]+-[0-9]+(-[a-zA-Z]+)?))$"
+message="Invalid branch. The branch must comply with the naming conventions: $allowed_branch."
+
+if [[ ! ${branch_name} =~ $allowed_branch ]]
+then
+    echo "
+         _
+        | |__  _   _  __ _
+        | '_ \| | | |/ _  |
+        | |_) | |_| | (_| |
+        |_.__/ \__,_|\__, |
+                     |___/
+
+        $message $branch_name
+
+        "
+    echo ""
+    exit 1
+fi
+
+
+
+exit 0

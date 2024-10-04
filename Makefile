@@ -46,7 +46,7 @@ help: ## Listar comandos disponibles en este Makefile
 
 
 # BUILD COMMANDS -------------------------------------------------------------------------------------------------------
-build: build-container composer-install ## Construye las dependencias del proyecto
+build: build-container composer-install setup-hooks ## Construye las dependencias del proyecto
 
 build-container: ## Construye el contenedor de la aplicación
 	docker build --no-cache --target development -t $(IMAGE_NAME):$(IMAGE_TAG_DEV) .
@@ -66,6 +66,8 @@ composer-require-dev: ## Añade nuevas dependencias de desarrollo
 enter-container: ## Entra en el contenedor de PHP
 	docker exec -it $(shell docker ps -qf "name=php") /bin/sh
 
+# DOC COMMANDS -------------------------------------------------------------------------------------------------------
+
 asyncapi-resolve: ## AsyncAPI generation
 	docker run --rm -v $(PWD)/doc/asyncapi:/project wework/speccy resolve asyncapi.yaml > gen/asyncapi.yaml
 	git add ./gen/asyncapi.yaml
@@ -81,6 +83,14 @@ openapi-resolve: ## Genera la especificación OpenAPI
 openapi-lint: ## OpenAPI validation
 	docker run --rm -v $(PWD)/doc/openapi:/tmp -w /tmp stoplight/spectral lint openapi.yaml
 	docker run --rm -v $(PWD)/gen:/tmp -v $(PWD)/doc/openapi/.spectral.yaml:/tmp/.spectral.yaml -w /tmp stoplight/spectral lint openapi.yaml
+
+
+# HELPER COMMANDS -------------------------------------------------------------------------------------------------------
+setup-hooks: ## Configure git hooks
+	@git config core.hooksPath ./hooks/
+local-ci:
+	make openapi-resolve
+	make asyncapi-resolve
 
 
 

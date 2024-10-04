@@ -63,7 +63,7 @@ composer-require: ## Añade nuevas dependencias de producción
 composer-require-dev: ## Añade nuevas dependencias de desarrollo
 	docker run --rm -ti -v ${PWD}:/var/www -w /var/www $(IMAGE_NAME):$(IMAGE_TAG_DEV) composer require --dev --verbose
 
-enter-container: ## Entra en el contenedor de PHP
+enter-container-php: ## Entra en el contenedor de PHP
 	docker exec -it $(shell docker ps -qf "name=php") /bin/sh
 
 # DOC COMMANDS -------------------------------------------------------------------------------------------------------

@@ -24,4 +24,8 @@ RUN apk add --update --upgrade tzdata autoconf g++ make \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+RUN echo "zend_extension=xdebug.so" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer

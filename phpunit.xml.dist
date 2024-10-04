@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd" backupGlobals="false" colors="true" bootstrap="tests/bootstrap.php" executionOrder="depends,defects" beStrictAboutOutputDuringTests="true" failOnRisky="true" failOnWarning="true" stopOnDefect="true" cacheDirectory="var/cache/test/.phpunit.cache" beStrictAboutCoverageMetadata="true">
+  <php>
+    <ini name="display_errors" value="1"/>
+    <ini name="error_reporting" value="-1"/>
+    <server name="APP_ENV" value="test" force="true"/>
+    <server name="SHELL_VERBOSITY" value="-1"/>
+    <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+    <server name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
+  </php>
+  <testsuites>
+    <testsuite name="Project Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="report/logging.junit.xml"/>
+    <testdoxHtml outputFile="report/logging.dox.html"/>
+    <testdoxText outputFile="report/logging.dox.txt"/>
+  </logging>
+  <coverage includeUncoveredFiles="true" pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="true">
+    <report>
+      <clover outputFile="report/coverage.clover.xml"/>
+      <text outputFile="report/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
+      <html outputDirectory="report/coverage-html" lowUpperBound="50" highLowerBound="80"/>
+      <xml outputDirectory="report/coverage-xml"/>
+    </report>
+  </coverage>
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <directory>./vendor</directory>
+      <directory>./src/**/Infrastructure/**</directory>
+      <directory>./src/Kernel.php</directory>
+    </exclude>
+  </source>
+</phpunit>

@@ -1,0 +1,4 @@
+type: string
+readOnly: true
+description: Name of the application
+example: Api-coding-task

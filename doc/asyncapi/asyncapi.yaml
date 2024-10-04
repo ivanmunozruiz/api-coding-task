@@ -1,0 +1,71 @@
+asyncapi: 2.5.0
+info:
+  title: 'API de El Señor de los Anillos'
+  version: '1.0.0'
+  description: 'Una API de El Señor de los Anillos.'
+  contact:
+    name: 'Ivan'
+    email: 'ivan.sazo@gmail.com'
+  license:
+    name: 'MIT'
+    url: 'https://opensource.org/licenses/MIT'
+
+servers:
+  localhost:
+    url: amqp://localhost:5672
+    protocol: amqp
+    protocolVersion: 0.9.1
+    tags:
+      - name: develop
+        description: "This environment is only for develop purpose"
+tags:
+  - name: Characters
+  - name: Factions
+  - name: Equipments
+channels:
+  api-coding-task.character.1.domain-event.character.created-event:
+    publish:
+      tags:
+        - name: Characters
+      summary: Character was created
+      description: This event is published when a character is created.
+      operationId: api-coding-task.character.1.domain-event.character.created-event
+      message:
+        $ref: '#/components/messages/CharacterCreatedEvent'
+components:
+  messages:
+    CharacterCreatedEvent:
+      name: api-coding-task.character.1.domain-event.character.created-event
+      title: Character was created
+      summary: Character was created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/commonHeaders'
+      payload:
+        $ref: '#/components/schemas/CharacterCreated'
+  schemas:
+    CharacterCreated:
+        $ref: "./fields/character/character-payload.yaml"
+  messageTraits:
+    commonHeaders:
+      bindings:
+        amqp:
+          is: routingKey
+          exchange:
+            type: topic
+      headers:
+        type: object
+        required:
+          - application_id
+          - message_id
+          - message_version
+          - occurred_on
+        properties:
+          application_id:
+            $ref: "./message-traits/headers/application_id.yaml"
+          message_id:
+            $ref: "./message-traits/headers/message_id.yaml"
+          message_version:
+            $ref: "./message-traits/headers/message_version.yaml"
+          occurred_on:
+            $ref: "./message-traits/headers/occurred_on.yaml"

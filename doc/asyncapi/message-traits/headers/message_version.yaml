@@ -1,0 +1,5 @@
+type: integer
+format: int32
+readOnly: true
+description: Version of the application that generated the message
+example: 1

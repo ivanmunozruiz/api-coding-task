@@ -1,0 +1,5 @@
+type: string
+format: uuid
+readOnly: true
+description: An Domain Event Identifier with UUID format.
+example: a1063334-47af-4cd7-98de-2cbe0aab05ce

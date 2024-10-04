@@ -1,0 +1,5 @@
+type: integer
+format: int64
+readOnly: true
+description: Unix epoch timestamp in milliseconds
+example: 1654506854

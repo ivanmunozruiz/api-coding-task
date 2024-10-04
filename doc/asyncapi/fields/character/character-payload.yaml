@@ -1,0 +1,36 @@
+title: Character payload
+type: object
+required:
+  - aggregate_id
+  - name
+  - birth_date
+  - kingdom
+  - equipment_id
+  - faction_id
+properties:
+  aggregate_id:
+    type: integer
+    example: 1
+    description: Character id
+  name:
+    type: string
+    example: Frodo
+    description: Character name
+  birth_date:
+    type: string
+    format: date
+    example: 1990-01-01
+    description: Character birth date
+  kingdom:
+    type: string
+    example: Shire
+    description: Character kingdom
+  equipment_id:
+    type: integer
+    example: 1
+    description: Character equipment id
+  faction_id:
+    type: integer
+    example: 1
+    description: Character faction id
+additionalProperties: false

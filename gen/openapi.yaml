@@ -1,0 +1,191 @@
+openapi: 3.0.0
+info:
+  title: LOTR API
+  description: API para gestionar personajes, facciones y equipamiento de El Señor de los
+    Anillos.
+  version: 1.0.0
+  contact:
+    name: Soporte LOTR API
+    url: http://localhost:8080/support
+    email: soporte@lotrapi.example.com
+servers:
+  - url: http://localhost:8080/api
+    description: Servidor local
+tags:
+  - name: Characters
+    description: Operaciones relacionadas con los personajes
+paths:
+  /characters:
+    get:
+      summary: Obtener todos los personajes
+      description: Devuelve una lista de todos los personajes disponibles.
+      operationId: getCharacters
+      tags:
+        - Characters
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Límite de personajes a devolver. Si no se especifica, se devuelven
+            todos.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lista de personajes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    birth_date:
+                      type: string
+                      format: date
+                    kingdom:
+                      type: string
+                    equipment_id:
+                      type: integer
+                    faction_id:
+                      type: integer
+    post:
+      summary: Crear un nuevo personaje
+      description: Crea un nuevo personaje en la base de datos.
+      operationId: createCharacter
+      tags:
+        - Characters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                birth_date:
+                  type: string
+                  format: date
+                kingdom:
+                  type: string
+                equipment_id:
+                  type: integer
+                faction_id:
+                  type: integer
+      responses:
+        "201":
+          description: Personaje creado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  birth_date:
+                    type: string
+                    format: date
+                  kingdom:
+                    type: string
+                  equipment_id:
+                    type: integer
+                  faction_id:
+                    type: integer
+  "/characters/{id}":
+    get:
+      summary: Obtener un personaje por ID
+      description: Devuelve un personaje específico basado en su ID.
+      operationId: getCharacterById
+      tags:
+        - Characters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del personaje que se desea obtener.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Personaje encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  birth_date:
+                    type: string
+                    format: date
+                  kingdom:
+                    type: string
+                  equipment_id:
+                    type: integer
+                  faction_id:
+                    type: integer
+        "404":
+          description: Personaje no encontrado
+    put:
+      summary: Actualizar un personaje
+      description: Actualiza la información de un personaje existente.
+      operationId: updateCharacter
+      tags:
+        - Characters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del personaje que se desea actualizar.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                birth_date:
+                  type: string
+                  format: date
+                kingdom:
+                  type: string
+                equipment_id:
+                  type: integer
+                faction_id:
+                  type: integer
+      responses:
+        "200":
+          description: Personaje actualizado
+        "404":
+          description: Personaje no encontrado
+    delete:
+      summary: Eliminar un personaje
+      description: Elimina un personaje de la base de datos.
+      operationId: deleteCharacter
+      tags:
+        - Characters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del personaje que se desea eliminar.
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Personaje eliminado
+        "404":
+          description: Personaje no encontrado

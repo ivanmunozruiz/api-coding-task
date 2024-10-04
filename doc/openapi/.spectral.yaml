@@ -1,0 +1,17 @@
+extends: spectral:oas
+rules:
+  info-description:
+    description: "Info object must have a description"
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  required-parameters:
+    description: "All operations must have parameters"
+    severity: error
+    given: "$..paths.*"
+    then:
+      field: parameters
+      function: truthy

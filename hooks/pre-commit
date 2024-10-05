@@ -1,27 +1,52 @@
 #!/usr/bin/env bash
 
 LC_ALL=C
+
+# Comandos a ejecutar
+commands=("pre-commit")
+
+# Validación de nombres de rama
 branch_name="$(git rev-parse --abbrev-ref HEAD)"
 allowed_branch="^(main|develop|test|migration|((feature|bugfix|hotfix|story)\/[A-Z]+-[0-9]+(-[a-zA-Z]+)?))$"
-message="Invalid branch. The branch must comply with the naming conventions: $allowed_branch."
+error_message="Invalid branch name: '$branch_name'.\nThe branch must comply with the naming conventions: $allowed_branch."
 
-if [[ ! ${branch_name} =~ $allowed_branch ]]
-then
-    echo "
-         _
-        | |__  _   _  __ _
-        | '_ \| | | |/ _  |
-        | |_) | |_| | (_| |
-        |_.__/ \__,_|\__, |
-                     |___/
+# Función para mostrar mensaje de error
+show_error() {
+  echo "
+     _
+    | |__  _   _  __ _
+    | '_ \| | | |/ _  |
+    | |_) | |_| | (_| |
+    |_.__/ \__,_|\__, |
+                 |___/
 
-        $message $branch_name
+    $1
+  "
+}
 
-        "
-    echo ""
+# Validar que el nombre de la rama cumple con las convenciones
+if [[ ! ${branch_name} =~ $allowed_branch ]]; then
+    show_error "$error_message"
     exit 1
 fi
 
+# Función para ejecutar los comandos y verificar su estado
+run_command() {
+  local cmd=$1
+  echo "Running 'make ${cmd}'"
+  make DISABLE_INTERACTIVE=1 "${cmd}"
+  local cmd_status=$?
+  if [[ ${cmd_status} != 0 ]]; then
+    show_error "Error occurred while running make ${cmd}"
+    exit ${cmd_status}
+  fi
+}
 
+# Ejecutar todos los comandos definidos
+for cmd in "${commands[@]}"; do
+  run_command "${cmd}"
+done
+
+echo "All checks passed successfully."
 
 exit 0

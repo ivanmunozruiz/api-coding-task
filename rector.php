@@ -7,7 +7,10 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     // Define paths
-    $rectorConfig->paths([__DIR__.'/src']);
+    $rectorConfig->paths([
+        __DIR__.'/src',
+        __DIR__.'/tests',
+    ]);
 
     // Define rulesets to apply
     $rectorConfig->sets([

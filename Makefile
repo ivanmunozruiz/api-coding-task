@@ -37,6 +37,7 @@ PHPUNIT = ./vendor/bin/phpunit
 BEHAT = ./vendor/bin/behat
 COVERAGE_DIR = coverage/
 EXEC_APP = docker exec -it $(shell docker ps -qf "name=php")
+EXEC_APP_NO_IT = docker exec $(shell docker ps -qf "name=php")
 
 
 # DEFAULT COMMANDS -----------------------------------------------------------------------------------------------------
@@ -91,19 +92,23 @@ openapi-lint: ## OpenAPI validation
 	docker run --rm -v $(PWD)/gen:/tmp -v $(PWD)/doc/openapi/.spectral.yaml:/tmp/.spectral.yaml -w /tmp stoplight/spectral lint openapi.yaml
 
 php-lint:
-	$(EXEC_APP) ./vendor/bin/phpcbf
+	$(EXEC_APP_NO_IT) ./vendor/bin/phpcbf
 
+rector:
+	$(EXEC_APP_NO_IT) ./vendor/bin/rector process
 
 # HELPER COMMANDS -------------------------------------------------------------------------------------------------------
 setup-hooks: ## Configure git hooks
 	@git config core.hooksPath ./hooks/
+
+pre-commit: php-lint rector ## Execute precommit tasks
+
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
 
 ##@ Testing
 UNIT_TEST_PATH :=
-
 
 clean-reports:
 	@rm -rf report/*

@@ -35,6 +35,14 @@ services:
       retries: 5
     networks:
       - bridge
+  redis:
+    container_name: api-coding-task-redis
+    image: redis:7.2-alpine3.19
+    ports:
+      - "6379:6379"
+    networks:
+        - bridge
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
   swagger-ui:
     container_name: api-coding-task-swagger-ui
     image: swaggerapi/swagger-ui

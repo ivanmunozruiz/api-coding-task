@@ -1,22 +1,44 @@
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
-
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
+          commands:
+            dsn: 'sync://'
+          commands_async:
+            dsn: '%env(MESSENGER_TRANSPORT_DSN)%/commands'
+          queries: 'sync://'
+          events:
+            dsn: 'sync://'
+          #events_async:
+          #  dsn : '%env(MESSENGER_TRANSPORT_DSN)%/api-events'
+          #  serializer: App\Shared\Infrastructure\Messaging\Serializer\DomainEventSerializer
+          failed: 'doctrine://default?queue_name=failed'
+        failure_transport: failed
+
+        # The bus that is going to be injected when injecting MessageBusInterface.
+        default_bus: command.bus
+        serializer:
+          # Service id to use as the default serializer for the transports.
+          default_serializer: messenger.transport.symfony_serializer
+          symfony_serializer:
+            format: json
+            context: { }
 
         routing:
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
+          App\Shared\Application\Command\Command: commands
+          #App\Shared\Domain\Aggregate\DomainEvent:  events_async
 
-# when@test:
-#    framework:
-#        messenger:
-#            transports:
-#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
-#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
-#                async: 'in-memory://'
+        buses:
+          none.bus:
+            default_middleware: allow_no_handlers
+          command.bus:
+            middleware:
+              - 'doctrine_ping_connection'
+              - 'doctrine_close_connection'
+              - 'send_message'
+              - 'doctrine_transaction'
+          query.bus: ~
+          event.bus:
+            default_middleware: allow_no_handlers
+            middleware:
+              - App\Shared\Infrastructure\Messaging\Middleware\DomainEventMiddleware
+              - 'doctrine_transaction'

@@ -1,0 +1,4 @@
+lotr_context.rest.faction.create_faction.page:
+  path: /faction
+  methods: POST
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\CreateFactionPage'

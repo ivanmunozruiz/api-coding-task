@@ -26,20 +26,15 @@ final class CreateFactionPage extends ApiCommandPage
     /** @throws Throwable */
     public function __invoke(Request $request): JsonResponse
     {
-        $requesterId = $this->currentUserId($request); // only for info
+        $this->currentUserId($request); // only for info
         $name = self::getString($request->request->all(), '[name]');
         $description = self::getString($request->request->all(), '[description]');
-        try {
-            $this->dispatch(
-                new CreateFactionCommand(
-                    $name,
-                    $description,
-                ),
-            );
-        } catch (Throwable $throwable) {
-            // here maybe we can log some metrics in DataDog or whatever
-            throw $throwable;
-        }
+        $this->dispatch(
+            new CreateFactionCommand(
+                $name,
+                $description,
+            ),
+        );
 
         return new JsonResponse([], Response::HTTP_CREATED);
     }

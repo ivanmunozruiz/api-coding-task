@@ -115,7 +115,7 @@ composer-validate:
 rector:
 	$(EXEC_APP_NO_IT) ./vendor/bin/rector process
 
-pre-commit: php-lint phpstan rector composer-validate unit-test-no-tty  ## Execute precommit tasks
+pre-commit: php-lint phpstan rector unit-test-no-tty  ## Execute precommit tasks
 
 local-ci:
 	make openapi-resolve

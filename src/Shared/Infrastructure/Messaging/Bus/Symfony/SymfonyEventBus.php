@@ -14,7 +14,7 @@ use function Lambdish\Phunctional\each;
 
 final class SymfonyEventBus implements EventBus
 {
-    public function __construct(private MessageBusInterface $eventBus)
+    public function __construct(private readonly MessageBusInterface $eventBus)
     {
     }
 

@@ -22,7 +22,7 @@ final class CreateFactionCommandHandler implements CommandHandler
     /**
      * @throws AssertionFailedException
      */
-    public function __invoke(CreateFactionCommand $command): void
+    public function __invoke(CreateFactionCommand $command): never
     {
         dd(111);
         $name = Name::from($command->factionName());

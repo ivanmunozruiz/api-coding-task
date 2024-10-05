@@ -15,10 +15,6 @@ use App\AuthorisationContext\Infrastructure\Domain\Repository\UserRepository;
 
 final class UserProvider implements UserProviderInterface
 {
-    public function __construct(private readonly UserRepository $userRepository)
-    {
-    }
-
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         //TODO: I know, If I have time I will implement this

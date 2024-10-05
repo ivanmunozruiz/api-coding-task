@@ -101,11 +101,12 @@ rector:
 setup-hooks: ## Configure git hooks
 	@git config core.hooksPath ./hooks/
 
-pre-commit: php-lint rector ## Execute precommit tasks
+pre-commit: php-lint rector unit-test  ## Execute precommit tasks
 
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
+	make bdd-test
 
 ##@ Testing
 UNIT_TEST_PATH :=
@@ -115,9 +116,9 @@ clean-reports:
 
 unit-test: clean-reports ## Execute unit tests with no coverage
 ifneq ($(strip $(UNIT_TEST_PATH)),)
-	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage ${UNIT_TEST_PATH}
+	$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage ${UNIT_TEST_PATH}
 else
-	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage --stop-on-failure
+	$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage --stop-on-failure
 endif
 
 unit-test-coverage: clean-reports ## Execute unit tests with coverage

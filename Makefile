@@ -33,6 +33,10 @@ IMAGE_TAG_DEV=development
 ASYNC_IMAGE_NAME := asyncapi/generator
 ASYNC_OUTPUT_DIRECTORY := asyncapi-docs
 
+PHPUNIT = ./vendor/bin/phpunit
+BEHAT = ./vendor/bin/behat
+COVERAGE_DIR = coverage/
+
 # DEFAULT COMMANDS -----------------------------------------------------------------------------------------------------
 all: help
 
@@ -92,6 +96,45 @@ local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
 
+##@ Testing
+EXEC_APP = docker exec -it $(shell docker ps -qf "name=php")
+UNIT_TEST_PATH :=
 
+
+clean-reports:
+	@rm -rf report/*
+
+unit-test: clean-reports ## Execute unit tests with no coverage
+ifneq ($(strip $(UNIT_TEST_PATH)),)
+	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage ${UNIT_TEST_PATH}
+else
+	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage --stop-on-failure
+endif
+
+unit-test-coverage: clean-reports ## Execute unit tests with coverage
+	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --stop-on-failure
+
+MUTANT_TEST_PATH :=
+
+mutant-test: unit-test-coverage ## Execute mutant tests
+	ifneq ($(strip $(MUTANT_TEST_PATH)),)
+		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/infection --filter=$(MUTANT_TEST_PATH) --threads=${NUM_PROCESSORS} --coverage=report --skip-initial-tests --show-mutations
+	else
+		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/infection --threads=${NUM_PROCESSORS} --coverage=report --skip-initial-tests --show-mutations
+	endif
+
+
+BDD_TEST_PATH :=
+
+bdd-test: ## Execute behat tests
+	$(EXEC_APP) rm -rf /tmp/symfony-cache
+	$(EXEC_APP) php bin/console doctrine:database:drop --env=test --quiet --no-interaction --if-exists --force
+	$(EXEC_APP) php bin/console doctrine:database:create --env=test --quiet --no-interaction
+	$(EXEC_APP) php bin/console doctrine:migrations:migrate --env=test --quiet --no-interaction --all-or-nothing
+	ifneq ($(strip $(BDD_TEST_PATH)),)
+		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv $(BDD_TEST_PATH)
+	else
+		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv
+	endif
 
 

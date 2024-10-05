@@ -7,7 +7,7 @@ RUN apk --update add \
     php8-pear \
     php8-dev
 
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql
 
 RUN rm -rf /var/cache/apk/*
 

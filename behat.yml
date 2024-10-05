@@ -1,0 +1,26 @@
+default:
+  suites:
+    default:
+      paths:
+        - "%paths.base%/tests/Functional"
+      contexts:
+        - Behat\MinkExtension\Context\MinkContext
+        - Behatch\Context\RestContext
+        - behatch:context:json
+      filters:
+        tags:
+          '~@pending'
+  extensions:
+    Behat\MinkExtension:
+      sessions:
+        symfony:
+          symfony: ~
+    Behatch\Extension: ~
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+      kernel:
+        class: App\Kernel
+        path: src/Kernel.php
+        environment: test
+        debug: ~
+

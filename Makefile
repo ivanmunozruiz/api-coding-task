@@ -106,7 +106,7 @@ pre-commit: php-lint rector unit-test-no-tty  ## Execute precommit tasks
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
-	make bdd-test
+	make bdd-test-no-tty
 
 ##@ Testing
 UNIT_TEST_PATH :=

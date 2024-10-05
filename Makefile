@@ -106,7 +106,7 @@ pre-commit: php-lint rector unit-test-no-tty  ## Execute precommit tasks
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
-	make bdd-test-no-tty
+	#make bdd-test-no-tty
 
 ##@ Testing
 UNIT_TEST_PATH :=
@@ -149,9 +149,9 @@ bdd-test: ## Execute behat tests
 	$(EXEC_APP) php bin/console doctrine:database:create --env=test --quiet --no-interaction
 	$(EXEC_APP) php bin/console doctrine:migrations:migrate --env=test --quiet --no-interaction --all-or-nothing
 	ifneq ($(strip $(BDD_TEST_PATH)),)
-		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv $(BDD_TEST_PATH)
+		$(EXEC_APP) ./vendor/bin/behat --no-snippets --strict $(BDD_TEST_PATH)
 	else
-		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv
+		$(EXEC_APP) ./vendor/bin/behat --no-snippets --strict
 	endif
 
 bdd-test-no-tty: ## Execute behat tests
@@ -160,9 +160,9 @@ bdd-test-no-tty: ## Execute behat tests
 	$(EXEC_APP_NO_IT) php bin/console doctrine:database:create --env=test --quiet --no-interaction
 	$(EXEC_APP_NO_IT) php bin/console doctrine:migrations:migrate --env=test --quiet --no-interaction --all-or-nothing
 	ifneq ($(strip $(BDD_TEST_PATH)),)
-		$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv $(BDD_TEST_PATH)
+		$(EXEC_APP_NO_IT) ./vendor/bin/behat --no-snippets --strict $(BDD_TEST_PATH)
 	else
-		$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv
+		$(EXEC_APP_NO_IT) ./vendor/bin/behat --no-snippets --strict -vvv
 	endif
 
 

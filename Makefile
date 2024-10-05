@@ -29,15 +29,13 @@ HELP_COLOR := $(BLUE)
 IMAGE_NAME=graphicresources/itpg-api-coding-task
 IMAGE_TAG_BASE=base
 IMAGE_TAG_DEV=development
-
 ASYNC_IMAGE_NAME := asyncapi/generator
 ASYNC_OUTPUT_DIRECTORY := asyncapi-docs
-
 PHPUNIT = ./vendor/bin/phpunit
 BEHAT = ./vendor/bin/behat
 COVERAGE_DIR = coverage/
-EXEC_APP = docker exec -it $(shell docker ps -qf "name=php")
-EXEC_APP_NO_IT = docker exec $(shell docker ps -qf "name=php")
+EXEC_APP = docker exec -it api-coding-task-php
+EXEC_APP_NO_IT = docker exec api-coding-task-php
 
 
 # DEFAULT COMMANDS -----------------------------------------------------------------------------------------------------
@@ -54,6 +52,9 @@ help: ## Listar comandos disponibles en este Makefile
 
 # BUILD COMMANDS -------------------------------------------------------------------------------------------------------
 build: build-container composer-install setup-hooks ## Construye las dependencias del proyecto
+	docker compose up -d
+	$(EXEC_APP) /var/www/wait-for-db.sh
+	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init.sql
 
 build-container: ## Construye el contenedor de la aplicación
 	docker build --no-cache --target development -t $(IMAGE_NAME):$(IMAGE_TAG_DEV) .
@@ -72,6 +73,15 @@ composer-require-dev: ## Añade nuevas dependencias de desarrollo
 
 enter-container-php: ## Entra en el contenedor de PHP
 	$(EXEC_APP) /bin/sh
+
+up:
+	docker compose up -d
+	$(EXEC_APP) /var/www/wait-for-db.sh
+	$(EXEC_APP) bin/console doctrine:migrations:migrate --no-interaction || true
+
+stop:
+	docker compose down
+
 
 # DOC COMMANDS -------------------------------------------------------------------------------------------------------
 

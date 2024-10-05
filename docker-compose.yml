@@ -1,7 +1,7 @@
-version: '3.7'
-
 services:
   php:
+    hostname: php
+    container_name: api-coding-task-php
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,16 +11,20 @@ services:
       - XDEBUG_MODE=coverage
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     volumes:
       - .:/var/www
     networks:
       - bridge
   db:
+    hostname: db
+    container_name: api-coding-task-db
     image: mysql:8.0
     ports:
       - "3306:3306"
     volumes:
-      - ./opt/db:/docker-entrypoint-initdb.d
+      - database_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: lotr
@@ -32,6 +36,7 @@ services:
     networks:
       - bridge
   swagger-ui:
+    container_name: api-coding-task-swagger-ui
     image: swaggerapi/swagger-ui
     ports:
       - "8081:8080"
@@ -42,8 +47,8 @@ services:
     networks:
       - bridge
   rabbitmq:
+    container_name: api-coding-task-rabbitmq
     image: rabbitmq:3.9-management-alpine
-    container_name: rabbitmq
     hostname: rabbitmq
     ports:
       - "15672:15672"
@@ -51,11 +56,11 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+        - bridge
 
 networks:
   bridge:
 
 volumes:
-###> doctrine/doctrine-bundle ###
   database_data:
-###< doctrine/doctrine-bundle ###

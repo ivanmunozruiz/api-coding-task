@@ -154,4 +154,15 @@ bdd-test: ## Execute behat tests
 		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv
 	endif
 
+bdd-test-no-tty: ## Execute behat tests
+	$(EXEC_APP_NO_IT) rm -rf /tmp/symfony-cache
+	$(EXEC_APP_NO_IT) php bin/console doctrine:database:drop --env=test --quiet --no-interaction --if-exists --force
+	$(EXEC_APP_NO_IT) php bin/console doctrine:database:create --env=test --quiet --no-interaction
+	$(EXEC_APP_NO_IT) php bin/console doctrine:migrations:migrate --env=test --quiet --no-interaction --all-or-nothing
+	ifneq ($(strip $(BDD_TEST_PATH)),)
+		$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv $(BDD_TEST_PATH)
+	else
+		$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/behat --no-snippets --strict -vvv
+	endif
+
 

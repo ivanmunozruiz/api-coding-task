@@ -36,6 +36,8 @@ ASYNC_OUTPUT_DIRECTORY := asyncapi-docs
 PHPUNIT = ./vendor/bin/phpunit
 BEHAT = ./vendor/bin/behat
 COVERAGE_DIR = coverage/
+EXEC_APP = docker exec -it $(shell docker ps -qf "name=php")
+
 
 # DEFAULT COMMANDS -----------------------------------------------------------------------------------------------------
 all: help
@@ -68,7 +70,7 @@ composer-require-dev: ## Añade nuevas dependencias de desarrollo
 	docker run --rm -ti -v ${PWD}:/var/www -w /var/www $(IMAGE_NAME):$(IMAGE_TAG_DEV) composer require --dev --verbose
 
 enter-container-php: ## Entra en el contenedor de PHP
-	docker exec -it $(shell docker ps -qf "name=php") /bin/sh
+	$(EXEC_APP) /bin/sh
 
 # DOC COMMANDS -------------------------------------------------------------------------------------------------------
 
@@ -88,6 +90,9 @@ openapi-lint: ## OpenAPI validation
 	docker run --rm -v $(PWD)/doc/openapi:/tmp -w /tmp stoplight/spectral lint openapi.yaml
 	docker run --rm -v $(PWD)/gen:/tmp -v $(PWD)/doc/openapi/.spectral.yaml:/tmp/.spectral.yaml -w /tmp stoplight/spectral lint openapi.yaml
 
+php-lint:
+	$(EXEC_APP) ./vendor/bin/phpcbf
+
 
 # HELPER COMMANDS -------------------------------------------------------------------------------------------------------
 setup-hooks: ## Configure git hooks
@@ -97,7 +102,6 @@ local-ci:
 	make asyncapi-resolve
 
 ##@ Testing
-EXEC_APP = docker exec -it $(shell docker ps -qf "name=php")
 UNIT_TEST_PATH :=
 
 

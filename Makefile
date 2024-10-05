@@ -91,22 +91,32 @@ openapi-lint: ## OpenAPI validation
 	docker run --rm -v $(PWD)/doc/openapi:/tmp -w /tmp stoplight/spectral lint openapi.yaml
 	docker run --rm -v $(PWD)/gen:/tmp -v $(PWD)/doc/openapi/.spectral.yaml:/tmp/.spectral.yaml -w /tmp stoplight/spectral lint openapi.yaml
 
+
+# CODE QUALITY COMMANDS -----------------------------------------------------------------------------------------------
 php-lint:
-	$(EXEC_APP_NO_IT) ./vendor/bin/phpcbf
+	$(EXEC_APP_NO_IT) ./vendor/bin/phpcbf --ignore=migrations/*
+
+phpstan:
+	$(EXEC_APP_NO_IT) ./vendor/bin/phpstan analyse -c phpstan.neon
+
+composer-validate:
+	$(EXEC_APP_NO_IT) composer validate --no-check-lock
 
 rector:
 	$(EXEC_APP_NO_IT) ./vendor/bin/rector process
 
-# HELPER COMMANDS -------------------------------------------------------------------------------------------------------
-setup-hooks: ## Configure git hooks
-	@git config core.hooksPath ./hooks/
-
-pre-commit: php-lint rector unit-test-no-tty  ## Execute precommit tasks
+pre-commit: php-lint phpstan rector composer-validate unit-test-no-tty  ## Execute precommit tasks
 
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
 	#make bdd-test-no-tty
+
+# HELPER COMMANDS -------------------------------------------------------------------------------------------------------
+setup-hooks: ## Configure git hooks
+	@git config core.hooksPath ./hooks/
+
+
 
 ##@ Testing
 UNIT_TEST_PATH :=

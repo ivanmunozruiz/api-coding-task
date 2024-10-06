@@ -18,6 +18,7 @@ framework:
                   api-coding-task-async-events:
                       binding_keys: [
                         'api-coding-task.lotr.1.domain-event.faction.created',
+                        'api-coding-task.lotr.1.domain-event.faction.deleted',
                       ]
                       arguments:
                         x-dead-letter-exchange: '%env(APP_NAME)%-dead-letter'

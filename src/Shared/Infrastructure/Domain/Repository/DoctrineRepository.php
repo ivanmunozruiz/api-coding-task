@@ -106,4 +106,9 @@ abstract class DoctrineRepository
     {
         return $this->repository()->findOneBy($criteria);
     }
+
+    public function remove(Uuid $identifier): void
+    {
+        $this->entityManager->remove($this->ofId($identifier));
+    }
 }

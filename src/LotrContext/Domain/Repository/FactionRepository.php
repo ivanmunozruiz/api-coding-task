@@ -18,4 +18,6 @@ interface FactionRepository extends DomainRepository
     public function ofId(Uuid $identifier): ?Faction;
 
     public function ofNameAndDescription(Name $name, StringValueObject $description): ?Faction;
+
+    public function remove(Uuid $identifier): void;
 }

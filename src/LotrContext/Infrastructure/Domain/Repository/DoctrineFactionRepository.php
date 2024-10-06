@@ -8,7 +8,6 @@ use App\LotrContext\Domain\Repository\FactionRepository;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\StringValueObject;
 use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Infrastructure\Domain\Repository\DoctrinePageableRepository;
 use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
 use App\LotrContext\Domain\Aggregate\Faction;
 
@@ -29,6 +28,17 @@ final class DoctrineFactionRepository extends DoctrineRepository implements Fact
             'description' => $description->value(),
         ]);
     }
+
+    public function remove(Uuid $identifier): void
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->delete($this->entityClass(), 'e')
+            ->where('e.id = :id')
+            ->setParameter('id', $identifier->id())
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
     /** @return class-string<object> */
     protected function entityClass(): string

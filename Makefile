@@ -55,6 +55,8 @@ build: build-container composer-install setup-hooks ## Construye las dependencia
 	docker compose up -d
 	$(EXEC_APP) /var/www/wait-for-db.sh
 	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init.sql
+	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init-test.sql
+	$(EXEC_APP) bin/console messenger:setup-transports || true
 
 build-container: ## Construye el contenedor de la aplicación
 	docker build --no-cache --target development -t $(IMAGE_NAME):$(IMAGE_TAG_DEV) .
@@ -164,25 +166,9 @@ mutant-test: unit-test-coverage ## Execute mutant tests
 BDD_TEST_PATH :=
 
 bdd-test: ## Execute behat tests
-	$(EXEC_APP) rm -rf /tmp/symfony-cache
-	$(EXEC_APP) php bin/console doctrine:database:drop --env=test --quiet --no-interaction --if-exists --force
-	$(EXEC_APP) php bin/console doctrine:database:create --env=test --quiet --no-interaction
-	$(EXEC_APP) php bin/console doctrine:migrations:migrate --env=test --quiet --no-interaction --all-or-nothing
-	ifneq ($(strip $(BDD_TEST_PATH)),)
-		$(EXEC_APP) ./vendor/bin/behat --no-snippets --strict $(BDD_TEST_PATH)
-	else
-		$(EXEC_APP) ./vendor/bin/behat --no-snippets --strict
-	endif
+	docker exec -it api-coding-task-php vendor/bin/behat --no-snippets --strict
 
 bdd-test-no-tty: ## Execute behat tests
-	$(EXEC_APP_NO_IT) rm -rf /tmp/symfony-cache
-	$(EXEC_APP_NO_IT) php bin/console doctrine:database:drop --env=test --quiet --no-interaction --if-exists --force
-	$(EXEC_APP_NO_IT) php bin/console doctrine:database:create --env=test --quiet --no-interaction
-	$(EXEC_APP_NO_IT) php bin/console doctrine:migrations:migrate --env=test --quiet --no-interaction --all-or-nothing
-	ifneq ($(strip $(BDD_TEST_PATH)),)
-		$(EXEC_APP_NO_IT) ./vendor/bin/behat --no-snippets --strict $(BDD_TEST_PATH)
-	else
-		$(EXEC_APP_NO_IT) ./vendor/bin/behat --no-snippets --strict -vvv
-	endif
+	docker exec api-coding-task-php vendor/bin/behat --no-snippets --strict
 
 

@@ -12,6 +12,7 @@ use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
 use App\LotrContext\Domain\Exception\Faction\FactionAlreadyExistsException;
+use Throwable;
 
 final class CreateFactionCommandHandler implements CommandHandler
 {
@@ -29,13 +30,15 @@ final class CreateFactionCommandHandler implements CommandHandler
         $name = Name::from($command->factionName());
         $description = StringValueObject::from($command->description());
         $identifier = Uuid::from($command->identifier());
-
         $faction = $this->factionCreator->create(
             $identifier,
             $name,
             $description,
         );
-
-        $this->eventBus->publish(...$faction->events());
+        try {
+            $this->eventBus->publish(...$faction->events());
+        } catch (Throwable $e) {
+            dd($e->getMessage());
+        }
     }
 }

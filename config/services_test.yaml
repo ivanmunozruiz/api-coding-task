@@ -5,3 +5,8 @@ services:
 
     App\Tests\Functional\:
         resource: '../tests/Functional/*'
+
+    Predis\Client:
+        arguments:
+            $parameters: "redis://%env(REDIS_HOST)%:%env(int:REDIS_PORT)%/%env(int:REDIS_DB)%"
+        public: true

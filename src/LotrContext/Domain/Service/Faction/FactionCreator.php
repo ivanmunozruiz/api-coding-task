@@ -27,7 +27,6 @@ final class FactionCreator
     public function create(Uuid $identifier, Name $name, StringValueObject $description): Faction
     {
         $this->ensureFactionDoesntExist($identifier, $name, $description);
-
         $faction = Faction::from(
             $identifier,
             $name,

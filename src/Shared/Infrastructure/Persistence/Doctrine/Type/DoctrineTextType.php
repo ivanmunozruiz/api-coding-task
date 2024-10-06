@@ -7,7 +7,7 @@ namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 use Assert\AssertionFailedException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\StringType;
+use Doctrine\DBAL\Types\TextType;
 use App\Shared\Domain\ClassFunctions;
 
 use function is_object;
@@ -15,7 +15,7 @@ use function is_string;
 use function strval;
 
 /** @template T */
-abstract class DoctrineStringType extends StringType
+abstract class DoctrineTextType extends TextType
 {
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
@@ -35,11 +35,7 @@ abstract class DoctrineStringType extends StringType
         }
 
         throw new ConversionException(
-            sprintf(
-                'Value must be an instance of %s or a string, %s given',
-                $className,
-                get_debug_type($value),
-            ),
+            'Value must be a string or an instance of ' . $className,
         );
     }
 
@@ -48,11 +44,6 @@ abstract class DoctrineStringType extends StringType
         $className = ClassFunctions::extractClassNameFromString($this->entityClass());
 
         return ClassFunctions::toSnakeCase($className);
-    }
-
-    public function name(): string
-    {
-        return $this->getName();
     }
 
     /**
@@ -73,13 +64,7 @@ abstract class DoctrineStringType extends StringType
             /** @phpstan-var resource|string $value */
             return $className::fromOrNull(strval($value));
         } catch (AssertionFailedException) {
-            throw new ConversionException(
-                sprintf(
-                    'Value must be an instance of %s or a string, %s given',
-                    $this->entityClass(),
-                    get_debug_type($value),
-                ),
-            );
+            throw new ConversionException('Invalid value');
         }
     }
 

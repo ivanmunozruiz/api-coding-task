@@ -6,7 +6,7 @@
         <id name="id" type="uuid" column="id" length="36">
             <generator strategy="NONE"/>
         </id>
-        <field name="factionName" type="short_string" column="faction_name"/>
+        <field name="factionName" type="short_string" column="faction_name" length="128"/>
         <field name="description" type="long_string" column="description"/>
     </entity>
 </doctrine-mapping>

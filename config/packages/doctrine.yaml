@@ -10,7 +10,7 @@ doctrine:
         use_savepoints: true
         types:
           short_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\NameType
-          long_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\LongStringType
+          long_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\LongTextType
           uuid: App\Shared\Infrastructure\Persistence\Doctrine\Type\UuidType
     orm:
         auto_generate_proxy_classes: true

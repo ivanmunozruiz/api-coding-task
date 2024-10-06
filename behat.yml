@@ -4,6 +4,7 @@ default:
       paths:
         - "%paths.base%/tests/Functional"
       contexts:
+        - App\Tests\Functional\Context\ApiContext
         - Behat\MinkExtension\Context\MinkContext
         - Behatch\Context\RestContext
         - behatch:context:json

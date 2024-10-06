@@ -7,8 +7,8 @@ namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\StringValueObject;
 
-/** @template-extends DoctrineStringType<Name> */
-final class LongStringType extends DoctrineStringType
+/** @template-extends DoctrineTextType<Name> */
+final class LongTextType extends DoctrineTextType
 {
     protected function entityClass(): string
     {

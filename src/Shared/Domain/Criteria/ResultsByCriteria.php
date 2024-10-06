@@ -20,9 +20,6 @@ final class ResultsByCriteria
 
     /**
      * @param T[] $results
-     * @param int $numResults
-     * @param int $page
-     * @param int $limit
      */
     private function __construct(
         array $results,

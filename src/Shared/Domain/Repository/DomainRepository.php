@@ -22,7 +22,6 @@ interface DomainRepository
     public function total(): int;
 
     /**
-     * @param Criteria $criteria
      * @return T[]
      */
     public function matching(Criteria $criteria): array;

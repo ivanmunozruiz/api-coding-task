@@ -42,7 +42,8 @@ paths:
                   type: object
                   properties:
                     id:
-                      type: integer
+                      type: string
+                      format: uuid
                     name:
                       type: string
                     birth_date:
@@ -88,7 +89,8 @@ paths:
                 type: object
                 properties:
                   id:
-                    type: integer
+                      type: string
+                      format: uuid
                   name:
                     type: string
                   birth_date:
@@ -97,9 +99,11 @@ paths:
                   kingdom:
                     type: string
                   equipment_id:
-                    type: integer
+                      type: string
+                      format: uuid
                   faction_id:
-                    type: integer
+                      type: string
+                      format: uuid
 
   /characters/{id}:
     get:
@@ -124,7 +128,8 @@ paths:
                 type: object
                 properties:
                   id:
-                    type: integer
+                      type: string
+                      format: uuid
                   name:
                     type: string
                   birth_date:
@@ -133,9 +138,11 @@ paths:
                   kingdom:
                     type: string
                   equipment_id:
-                    type: integer
+                      type: string
+                      format: uuid
                   faction_id:
-                    type: integer
+                      type: string
+                      format: uuid
         '404':
           description: Personaje no encontrado
 

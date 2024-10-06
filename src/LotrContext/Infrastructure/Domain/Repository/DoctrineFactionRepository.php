@@ -8,6 +8,7 @@ use App\LotrContext\Domain\Repository\FactionRepository;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\StringValueObject;
 use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Infrastructure\Domain\Repository\DoctrinePageableRepository;
 use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
 use App\LotrContext\Domain\Aggregate\Faction;
 

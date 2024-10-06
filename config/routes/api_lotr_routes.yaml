@@ -6,3 +6,7 @@ lotr_context.rest.faction.fetch_faction.page:
   path: /factions/{id}
   methods: GET
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\FetchFactionPage'
+lotr_context.rest.faction.list_faction.page:
+  path: /factions
+  methods: GET
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\ListFactionPage'

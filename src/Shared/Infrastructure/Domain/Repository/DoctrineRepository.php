@@ -18,8 +18,14 @@ use function intval;
 /** @template T of AggregateRoot */
 abstract class DoctrineRepository
 {
+    /** @use DoctrinePageableRepository<T> */
+    use DoctrinePageableRepository {
+        DoctrinePageableRepository::__construct as private traitConstruct;
+    }
+
     final public function __construct(protected readonly EntityManagerInterface $entityManager)
     {
+        $this->traitConstruct($entityManager, $this->entityClass());
     }
 
     /** @param T $aggregate */

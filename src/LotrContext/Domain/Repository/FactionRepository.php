@@ -10,6 +10,9 @@ use App\LotrContext\Domain\Aggregate\Faction;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\StringValueObject;
 
+/**
+ * @template-extends DomainRepository<Faction>
+ */
 interface FactionRepository extends DomainRepository
 {
     public function ofId(Uuid $identifier): ?Faction;

@@ -32,7 +32,7 @@ abstract class DoctrineRepository
      * @phpstan-return T|null
      * @return T|null
      */
-    public function ofId(Uuid $identifier)
+    public function ofId(Uuid $identifier): ?object
     {
         return $this->repository()->find((string) $identifier);
     }
@@ -54,7 +54,7 @@ abstract class DoctrineRepository
      * @return T
      * @throws Throwable
      */
-    public function ofIdOrFail(Uuid $identifier)
+    public function ofIdOrFail(Uuid $identifier): object
     {
         $content = $this->findOneBy(['id' => (string) $identifier]);
 

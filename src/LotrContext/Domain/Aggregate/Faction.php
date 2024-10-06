@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Aggregate;
 
-use App\LotrContext\Domain\Event\Faction\FactionDeleted;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\Name;
 use App\LotrContext\Domain\Event\Faction\FactionCreated;
+use App\LotrContext\Domain\Event\Faction\FactionUpdated;
+use App\LotrContext\Domain\Event\Faction\FactionDeleted;
 use App\Shared\Domain\ValueObject\StringValueObject;
 use Assert\AssertionFailedException;
 
@@ -19,8 +20,8 @@ class Faction extends AggregateRoot
      */
     private function __construct(
         private readonly Uuid $id,
-        private readonly Name $factionName,
-        private readonly StringValueObject $description,
+        private Name $factionName,
+        private StringValueObject $description,
     ) {
         $this->recordThat(FactionCreated::fromAggregate($this));
     }
@@ -78,5 +79,12 @@ class Faction extends AggregateRoot
     public function delete(): void
     {
         $this->recordThat(FactionDeleted::fromAggregate($this));
+    }
+
+    public function update(Name $name, StringValueObject $description): void
+    {
+        $this->factionName = $name;
+        $this->description = $description;
+        $this->recordThat(FactionUpdated::fromAggregate($this));
     }
 }

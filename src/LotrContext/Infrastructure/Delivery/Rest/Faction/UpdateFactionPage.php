@@ -10,10 +10,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\LotrContext\Application\Command\Faction\CreateFaction\CreateFactionCommand;
+use App\LotrContext\Application\Command\Faction\UpdateFaction\UpdateFactionCommand;
 use Throwable;
 
-final class CreateFactionPage extends ApiCommandPage
+final class UpdateFactionPage extends ApiCommandPage
 {
     use DataMapping;
 
@@ -27,17 +27,17 @@ final class CreateFactionPage extends ApiCommandPage
     public function __invoke(Request $request): JsonResponse
     {
         $this->currentUserId($request); // only for info
+        $identifier = self::getString($request->attributes->all(), '[id]');
         $contentData = json_decode(
             json: $request->getContent(),
             associative: true,
             flags: JSON_THROW_ON_ERROR,
         );
-
-        $identifier = self::getString($contentData, 'id');
         $name = self::getString($contentData, 'name');
         $description = self::getString($contentData, 'description');
+
         $this->dispatch(
-            new CreateFactionCommand(
+            new UpdateFactionCommand(
                 $identifier,
                 $name,
                 $description,
@@ -46,7 +46,7 @@ final class CreateFactionPage extends ApiCommandPage
 
         return new JsonResponse(
             [],
-            Response::HTTP_CREATED
+            Response::HTTP_OK
         );
     }
 }

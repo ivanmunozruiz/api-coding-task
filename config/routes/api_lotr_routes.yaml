@@ -10,6 +10,10 @@ lotr_context.rest.faction.list_faction.page:
   path: /factions
   methods: GET
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\ListFactionPage'
+lotr_context.rest.faction.update_faction.page:
+  path: /factions/{id}
+  methods: PUT
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\UpdateFactionPage'
 lotr_context.rest.faction.delete_faction.page:
   path: /factions/{id}
   methods: DELETE

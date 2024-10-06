@@ -6,13 +6,14 @@ namespace App\LotrContext\Domain\Service\Faction;
 
 use App\LotrContext\Domain\Aggregate\Faction;
 use App\LotrContext\Domain\Repository\FactionRepository;
+use App\LotrContext\Domain\Repository\RedisCacheFactionRepository;
 use App\Shared\Domain\ValueObject\Uuid;
-use Assert\AssertionFailedException;
 
 final class FactionEraser
 {
     public function __construct(
         private readonly FactionRepository $factionRepository,
+        private readonly RedisCacheFactionRepository $redisCacheFactionRepository,
     ) {
     }
 
@@ -22,6 +23,7 @@ final class FactionEraser
         $faction = $this->factionRepository->ofIdOrFail($identifier);
         $this->factionRepository->remove($identifier);
         $faction->delete();
+        $this->redisCacheFactionRepository->removeData($identifier);
         return $faction;
     }
 }

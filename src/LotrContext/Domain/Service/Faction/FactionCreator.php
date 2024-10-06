@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Faction;
 
+use App\LotrContext\Domain\Repository\RedisCacheFactionRepository;
 use App\Shared\Domain\Exception\Http\UuIdAlreadyExistsException;
 use App\LotrContext\Domain\Aggregate\Faction;
 use App\LotrContext\Domain\Exception\Faction\FactionAlreadyExistsException;
@@ -16,6 +17,7 @@ final class FactionCreator
 {
     public function __construct(
         private readonly FactionRepository $factionRepository,
+        private readonly RedisCacheFactionRepository $redisCacheFactionRepository,
     ) {
     }
 
@@ -33,6 +35,8 @@ final class FactionCreator
         );
 
         $this->factionRepository->save($faction);
+        //TODO: migrate this to async event ON CREATE
+        $this->redisCacheFactionRepository->setData($identifier, $faction->jsonSerialize());
 
         return $faction;
     }

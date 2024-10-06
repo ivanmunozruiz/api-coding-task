@@ -49,3 +49,6 @@ services:
       public: true
       bind:
         $adminApiKey: '%env(resolve:ADMIN_API_KEY)%'
+    Predis\Client:
+      arguments:
+        $parameters: "redis://%env(REDIS_HOST)%:%env(int:REDIS_PORT)%/%env(int:REDIS_DB)%"

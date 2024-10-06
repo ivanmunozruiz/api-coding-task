@@ -38,7 +38,7 @@ final class User extends AggregateRoot implements UserInterface
 
     public function __toString(): string
     {
-        return (string) $this->identifier()->id();
+        return $this->identifier()->id();
     }
 
     /** @return array{
@@ -61,7 +61,7 @@ final class User extends AggregateRoot implements UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->identifier()->id();
+        return $this->identifier()->id();
     }
 
     /**

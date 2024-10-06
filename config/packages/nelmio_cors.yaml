@@ -1,0 +1,14 @@
+nelmio_cors:
+  defaults:
+    allow_credentials: false
+    allow_origin: ['*']
+    allow_headers: ['X-AUTH-TOKEN', 'Content-Type', 'Accept']
+    allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+    expose_headers: ['Link']
+    max_age: 3600
+  paths:
+    '^/api/':
+      allow_origin: ['*'] # O especifica dominios permitidos
+      allow_headers: ['X-AUTH-TOKEN', 'Content-Type', 'Accept']
+      allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+      max_age: 3600

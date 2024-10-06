@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Aggregate;
 
+use App\LotrContext\Domain\Event\Faction\FactionDeleted;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\Name;
@@ -69,5 +70,13 @@ class Faction extends AggregateRoot
             'faction_name' => $this->factionName()->value(),
             'description' => $this->description()->value(),
         ];
+    }
+
+    /**
+     * @throws AssertionFailedException
+     */
+    public function delete(): void
+    {
+        $this->recordThat(FactionDeleted::fromAggregate($this));
     }
 }

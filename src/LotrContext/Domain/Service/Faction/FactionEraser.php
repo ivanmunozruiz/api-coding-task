@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Faction;
 
-use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
 use App\LotrContext\Domain\Aggregate\Faction;
 use App\LotrContext\Domain\Repository\FactionRepository;
-use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Domain\ValueObject\Uuid;
+use Assert\AssertionFailedException;
 
 final class FactionEraser
 {
@@ -17,14 +16,12 @@ final class FactionEraser
     ) {
     }
 
-    public function erase(Uuid $identifier): void
+    public function erase(Uuid $identifier): Faction
     {
-        $faction = $this->factionRepository->ofId($identifier);
-
-        if (!$faction instanceof Faction) {
-            throw FactionNotFoundException::from($identifier);
-        }
-
+        /** @var Faction $faction */
+        $faction = $this->factionRepository->ofIdOrFail($identifier);
         $this->factionRepository->remove($identifier);
+        $faction->delete();
+        return $faction;
     }
 }

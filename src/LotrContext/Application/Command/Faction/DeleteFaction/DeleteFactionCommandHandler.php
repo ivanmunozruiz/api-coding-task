@@ -25,17 +25,8 @@ final class DeleteFactionCommandHandler implements CommandHandler
     public function __invoke(DeleteFactionCommand $command): void
     {
         $id = Uuid::from($command->id());
-        $this->factionEraser->erase($id);
+        $faction = $this->factionEraser->erase($id);
 
-        // publish event
-        $this->eventBus->publish(
-            FactionDeleted::fromPrimitives(
-                aggregateId: $id->id(),
-                payload: ['id' => $id->id()],
-                messageId: $id->id(),
-                messageVersion: 1,
-                occurredOn: time(),
-            )
-        );
+        $this->eventBus->publish(...$faction->events());
     }
 }

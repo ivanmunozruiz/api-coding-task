@@ -107,7 +107,7 @@ php-lint:
 	$(EXEC_APP_NO_IT) ./vendor/bin/phpcbf --ignore=migrations/*
 
 phpstan:
-	$(EXEC_APP_NO_IT) ./vendor/bin/phpstan analyse -c phpstan.neon
+	$(EXEC_APP_NO_IT) ./vendor/bin/phpstan analyse -c phpstan.neon  --memory-limit=512M
 
 composer-validate:
 	$(EXEC_APP_NO_IT) composer validate --no-check-lock

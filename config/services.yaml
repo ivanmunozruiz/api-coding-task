@@ -23,6 +23,12 @@ services:
       App\Shared\Application\Event\EventHandler:
         tags:
           - { name: messenger.message_handler, bus: event.bus }
+    context.error_handler:
+      class: App\Shared\Infrastructure\ErrorHandler\ErrorHandler
+      tags:
+        - { name: kernel.event_listener, event: kernel.exception, method: __invoke }
+    messenger.transport.amqp.factory:
+      class: App\Shared\Infrastructure\Messaging\Transport\AmqpTransportFactory
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

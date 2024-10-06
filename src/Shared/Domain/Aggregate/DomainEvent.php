@@ -8,7 +8,7 @@ use Assert\AssertionFailedException;
 use Throwable;
 use App\Shared\Domain\ClassFunctions;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
-use App\Shared\Domain\ValueObject\Identifier;
+use App\Shared\Domain\ValueObject\Uuid;
 
 abstract class DomainEvent
 {
@@ -27,7 +27,7 @@ abstract class DomainEvent
         ?int $messageVersion = null,
         ?string $occurredOn = null,
     ) {
-        $this->messageId = $messageId ?? Identifier::random()->value();
+        $this->messageId = $messageId ?? Uuid::random()->id();
         $this->messageVersion = $messageVersion ?? self::MESSAGE_VERSION;
         $this->occurredOn = $occurredOn ?? DateTimeValueObject::now()->toRfc3339String();
     }

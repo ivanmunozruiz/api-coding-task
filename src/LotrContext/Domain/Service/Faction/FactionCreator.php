@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Faction;
 
-use App\Shared\Domain\ValueObject\DateTimeValueObject;
+use App\Shared\Domain\Exception\Http\UuIdAlreadyExistsException;
 use App\LotrContext\Domain\Aggregate\Faction;
 use App\LotrContext\Domain\Exception\Faction\FactionAlreadyExistsException;
 use App\LotrContext\Domain\Repository\FactionRepository;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\StringValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 
 final class FactionCreator
 {
@@ -21,14 +22,14 @@ final class FactionCreator
     /**
      * @throws FactionAlreadyExistsException
      */
-    public function create(Name $name, StringValueObject $description): Faction
+    public function create(Uuid $identifier, Name $name, StringValueObject $description): Faction
     {
-        $this->ensureFactionDoesntExist($name, $description);
+        $this->ensureFactionDoesntExist($identifier, $name, $description);
 
         $faction = Faction::from(
+            $identifier,
             $name,
             $description,
-            DateTimeValueObject::now(),
         );
 
         $this->factionRepository->save($faction);
@@ -37,8 +38,16 @@ final class FactionCreator
     }
 
     /** @throws FactionAlreadyExistsException */
-    private function ensureFactionDoesntExist(Name $name, StringValueObject $description): void
-    {
+    private function ensureFactionDoesntExist(
+        Uuid $identifier,
+        Name $name,
+        StringValueObject $description
+    ): void {
+        $faction = $this->factionRepository->ofId($identifier);
+        if ($faction instanceof Faction) {
+            throw UuIdAlreadyExistsException::from($identifier);
+        }
+
         $faction = $this->factionRepository->ofNameAndDescription($name, $description);
 
         if ($faction instanceof Faction) {

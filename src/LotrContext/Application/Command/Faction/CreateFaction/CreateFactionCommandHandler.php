@@ -9,7 +9,9 @@ use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\StringValueObject;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
+use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
+use App\LotrContext\Domain\Exception\Faction\FactionAlreadyExistsException;
 
 final class CreateFactionCommandHandler implements CommandHandler
 {
@@ -20,15 +22,16 @@ final class CreateFactionCommandHandler implements CommandHandler
     }
 
     /**
-     * @throws AssertionFailedException
+     * @throws AssertionFailedException|FactionAlreadyExistsException
      */
-    public function __invoke(CreateFactionCommand $command): never
+    public function __invoke(CreateFactionCommand $command): void
     {
-        dd(111);
         $name = Name::from($command->factionName());
         $description = StringValueObject::from($command->description());
+        $identifier = Uuid::from($command->identifier());
 
         $faction = $this->factionCreator->create(
+            $identifier,
             $name,
             $description,
         );

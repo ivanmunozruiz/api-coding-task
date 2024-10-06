@@ -22,8 +22,9 @@
         "lambdish/phunctional": "*",
         "nesbot/carbon": "^3.8",
         "predis/predis": "^2",
-        "symfony/amqp-messenger": "^6.4",
+        "symfony/amqp-messenger": "6.4.*",
         "symfony/console": "6.4.*",
+        "symfony/doctrine-messenger": "6.4.*",
         "symfony/dotenv": "6.4.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.4.*",
@@ -31,7 +32,9 @@
         "symfony/runtime": "6.4.*",
         "symfony/security-bundle": "6.*",
         "symfony/serializer": "6.4.*",
-        "symfony/yaml": "6.4.*"
+        "symfony/uid": "6.4.*",
+        "symfony/yaml": "6.4.*",
+        "ext-amqp": "*"
     },
     "config": {
         "allow-plugins": {

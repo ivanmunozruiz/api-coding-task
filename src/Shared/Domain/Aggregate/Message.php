@@ -7,7 +7,7 @@ namespace App\Shared\Domain\Aggregate;
 use Assert\AssertionFailedException;
 use App\Shared\Domain\MessageExtractor;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
-use App\Shared\Domain\ValueObject\Identifier;
+use App\Shared\Domain\ValueObject\Uuid;
 
 abstract class Message
 {
@@ -28,7 +28,7 @@ abstract class Message
         ?int $messageVersion = null,
         ?int $occurredOn = null,
     ) {
-        $this->messageId = $messageId ?? Identifier::random()->value();
+        $this->messageId = $messageId ?? Uuid::random()->id();
         $this->messageVersion = $messageVersion ?? self::MESSAGE_VERSION;
         $this->occurredOn = $occurredOn ?? DateTimeValueObject::now()->timestampMs();
     }

@@ -8,6 +8,10 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+          short_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\NameType
+          long_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\LongStringType
+          uuid: App\Shared\Infrastructure\Persistence\Doctrine\Type\UuidType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -16,12 +20,24 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
-                type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+          lotr_context:
+            mapping: true
+            is_bundle: false
+            type: xml
+            dir: '%kernel.project_dir%/src/LotrContext/Infrastructure/Persistence/Doctrine/Entity'
+            prefix: 'App\LotrContext\Domain\Aggregate'
+          user_context:
+            mapping: true
+            is_bundle: false
+            type: xml
+            dir: '%kernel.project_dir%/src/UserContext/Infrastructure/Persistence/Doctrine/Entity'
+            prefix: 'App\UserContext'
+          shared_context:
+            mapping: true
+            is_bundle: false
+            type: xml
+            dir: '%kernel.project_dir%/src/Shared/Infrastructure/Persistence/Doctrine/Entity'
+            prefix: 'App\Shared\Domain\Aggregate'
 
 when@test:
     doctrine:

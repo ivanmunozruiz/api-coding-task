@@ -10,7 +10,7 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ObjectRepository;
 use Throwable;
 use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\ValueObject\Identifier;
+use App\Shared\Domain\ValueObject\Uuid;
 
 use function array_slice;
 use function intval;
@@ -32,7 +32,7 @@ abstract class DoctrineRepository
      * @phpstan-return T|null
      * @return T|null
      */
-    public function ofId(Identifier $identifier)
+    public function ofId(Uuid $identifier)
     {
         return $this->repository()->find((string) $identifier);
     }
@@ -54,7 +54,7 @@ abstract class DoctrineRepository
      * @return T
      * @throws Throwable
      */
-    public function ofIdOrFail(Identifier $identifier)
+    public function ofIdOrFail(Uuid $identifier)
     {
         $content = $this->findOneBy(['id' => (string) $identifier]);
 

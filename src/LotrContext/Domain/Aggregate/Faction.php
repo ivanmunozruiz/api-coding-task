@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\LotrContext\Domain\Aggregate;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\Traits\Updatable;
-use App\Shared\Domain\ValueObject\DateTimeValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\Name;
 use App\LotrContext\Domain\Event\Faction\FactionCreated;
 use App\Shared\Domain\ValueObject\StringValueObject;
@@ -14,12 +13,11 @@ use Assert\AssertionFailedException;
 
 class Faction extends AggregateRoot
 {
-    use Updatable;
-
     /**
      * @throws AssertionFailedException
      */
     private function __construct(
+        private readonly Uuid $id,
         private readonly Name $factionName,
         private readonly StringValueObject $description,
     ) {
@@ -27,18 +25,23 @@ class Faction extends AggregateRoot
     }
 
     public static function from(
-        Name $name,
+        Uuid $id,
+        Name $factionName,
         StringValueObject $description,
-        DateTimeValueObject $createdAt,
     ): self {
         return new self(
-            $name,
-            $description,
-            $createdAt,
+            $id,
+            $factionName,
+            $description
         );
     }
 
-    public function name(): Name
+    public function id(): Uuid
+    {
+        return $this->id;
+    }
+
+    public function factionName(): Name
     {
         return $this->factionName;
     }
@@ -50,7 +53,7 @@ class Faction extends AggregateRoot
 
     public function __toString(): string
     {
-        return (string) $this->name();
+        return (string) $this->factionName();
     }
 
     /** @return array{
@@ -62,7 +65,8 @@ class Faction extends AggregateRoot
     public function jsonSerialize(): array
     {
         return [
-            'name' => $this->name()->value(),
+            'id' => $this->id()->id(),
+            'name' => $this->factionName()->value(),
             'description' => $this->description()->value(),
         ];
     }

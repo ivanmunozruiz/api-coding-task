@@ -47,7 +47,7 @@ final class Authenticator extends AbstractAuthenticator
             $adminTokenUser = $this->userRepository->adminTokenUser($token);
 
             return new SelfValidatingPassport(
-                new UserBadge((string) $adminTokenUser->identifier()->value()),
+                new UserBadge((string) $adminTokenUser->identifier()->id()),
                 [new PreAuthenticatedUserBadge()],
             );
         }
@@ -79,7 +79,7 @@ final class Authenticator extends AbstractAuthenticator
         $authTokenUser = $token->getUser();
 
         if ($authTokenUser instanceof User) {
-            $request->attributes->set(self::REQUEST_USER_ID, $authTokenUser->identifier()->value());
+            $request->attributes->set(self::REQUEST_USER_ID, $authTokenUser->identifier()->id());
         }
 
         return null;

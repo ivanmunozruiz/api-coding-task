@@ -8,14 +8,14 @@ use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Traits\Updatable;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use App\Shared\Domain\ValueObject\Email;
-use App\Shared\Domain\ValueObject\Identifier;
+use App\Shared\Domain\ValueObject\Uuid;
 
 class User extends AggregateRoot
 {
     use Updatable;
 
     private function __construct(
-        private readonly Identifier $id,
+        private readonly Uuid $id,
         private readonly Email $email,
         private readonly DateTimeValueObject $createdAt,
     ) {
@@ -23,7 +23,7 @@ class User extends AggregateRoot
     }
 
     public static function from(
-        Identifier $id,
+        Uuid $id,
         Email $email,
         DateTimeValueObject $createdAt,
     ): self {
@@ -34,7 +34,7 @@ class User extends AggregateRoot
         );
     }
 
-    public function id(): Identifier
+    public function id(): Uuid
     {
         return $this->id;
     }
@@ -64,7 +64,7 @@ class User extends AggregateRoot
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id()->value(),
+            'id' => $this->id()->id(),
             'email' => $this->email()->email(),
             'created_at' => $this->createdAt()->toRfc3339String(),
             'updated_at' => $this->updatedAt()->toRfc3339String(),

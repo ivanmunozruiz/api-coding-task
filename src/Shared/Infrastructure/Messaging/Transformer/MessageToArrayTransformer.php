@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Messaging\Transformer;
 
 use Throwable;
-use App\Shared\Domain\Aggregate\DomainEvent;
+use App\Shared\Domain\Aggregate\Message;
 
 interface MessageToArrayTransformer
 {
@@ -16,12 +16,11 @@ interface MessageToArrayTransformer
      *      message_name: string,
      *      message_version: int,
      *      payload: non-empty-array<string,mixed>,
-     *      occurred_on_in_atom: string,
-     *      occurred_on_in_ms: int
+     *      occurred_on: string,
      *      },
      *     meta: array{}
      *     }
      * @throws Throwable
      */
-    public function toArray(DomainEvent $domainEvent): array;
+    public function toArray(Message $message): array;
 }

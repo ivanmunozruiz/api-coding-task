@@ -3,17 +3,33 @@ framework:
         transports:
           commands:
             dsn: 'sync://'
-          commands_async:
-            dsn: '%env(MESSENGER_TRANSPORT_DSN)%/commands'
           queries: 'sync://'
           events:
             dsn: 'sync://'
-          #events_async:
-          #  dsn : '%env(MESSENGER_TRANSPORT_DSN)%/api-events'
-          #  serializer: App\Shared\Infrastructure\Messaging\Serializer\DomainEventSerializer
-          failed: 'doctrine://default?queue_name=failed'
+          events_async:
+            dsn : 'amqp://%env(RABBIT_USER)%:%env(RABBIT_PASS)%@%env(RABBIT_HOST)%:%env(RABBIT_PORT)%'
+            serializer: App\Shared\Infrastructure\Messaging\Serializer\MessageSerializer
+            options:
+              auto_setup: true
+              exchange:
+                  name: 'api-coding-task-async-events'
+                  type: topic
+              queues:
+                  api-coding-task-async-events:
+                      binding_keys: [
+                        'api-coding-task.lotr.1.domain-event.faction.created',
+                      ]
+                      arguments:
+                        x-dead-letter-exchange: '%env(APP_NAME)%-dead-letter'
+          failed:
+            dsn: 'amqp://%env(RABBIT_USER)%:%env(RABBIT_PASS)%@%env(RABBIT_HOST)%:%env(RABBIT_PORT)%'
+            options:
+              exchange:
+                name: '%env(APP_NAME)%-dead-letter'
+                type: topic
+              queues:
+                '%env(APP_NAME)%-dead-letter': ~
         failure_transport: failed
-
         # The bus that is going to be injected when injecting MessageBusInterface.
         default_bus: command.bus
         serializer:
@@ -25,7 +41,7 @@ framework:
 
         routing:
           App\Shared\Application\Command\Command: commands
-          #App\Shared\Domain\Aggregate\DomainEvent:  events_async
+          App\Shared\Domain\Aggregate\DomainEventMessage:  events_async
 
         buses:
           none.bus:
@@ -40,5 +56,6 @@ framework:
           event.bus:
             default_middleware: allow_no_handlers
             middleware:
-              - App\Shared\Infrastructure\Messaging\Middleware\DomainEventMiddleware
+              - App\Shared\Infrastructure\Messaging\Middleware\RoutingKeyMiddleware
+              - App\Shared\Infrastructure\Messaging\Middleware\MessageMiddleware
               - 'doctrine_transaction'

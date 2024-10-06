@@ -27,10 +27,12 @@ final class CreateFactionPage extends ApiCommandPage
     public function __invoke(Request $request): JsonResponse
     {
         $this->currentUserId($request); // only for info
+        $identifier = self::getString($request->request->all(), '[id]');
         $name = self::getString($request->request->all(), '[name]');
         $description = self::getString($request->request->all(), '[description]');
         $this->dispatch(
             new CreateFactionCommand(
+                $identifier,
                 $name,
                 $description,
             ),

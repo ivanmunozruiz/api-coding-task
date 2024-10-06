@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Event\Faction;
 
-use Assert\Assert;
-use Assert\AssertionFailedException;
 use App\Shared\Domain\Aggregate\DomainEventMessage;
-use App\Shared\Domain\Event\InternalEvent;
+use Assert\AssertionFailedException;
 use App\LotrContext\Domain\Aggregate\Faction;
 
 use function strval;
@@ -30,9 +28,9 @@ final class FactionCreated extends DomainEventMessage
     public static function fromAggregate(Faction $faction): self
     {
         return new self(
-            (string) $faction->identifier()->value(),
-            (string) $faction->identifier()->value(),
-            $faction->name()->value(),
+            $faction->id()->id(),
+            $faction->id()->id(),
+            $faction->factionName()->value(),
             $faction->description()->value(),
         );
     }

@@ -7,17 +7,17 @@ namespace App\AuthorisationContext\Infrastructure\Domain\Aggregate;
 use App\Shared\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\ValueObject\Identifier;
+use App\Shared\Domain\ValueObject\Uuid;
 
 final class User extends AggregateRoot implements UserInterface
 {
     private function __construct(
-        private readonly Identifier $identifier,
+        private readonly Uuid $identifier,
         private readonly Email $email
     ) {
     }
 
-    public static function create(Identifier $identifier, Email $email): self
+    public static function create(Uuid $identifier, Email $email): self
     {
         return new self(
             $identifier,
@@ -26,7 +26,7 @@ final class User extends AggregateRoot implements UserInterface
     }
 
 
-    public function identifier(): Identifier
+    public function identifier(): Uuid
     {
         return $this->identifier;
     }
@@ -38,7 +38,7 @@ final class User extends AggregateRoot implements UserInterface
 
     public function __toString(): string
     {
-        return (string) $this->identifier()->value();
+        return (string) $this->identifier()->id();
     }
 
     /** @return array{
@@ -49,7 +49,7 @@ final class User extends AggregateRoot implements UserInterface
     public function jsonSerialize(): array
     {
         return [
-            'identifier' => $this->identifier()->value(),
+            'identifier' => $this->identifier()->id(),
             'email' => $this->email()->value(),
         ];
     }
@@ -61,7 +61,7 @@ final class User extends AggregateRoot implements UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->identifier()->value();
+        return (string) $this->identifier()->id();
     }
 
     /**

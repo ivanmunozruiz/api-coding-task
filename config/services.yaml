@@ -23,6 +23,9 @@ services:
       App\Shared\Application\Event\EventHandler:
         tags:
           - { name: messenger.message_handler, bus: event.bus }
+      App\Shared\Application\Query\QueryHandler:
+        tags:
+          - { name: messenger.message_handler, bus: query.bus }
     context.error_handler:
       class: App\Shared\Infrastructure\ErrorHandler\ErrorHandler
       tags:

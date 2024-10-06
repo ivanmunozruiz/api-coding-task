@@ -58,7 +58,7 @@ class Faction extends AggregateRoot
 
     /** @return array{
      *     id: string,
-     *     name: string,
+     *     faction_name: string,
      *     description: string,
      * }
      */
@@ -66,7 +66,7 @@ class Faction extends AggregateRoot
     {
         return [
             'id' => $this->id()->id(),
-            'name' => $this->factionName()->value(),
+            'faction_name' => $this->factionName()->value(),
             'description' => $this->description()->value(),
         ];
     }

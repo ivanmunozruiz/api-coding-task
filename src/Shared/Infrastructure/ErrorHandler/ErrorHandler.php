@@ -35,7 +35,7 @@ final class ErrorHandler
 
     private const DEFAULT_TITLE = 'UNKNOWN_ERROR';
 
-    private const BASE_PROBLEM_TYPE_URI = 'https://documentation.whalar.com/errors#';
+    private const BASE_PROBLEM_TYPE_URI = 'http://google.com/ur-to-errors-doc/'; // its an example only
 
     private readonly LoggerInterface $logger;
 

@@ -118,9 +118,8 @@ trait ApiFaction
     }
 
     /**
- * @param Faction $objectToCheck
- * @param array<string, mixed> $row
- */
+     * @param array<string, mixed> $row
+     */
     private function checkObjectAgainstExpected(Faction $objectToCheck, array $row): void
     {
         $dataArray = $objectToCheck->jsonSerialize();

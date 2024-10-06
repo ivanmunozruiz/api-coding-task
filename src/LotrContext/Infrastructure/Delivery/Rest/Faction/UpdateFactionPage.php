@@ -28,13 +28,8 @@ final class UpdateFactionPage extends ApiCommandPage
     {
         $this->currentUserId($request); // only for info
         $identifier = self::getString($request->attributes->all(), '[id]');
-        $contentData = json_decode(
-            json: $request->getContent(),
-            associative: true,
-            flags: JSON_THROW_ON_ERROR,
-        );
-        $name = self::getString($contentData, 'name');
-        $description = self::getString($contentData, 'description');
+        $name = self::getString($request->request->all(), '[name]');
+        $description = self::getString($request->request->all(), '[description]');
 
         $this->dispatch(
             new UpdateFactionCommand(

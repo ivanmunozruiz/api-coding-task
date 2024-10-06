@@ -20,6 +20,7 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
+        "friendsofsymfony/rest-bundle": "^3.7",
         "lambdish/phunctional": "*",
         "nelmio/cors-bundle": "^2.5",
         "nesbot/carbon": "^3.8",

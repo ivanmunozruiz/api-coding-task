@@ -27,6 +27,7 @@ final class FactionUpdater
     {
         /** @var Faction $faction */
         $faction = $this->factionRepository->ofIdOrFail($identifier);
+        $this->ensureFactionDoesntExist($name, $description);
         $faction->update($name, $description);
 
         $this->factionRepository->save($faction);
@@ -36,5 +37,16 @@ final class FactionUpdater
         $this->redisCacheFactionRepository->setData($identifier, $faction->jsonSerialize());
 
         return $faction;
+    }
+
+    private function ensureFactionDoesntExist(
+        Name $name,
+        StringValueObject $description
+    ): void {
+        $faction = $this->factionRepository->ofNameAndDescription($name, $description);
+
+        if ($faction instanceof Faction) {
+            throw FactionAlreadyExistsException::from($name, $description);
+        }
     }
 }

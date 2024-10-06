@@ -9,7 +9,7 @@ required:
   - faction_id
 properties:
   aggregate_id:
-    type: uuid
+    type: string
     example: 123e4567-e89b-12d3-a456-426614174000
     description: Character id
   name:
@@ -26,11 +26,11 @@ properties:
     example: Shire
     description: Character kingdom
   equipment_id:
-    type: integer
-    example: 1
+    type: string
+    example: a6af080c-4166-49cf-ac8a-c1e9f584a2be
     description: Character equipment id
   faction_id:
-    type: integer
-    example: 1
+    type: string
+    example: 4135ddaf-368e-4b43-a737-6ea4a49b0cf0
     description: Character faction id
 additionalProperties: false

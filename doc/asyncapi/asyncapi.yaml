@@ -23,19 +23,28 @@ tags:
   - name: Factions
   - name: Equipments
 channels:
-  api-coding-task.character.1.domain-event.character.created-event:
+  api-coding-task.lotr.1.domain-event.character.created:
     publish:
       tags:
         - name: Characters
       summary: Character was created
       description: This event is published when a character is created.
-      operationId: api-coding-task.character.1.domain-event.character.created-event
+      operationId: api-coding-task.lotr.1.domain-event.character.created
+      message:
+        $ref: '#/components/messages/CharacterCreatedEvent'
+  api-coding-task.lotr.1.domain-event.faction.created:
+    publish:
+      tags:
+        - name: Factions
+      summary: Faction was created
+      description: This event is published when a faction is created.
+      operationId: api-coding-task.lotr.1.domain-event.faction.created
       message:
         $ref: '#/components/messages/CharacterCreatedEvent'
 components:
   messages:
     CharacterCreatedEvent:
-      name: api-coding-task.character.1.domain-event.character.created-event
+      name: api-coding-task.lotr.1.domain-event.character.created
       title: Character was created
       summary: Character was created
       contentType: application/json
@@ -43,9 +52,20 @@ components:
         - $ref: '#/components/messageTraits/commonHeaders'
       payload:
         $ref: '#/components/schemas/CharacterCreated'
+    FactionCreatedEvent:
+      name: api-coding-task.lotr.1.domain-event.faction.created
+      title: Faction was created
+      summary: Faction was created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/commonHeaders'
+      payload:
+        $ref: '#/components/schemas/FactionCreated'
   schemas:
     CharacterCreated:
         $ref: "./fields/character/character-payload.yaml"
+    FactionCreated:
+        $ref: "./fields/faction/faction-payload.yaml"
   messageTraits:
     commonHeaders:
       bindings:

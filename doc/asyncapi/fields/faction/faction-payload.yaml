@@ -1,0 +1,20 @@
+title: Faction payload
+type: object
+required:
+  - aggregate_id
+  - faction_name
+  - description
+properties:
+  aggregate_id:
+    type: string
+    example: 123e4567-e89b-12d3-a456-426614174000
+    description: Faction id
+  faction_name:
+    type: string
+    example: MORDOR
+    description: Faction name
+  description:
+    type: string
+    example: The Dark Lord Sauron's realm
+    description: Faction description
+additionalProperties: false

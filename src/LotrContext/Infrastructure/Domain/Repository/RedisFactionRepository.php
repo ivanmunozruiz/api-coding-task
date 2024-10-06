@@ -24,12 +24,6 @@ final class RedisFactionRepository implements RedisCacheFactionRepository
         $this->traitConstruct($redis);
     }
 
-    /** @return null|array{
-     *     id: string,
-     *     faction_name: string,
-     *     description: string,
-     * }
-     */
     public function getData(Uuid $uuid): ?array
     {
         $key = $this->prepareStorageKey($uuid->id());
@@ -42,13 +36,6 @@ final class RedisFactionRepository implements RedisCacheFactionRepository
         return json_decode($cacheData, true);
     }
 
-    /**
-     * @param array{
-     *     id: string,
-     *     faction_name: string,
-     *     description: string,
-     * } $data
-     */
     public function setData(Uuid $uuid, array $data): void
     {
         $key = $this->prepareStorageKey($uuid->id());

@@ -28,7 +28,7 @@ paths:
         - name: limit
           in: query
           required: false
-          description: Límite de personajes a devolver. Si no se especifica, se devuelven todos.
+          description: Límite de personajes a devolver. Si no se especifica, por defecto son 10.
           schema:
             type: integer
       responses:
@@ -211,3 +211,148 @@ paths:
           description: Personaje eliminado
         '404':
           description: Personaje no encontrado
+  /factions:
+    get:
+      summary: Obtener todos los factions
+      description: Devuelve una lista de todos los factions disponibles.
+      operationId: getFactions
+      tags:
+        - Factions
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Límite de factions a devolver. Si no se especifica, por defecto son 10.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de factions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    faction_name:
+                      type: string
+                    description:
+                      type: string
+
+    post:
+      summary: Crear un nuevo faction
+      description: Crea un nuevo faction en la base de datos.
+      operationId: createFaction
+      tags:
+        - Factions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Faction creado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+
+  /factions/{id}:
+    get:
+      summary: Obtener un faction por ID
+      description: Devuelve un faction específico basado en su ID.
+      operationId: getFactionById
+      tags:
+        - Factions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del faction que se desea obtener.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Faction encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                      type: string
+                      format: uuid
+                  faction_name:
+                    type: string
+                  description:
+                    type: string
+        '404':
+          description: Faction no encontrado
+
+    put:
+      summary: Actualizar un faction
+      description: Actualiza la información de un faction existente.
+      operationId: updateFaction
+      tags:
+        - Factions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del faction que se desea actualizar.
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+
+      responses:
+        '200':
+          description: Faction actualizado
+        '404':
+          description: Faction no encontrado
+
+    delete:
+      summary: Eliminar un faction
+      description: Elimina un faction de la base de datos.
+      operationId: deleteCharacter
+      tags:
+        - Factions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del faction que se desea eliminar.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Faction eliminado
+        '404':
+          description: Faction no encontrado

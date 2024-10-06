@@ -214,6 +214,12 @@ paths:
       tags:
         - Factions
       parameters:
+        - name: page
+          in: query
+          required: false
+          description: Page number. Si no se especifica, por defecto son 1.
+          schema:
+            type: integer
         - name: limit
           in: query
           required: false

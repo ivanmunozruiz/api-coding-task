@@ -109,13 +109,6 @@ abstract class UnitTestCase extends MockeryTestCase
         return Mockery::mock($class);
     }
 
-    private function getPropertyAccessor(): PropertyAccessorInterface
-    {
-        return PropertyAccess::createPropertyAccessorBuilder()
-            ->enableExceptionOnInvalidIndex()
-            ->getPropertyAccessor();
-    }
-
     /** @param array<mixed> $value */
     protected static function matchAgainstArray(array $value): MockeryClosure
     {

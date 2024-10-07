@@ -30,9 +30,7 @@ final class CreateEquipmentCommandHandlerTest extends UnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        /** @var EquipmentRepository|MockInterface $equipmentRepository */
         $this->equipmentRepository = $this->customMock(EquipmentRepository::class);
-        /** @var RedisCacheEquipmentRepository|MockInterface $redisCacheEquipmentRepository */
         $this->redisCacheEquipmentRepository = $this->customMock(RedisCacheEquipmentRepository::class);
         $equipmentCreator = new EquipmentCreator(
             $this->equipmentRepository,

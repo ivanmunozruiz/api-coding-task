@@ -40,6 +40,6 @@ Feature: Create Faction
     And the JSON nodes should be equal to:
       | status | 422                                                      |
       | title  | BAD_REQUEST                                              |
-      | detail | The id is required                                       |
+      | detail | id is required                                       |
       | type   | http://google.com/ur-to-errors-doc/invalid_argument      |
       | code   | invalid_argument                                         |

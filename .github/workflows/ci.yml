@@ -38,7 +38,7 @@ jobs:
 
       - name: Import init-test.sql
         run: |
-          mysql -h 127.0.0.1 -u root --password=root lotr_test < opt/db/init-test.sql
+          mysql -h 127.0.0.1 -u root --password=root < opt/db/init-test.sql
 
       - name: Run tests
         run: |

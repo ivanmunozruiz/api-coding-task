@@ -9,11 +9,6 @@ use Assert\AssertionFailedException;
 class CreateFactionCommandTest extends UnitTestCase
 {
     /**
-     * @param string $id
-     * @param string $name
-     * @param string $description
-     * @param string $message
-     * @return void
      * @dataProvider invalidDataProvider
      * @throws AssertionFailedException
      */
@@ -25,7 +20,7 @@ class CreateFactionCommandTest extends UnitTestCase
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);
-        $command = new CreateFactionCommand(
+        new CreateFactionCommand(
             $id,
             $name,
             $description

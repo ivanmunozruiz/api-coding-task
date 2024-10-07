@@ -9,12 +9,6 @@ use Assert\AssertionFailedException;
 class CreateEquipmentCommandTest extends UnitTestCase
 {
     /**
-     * @param string $id
-     * @param string $name
-     * @param string $type
-     * @param string $madeBy
-     * @param string $message
-     * @return void
      * @dataProvider invalidDataProvider
      * @throws AssertionFailedException
      */
@@ -27,7 +21,7 @@ class CreateEquipmentCommandTest extends UnitTestCase
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);
-        $command = new CreateEquipmentCommand(
+        new CreateEquipmentCommand(
             $id,
             $name,
             $type,

@@ -8,6 +8,7 @@ use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Traits\Updatable;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use App\Shared\Domain\ValueObject\Email;
+use App\Shared\Domain\ValueObject\Token;
 use App\Shared\Domain\ValueObject\Uuid;
 
 class User extends AggregateRoot
@@ -17,6 +18,7 @@ class User extends AggregateRoot
     private function __construct(
         private readonly Uuid $id,
         private readonly Email $email,
+        private readonly Token $token,
         private readonly DateTimeValueObject $createdAt,
     ) {
         $this->updatedAt = $createdAt;
@@ -25,11 +27,13 @@ class User extends AggregateRoot
     public static function from(
         Uuid $id,
         Email $email,
+        Token $token,
         DateTimeValueObject $createdAt,
     ): self {
         return new self(
             $id,
             $email,
+            $token,
             $createdAt,
         );
     }
@@ -42,6 +46,11 @@ class User extends AggregateRoot
     public function email(): Email
     {
         return $this->email;
+    }
+
+    public function token(): Token
+    {
+        return $this->token;
     }
 
     public function createdAt(): DateTimeValueObject

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\AuthorisationContext\Infrastructure\Domain\Aggregate;
 
 use App\Shared\Domain\ValueObject\Email;
+use App\Shared\Domain\ValueObject\Token;
+use App\AuthorisationContext\Domain\ValueObject\CacheKey;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -12,45 +14,53 @@ use App\Shared\Domain\ValueObject\Uuid;
 final class User extends AggregateRoot implements UserInterface
 {
     private function __construct(
-        private readonly Uuid $identifier,
-        private readonly Email $email
+        private readonly CacheKey $key,
+        private readonly Uuid $uuid,
+        private readonly Token $token,
     ) {
     }
 
-    public static function create(Uuid $identifier, Email $email): self
+    public static function create(CacheKey $key, Uuid $uuid, Token $token): self
     {
         return new self(
-            $identifier,
-            $email
+            $key,
+            $uuid,
+            $token,
         );
     }
 
-
-    public function identifier(): Uuid
+    public function key(): CacheKey
     {
-        return $this->identifier;
+        return $this->key;
     }
 
-    public function email(): Email
+    public function uuid(): Uuid
     {
-        return $this->email;
+        return $this->uuid;
+    }
+
+    public function token(): Token
+    {
+        return $this->token;
     }
 
     public function __toString(): string
     {
-        return $this->identifier()->id();
+        return $this->key()->value();
     }
 
     /** @return array{
-     *     identifier: string,
-     *     email: string,
+     *     key: string,
+     *     token: string,
+     *     uuid: string
      * }
      */
     public function jsonSerialize(): array
     {
         return [
-            'identifier' => $this->identifier()->id(),
-            'email' => $this->email()->value(),
+            'key' => $this->key()->value(),
+            'token' => $this->token()->value(),
+            'uuid' => $this->uuid()->id(),
         ];
     }
 
@@ -61,7 +71,7 @@ final class User extends AggregateRoot implements UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return $this->identifier()->id();
+        return $this->key()->value();
     }
 
     /**

@@ -5,6 +5,7 @@
         <generator strategy="NONE"/>
     </id>
     <field name="email" type="email" column="email" nullable="true"/>
+    <field name="token" type="token_type" column="token" length="255" nullable="true"/>
     <field name="createdAt" type="datetime_tz_in_microseconds" column="created_at"/>
     <field name="updatedAt" type="datetime_tz_in_microseconds" column="updated_at" nullable="true"/>
   </entity>

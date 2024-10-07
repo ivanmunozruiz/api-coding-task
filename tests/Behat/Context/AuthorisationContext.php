@@ -17,7 +17,7 @@ trait AuthorisationContext
         $tagToken = [
             'emptyAuthToken' => '',
             'invalidAuthToken' => 'invalid',
-            'adminToken' => 'ivan.sazo@gmail.com', // I Know...
+            'adminToken' => 'apiKey',
         ];
 
         foreach ($tagToken as $tag => $token) {

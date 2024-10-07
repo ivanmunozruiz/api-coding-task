@@ -13,6 +13,7 @@ doctrine:
           long_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\LongTextType
           uuid: App\Shared\Infrastructure\Persistence\Doctrine\Type\UuidType
           birth_date_type: App\Shared\Infrastructure\Persistence\Doctrine\Type\DoctrineBirthDateType
+          token_type: App\Shared\Infrastructure\Persistence\Doctrine\Type\TokenType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

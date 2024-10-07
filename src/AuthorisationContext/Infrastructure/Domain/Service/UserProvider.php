@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\AuthorisationContext\Infrastructure\Domain\Service;
 
-use App\Shared\Domain\ValueObject\Email;
-use App\Shared\Domain\ValueObject\Uuid;
+use App\AuthorisationContext\Infrastructure\Domain\Repository\UserRepository;
 use Exception;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
@@ -14,13 +14,19 @@ use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
 /** @template-implements UserProviderInterface<User> */
 final class UserProvider implements UserProviderInterface
 {
-    public function loadUserByIdentifier(string $identifier): UserInterface
+    public function __construct(private readonly UserRepository $userRepository)
     {
-        //TODO: I know, If I have time I will implement this
-        return User::create(
-            Uuid::from(Uuid::random()->id()),
-            Email::from('ivan.sazo@gmail.com')
-        );
+    }
+
+    public function loadUserByIdentifier(string $cacheKey): UserInterface
+    {
+        $validTokenUser = $this->userRepository->getTokenCacheData($cacheKey);
+
+        if ($validTokenUser instanceof User) {
+            return $validTokenUser;
+        }
+
+        throw new UnsupportedUserException();
     }
 
     /**

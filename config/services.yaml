@@ -54,6 +54,10 @@ services:
     Predis\Client:
       arguments:
         $parameters: "redis://%env(REDIS_HOST)%:%env(int:REDIS_PORT)%/%env(int:REDIS_DB)%"
+    App\AuthorisationContext\Infrastructure\Domain\Repository\UserRepository:
+      public: true
+      bind:
+        $adminId: '%env(resolve:ADMIN_USER_ID)%'
 
 
     App\Shared\Infrastructure\Messaging\Transformer\ArrayToDomainMessageTransformer:

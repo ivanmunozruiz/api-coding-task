@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` char(36) NOT NULL PRIMARY KEY,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -42,10 +43,12 @@ CREATE TABLE `characters` (
 
 INSERT INTO `users` (
   `id`,
-  `email`
+  `email`,
+  `token`
 ) VALUES (
   '4e2e4f82-46e3-4a60-a6db-938482874a3b',
-  'ivan.sazo@gmail.com'
+  'ivan.sazo@gmail.com',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl'
 );
 
 INSERT INTO `factions` (

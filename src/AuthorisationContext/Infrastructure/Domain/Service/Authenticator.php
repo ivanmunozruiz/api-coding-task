@@ -25,6 +25,10 @@ final class Authenticator extends AbstractAuthenticator
 
     public const REQUEST_USER_ID = 'request-user-id';
 
+    public const REQUEST_USER_TOKEN = 'request-user-token';
+
+    public const ADMIN_REQUEST = 'request-api-admin';
+
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly LoggerInterface $logger,
@@ -39,15 +43,12 @@ final class Authenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        // for this task I will be using the email as token I know it is not secure
-        // but I dont have time to implement a secure token system sorry
         $token = $request->headers->get(self::HEADERKEY, '');
 
         if ($this->isAdminRequest($request, $token)) {
             $adminTokenUser = $this->userRepository->adminTokenUser($token);
-
             return new SelfValidatingPassport(
-                new UserBadge($adminTokenUser->identifier()->id()),
+                new UserBadge($adminTokenUser->getUserIdentifier()),
                 [new PreAuthenticatedUserBadge()],
             );
         }
@@ -65,9 +66,12 @@ final class Authenticator extends AbstractAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         $authTokenUser = $token->getUser();
-
         if ($authTokenUser instanceof User) {
-            $request->attributes->set(self::REQUEST_USER_ID, $authTokenUser->identifier()->id());
+            $request->attributes->set(self::REQUEST_USER_ID, $authTokenUser->getUserIdentifier());
+
+            $request->attributes->set(self::REQUEST_USER_ID, $authTokenUser->uuid()->id());
+            $request->attributes->set(self::REQUEST_USER_TOKEN, $authTokenUser->token()->value());
+            $request->attributes->set(self::ADMIN_REQUEST, $authTokenUser->token()->value() === $this->adminApiKey);
         }
 
         return null;

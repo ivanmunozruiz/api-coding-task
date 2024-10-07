@@ -4,30 +4,20 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Messaging\Transport;
 
-use AMQPChannel;
-use AMQPChannelException;
-use AMQPConnectionException;
-use AMQPException;
-use AMQPExchange;
-use AMQPExchangeException;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpFactory;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpTransportFactory as AmqpMessengerTransportFactory;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\Connection;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-use function is_array;
-
-use const AMQP_DURABLE;
-use const AMQP_EX_TYPE_TOPIC;
-
 final class AmqpTransportFactory extends AmqpMessengerTransportFactory
 {
     /**
-     * @throws AMQPChannelException
-     * @throws AMQPException
-     * @throws AMQPConnectionException
-     * @throws AMQPExchangeException
+     * @throws \AMQPChannelException
+     * @throws \AMQPException
+     * @throws \AMQPConnectionException
+     * @throws \AMQPExchangeException
+     *
      * @phpstan-ignore-next-line
      */
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
@@ -56,11 +46,12 @@ final class AmqpTransportFactory extends AmqpMessengerTransportFactory
      *     bindings: array<int|string, array{type?: string, flags?: int, binding_keys: mixed}>,
      *     name: string
      * } $configuration
-     * @throws AMQPExchangeException
-     * @throws AMQPChannelException
-     * @throws AMQPConnectionException
+     *
+     * @throws \AMQPExchangeException
+     * @throws \AMQPChannelException
+     * @throws \AMQPConnectionException
      */
-    private function createExchanges(AMQPChannel $channel, array $configuration): void
+    private function createExchanges(\AMQPChannel $channel, array $configuration): void
     {
         $amqpFactory = new AmqpFactory();
 
@@ -71,9 +62,10 @@ final class AmqpTransportFactory extends AmqpMessengerTransportFactory
     }
 
     /**
-     * @throws AMQPChannelException
-     * @throws AMQPConnectionException
-     * @throws AMQPExchangeException
+     * @throws \AMQPChannelException
+     * @throws \AMQPConnectionException
+     * @throws \AMQPExchangeException
+     *
      * @phpstan-param array{
      *     type?: string,
      *     flags?: integer
@@ -81,28 +73,29 @@ final class AmqpTransportFactory extends AmqpMessengerTransportFactory
      */
     private function createExchange(
         AmqpFactory $factory,
-        AMQPChannel $channel,
+        \AMQPChannel $channel,
         int|string $exchange_name,
         mixed $arguments,
-    ): AMQPExchange {
+    ): \AMQPExchange {
         $exchange = $factory->createExchange($channel);
         $exchange->setName((string) $exchange_name);
-        $exchange->setType($arguments['type'] ?? AMQP_EX_TYPE_TOPIC);
-        $exchange->setFlags($arguments['flags'] ?? AMQP_DURABLE);
+        $exchange->setType($arguments['type'] ?? \AMQP_EX_TYPE_TOPIC);
+        $exchange->setFlags($arguments['flags'] ?? \AMQP_DURABLE);
         $exchange->declareExchange();
 
         return $exchange;
     }
 
     /**
-     * @throws AMQPChannelException
-     * @throws AMQPConnectionException
-     * @throws AMQPExchangeException
+     * @throws \AMQPChannelException
+     * @throws \AMQPConnectionException
+     * @throws \AMQPExchangeException
+     *
      * @phpstan-param array{binding_keys: mixed} $arguments
      */
-    private function bindMessages(AMQPExchange $exchange, string $externalExchangeName, array $arguments): void
+    private function bindMessages(\AMQPExchange $exchange, string $externalExchangeName, array $arguments): void
     {
-        if (!is_array($arguments['binding_keys'])) {
+        if (!\is_array($arguments['binding_keys'])) {
             $arguments['binding_keys'] = [$arguments['binding_keys']];
         }
 

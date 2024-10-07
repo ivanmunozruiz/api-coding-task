@@ -6,7 +6,6 @@ namespace App\Tests\Behat\Context;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use DateTimeInterface;
 
 trait Matchable
 {
@@ -15,10 +14,10 @@ trait Matchable
     {
         match ($text) {
             '=uuid' => Assertion::uuid($actual),
-            '=datetimeWithRFC3339ExtendedFormat' => Assertion::date($actual, DateTimeInterface::RFC3339_EXTENDED),
-            '=datetimeWithATOMFormat' => Assertion::date($actual, DateTimeInterface::ATOM),
+            '=datetimeWithRFC3339ExtendedFormat' => Assertion::date($actual, \DateTimeInterface::RFC3339_EXTENDED),
+            '=datetimeWithATOMFormat' => Assertion::date($actual, \DateTimeInterface::ATOM),
             '=timestamp' => Assertion::numeric($actual),
-            default => Assertion::eq($text, $actual)
+            default => Assertion::eq($text, $actual),
         };
     }
 }

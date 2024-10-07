@@ -13,7 +13,7 @@ class DeleteEquipmentCommandTest extends UnitTestCase
      */
     public function testDeleteEquipmentCommandHandlerWrongInputThrowAssertionException(
         string $id,
-        string $message
+        string $message,
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);
@@ -28,7 +28,7 @@ class DeleteEquipmentCommandTest extends UnitTestCase
             'empty_id' => [
                 'id' => '',
                 'message' => 'id is required',
-            ]
+            ],
         ];
     }
 }

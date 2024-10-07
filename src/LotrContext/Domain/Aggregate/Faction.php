@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Aggregate;
 
-use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\ValueObject\Uuid;
-use App\Shared\Domain\ValueObject\Name;
 use App\LotrContext\Domain\Event\Faction\FactionCreated;
-use App\LotrContext\Domain\Event\Faction\FactionUpdated;
 use App\LotrContext\Domain\Event\Faction\FactionDeleted;
+use App\LotrContext\Domain\Event\Faction\FactionUpdated;
+use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\StringValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
 
 class Faction extends AggregateRoot

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Messaging\Formatter;
 
-use Assert\Assertion;
-use Assert\AssertionFailedException;
 use App\Shared\Domain\Aggregate\Message;
 use App\Shared\Domain\Service\Message\DomainEventToMessageNameConverter;
-use Throwable;
+use Assert\Assertion;
+use Assert\AssertionFailedException;
 
 final class AsyncApiDomainEventToMessageNameConverter implements DomainEventToMessageNameConverter
 {
@@ -20,7 +19,7 @@ final class AsyncApiDomainEventToMessageNameConverter implements DomainEventToMe
 
     /**
      * @throws AssertionFailedException
-     * @throws Throwable
+     * @throws \Throwable
      */
     public function convert(Message $domainEvent): string
     {

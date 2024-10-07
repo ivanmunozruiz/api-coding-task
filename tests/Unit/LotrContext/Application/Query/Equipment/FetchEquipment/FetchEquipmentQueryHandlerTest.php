@@ -6,7 +6,6 @@ namespace App\Tests\Unit\LotrContext\Application\Query\Equipment\FetchEquipment;
 
 use App\LotrContext\Application\Query\Equipment\FetchEquipment\FetchEquipmentQuery;
 use App\LotrContext\Application\Query\Equipment\FetchEquipment\FetchEquipmentQueryHandler;
-use App\LotrContext\Domain\Exception\Equipment\EquipmentAlreadyExistsException;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
 use App\LotrContext\Domain\Repository\RedisCacheEquipmentRepository;
@@ -37,7 +36,6 @@ final class FetchEquipmentQueryHandlerTest extends UnitTestCase
             $equipmentFinder
         );
     }
-
 
     /**
      * @throws AssertionFailedException
@@ -101,7 +99,6 @@ final class FetchEquipmentQueryHandlerTest extends UnitTestCase
         $this->equipmentRepository
             ->shouldReceive('ofIdOrFail')
             ->never();
-
 
         $this->commandHandler->__invoke($command);
     }

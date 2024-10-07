@@ -8,7 +8,6 @@ use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use App\Shared\Infrastructure\Check\HealthCheck;
 use Doctrine\Migrations\DependencyFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 final class HealthCheckGetPage
 {
@@ -30,6 +29,7 @@ final class HealthCheckGetPage
         }
         $infosHelper = $this->dependencyFactory->getMigrationStatusCalculator();
         $resultHealthCheck['migrations'] = $infosHelper->getNewMigrations()->count() > 0 ? 'KO' : 'OK';
+
         return new JsonResponse(
             $resultHealthCheck,
         );

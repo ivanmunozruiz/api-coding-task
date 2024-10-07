@@ -11,7 +11,6 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Stamp\BusNameStamp;
-use Throwable;
 
 final class RoutingKeyMiddleware implements MiddlewareInterface
 {
@@ -19,7 +18,7 @@ final class RoutingKeyMiddleware implements MiddlewareInterface
     {
     }
 
-    /** @throws Throwable */
+    /** @throws \Throwable */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
         $message = $envelope->getMessage();
@@ -29,7 +28,6 @@ final class RoutingKeyMiddleware implements MiddlewareInterface
         } else {
             $envelope = $envelope->withoutStampsOfType(BusNameStamp::class);
         }
-
 
         return $stack->next()->handle($envelope, $stack);
     }

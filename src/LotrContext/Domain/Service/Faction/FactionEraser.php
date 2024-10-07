@@ -24,6 +24,7 @@ final class FactionEraser
         $this->factionRepository->remove($identifier);
         $faction->delete();
         $this->redisCacheFactionRepository->removeData($identifier);
+
         return $faction;
     }
 }

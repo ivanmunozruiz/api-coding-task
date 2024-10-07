@@ -9,7 +9,6 @@ use App\LotrContext\Application\Query\Equipment\ListEquipment\ListEquipmentsQuer
 use App\LotrContext\Application\Query\Equipment\ListEquipment\ListEquipmentsResponse;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
-use App\LotrContext\Domain\Repository\RedisCacheEquipmentRepository;
 use App\LotrContext\Domain\Service\Equipment\SearchEquipmentsByCriteria;
 use App\Tests\Unit\LotrContext\Domain\Aggregate\EquipmentMother;
 use App\Tests\Unit\UnitTestCase;
@@ -33,7 +32,6 @@ final class ListEquipmentsQueryHandlerTest extends UnitTestCase
             $searchEquipmentsByCriteria
         );
     }
-
 
     /**
      * @throws AssertionFailedException

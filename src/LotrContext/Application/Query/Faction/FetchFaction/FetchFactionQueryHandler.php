@@ -12,7 +12,7 @@ use App\Shared\Domain\ValueObject\Uuid;
 final class FetchFactionQueryHandler implements QueryHandler
 {
     public function __construct(
-        private readonly FactionFinder $factionFinder
+        private readonly FactionFinder $factionFinder,
     ) {
     }
 

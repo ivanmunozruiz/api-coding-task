@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\AuthorisationContext\Domain\ValueObject;
 
-use Assert\Assertion;
 use App\Shared\Domain\ValueObject\StringValueObject;
+use Assert\Assertion;
 
 final class CacheKey extends StringValueObject
 {

@@ -6,10 +6,10 @@ namespace App\LotrContext\Domain\Service\Equipment;
 
 use App\LotrContext\Domain\Aggregate\Equipment;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
-use App\Shared\Domain\ValueObject\PositiveIntegerValueObject;
-use Assert\AssertionFailedException;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\ResultsByCriteria;
+use App\Shared\Domain\ValueObject\PositiveIntegerValueObject;
+use Assert\AssertionFailedException;
 use Doctrine\ORM\Query\QueryException;
 
 /**
@@ -22,15 +22,17 @@ final class SearchEquipmentsByCriteria
     }
 
     /**
+     * @return ResultsByCriteria<Equipment>
+     *
      * @throws QueryException
      * @throws AssertionFailedException
-     * @return ResultsByCriteria<Equipment>
      */
     public function matching(
         PositiveIntegerValueObject $page,
-        PositiveIntegerValueObject $limit
+        PositiveIntegerValueObject $limit,
     ): ResultsByCriteria {
         $criteria = new Criteria(page: $page->value(), limit: $limit->value());
+
         return ResultsByCriteria::from(
             $this->equipmentRepository->matching($criteria), /* @phpstan-ignore-next-line */
             $this->equipmentRepository->count($criteria),

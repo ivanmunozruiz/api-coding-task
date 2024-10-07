@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Infrastructure\Delivery\Rest\Character;
 
+use App\LotrContext\Application\Command\Character\DeleteCharacter\DeleteCharacterCommand;
+use App\Shared\Domain\DataMapping;
+use App\Shared\Infrastructure\Delivery\Rest\ApiCommandPage;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
-use App\Shared\Domain\DataMapping;
-use App\Shared\Infrastructure\Delivery\Rest\ApiCommandPage;
-use App\LotrContext\Application\Command\Character\DeleteCharacter\DeleteCharacterCommand;
 
 final class DeleteCharacterPage extends ApiCommandPage
 {
@@ -22,7 +21,7 @@ final class DeleteCharacterPage extends ApiCommandPage
         parent::__construct($commandBus);
     }
 
-    /** @throws Throwable */
+    /** @throws \Throwable */
     public function __invoke(Request $request): JsonResponse
     {
         $id = self::getString($request->attributes->all(), '[id]');
@@ -30,7 +29,6 @@ final class DeleteCharacterPage extends ApiCommandPage
         $this->dispatch(
             new DeleteCharacterCommand($id),
         );
-
 
         return new JsonResponse(status: Response::HTTP_NO_CONTENT);
     }

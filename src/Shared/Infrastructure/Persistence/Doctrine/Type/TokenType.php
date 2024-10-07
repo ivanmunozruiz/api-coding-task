@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 
+use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Domain\ValueObject\Token;
 use Assert\AssertionFailedException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
-use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Domain\ValueObject\Token;
 
 final class TokenType extends StringType
 {
@@ -34,7 +34,7 @@ final class TokenType extends StringType
 
         // phpcs:disable
         try {
-            /**
+            /*
              * @var string $value
              */
             return Token::from($value);

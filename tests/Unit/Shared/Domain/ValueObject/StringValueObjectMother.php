@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Domain\ValueObject;
 
-use Assert\AssertionFailedException;
 use App\Shared\Domain\ValueObject\StringValueObject;
+use Assert\AssertionFailedException;
 
 final class StringValueObjectMother
 {

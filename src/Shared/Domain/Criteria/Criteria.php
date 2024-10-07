@@ -6,10 +6,6 @@ namespace App\Shared\Domain\Criteria;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use App\Shared\Domain\Criteria\Filter\Filters;
-use App\Shared\Domain\Criteria\Order\Order;
-
-use const PHP_INT_MAX;
 
 final class Criteria
 {
@@ -44,7 +40,7 @@ final class Criteria
     private function setPage(int $page): void
     {
         Assertion::greaterOrEqualThan($page, 1);
-        Assertion::lessThan($page, PHP_INT_MAX);
+        Assertion::lessThan($page, \PHP_INT_MAX);
         $this->page = $page;
     }
 
@@ -52,7 +48,7 @@ final class Criteria
     private function setLimit(int $limit): void
     {
         Assertion::greaterOrEqualThan($limit, 1);
-        Assertion::lessThan($limit, PHP_INT_MAX);
+        Assertion::lessThan($limit, \PHP_INT_MAX);
         $this->limit = $limit;
     }
 }

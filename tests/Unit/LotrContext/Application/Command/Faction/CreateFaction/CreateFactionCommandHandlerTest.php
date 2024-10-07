@@ -40,6 +40,7 @@ final class CreateFactionCommandHandlerTest extends UnitTestCase
             $this->eventBus(),
         );
     }
+
     public function testCreateFactionCommandHandler(): void
     {
         $name = NameMother::create('The Fellowship of the Ring');

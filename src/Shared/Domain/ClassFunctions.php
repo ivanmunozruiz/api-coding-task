@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain;
 
-use ReflectionClass;
-
 final class ClassFunctions
 {
     public static function extractClassName(object $object): string
     {
-        $reflectionClass = new ReflectionClass(objectOrClass: $object);
+        $reflectionClass = new \ReflectionClass(objectOrClass: $object);
 
         if ($reflectionClass->isAnonymous()) {
             return '';

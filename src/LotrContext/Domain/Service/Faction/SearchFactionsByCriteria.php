@@ -6,10 +6,10 @@ namespace App\LotrContext\Domain\Service\Faction;
 
 use App\LotrContext\Domain\Aggregate\Faction;
 use App\LotrContext\Domain\Repository\FactionRepository;
-use App\Shared\Domain\ValueObject\PositiveIntegerValueObject;
-use Assert\AssertionFailedException;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\ResultsByCriteria;
+use App\Shared\Domain\ValueObject\PositiveIntegerValueObject;
+use Assert\AssertionFailedException;
 use Doctrine\ORM\Query\QueryException;
 
 /**
@@ -22,13 +22,14 @@ final class SearchFactionsByCriteria
     }
 
     /**
+     * @return ResultsByCriteria<Faction>
+     *
      * @throws QueryException
      * @throws AssertionFailedException
-     * @return ResultsByCriteria<Faction>
      */
     public function matching(
         PositiveIntegerValueObject $page,
-        PositiveIntegerValueObject $limit
+        PositiveIntegerValueObject $limit,
     ): ResultsByCriteria {
         $criteria = new Criteria(page: $page->value(), limit: $limit->value());
 

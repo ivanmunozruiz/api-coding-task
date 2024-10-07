@@ -24,6 +24,7 @@ final class CharacterEraser
         $this->characterRepository->remove($identifier);
         $character->delete();
         $this->redisCacheCharacterRepository->removeData($identifier);
+
         return $character;
     }
 }

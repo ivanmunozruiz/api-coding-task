@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Domain\Repository;
 
+use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\ValueObject\Uuid;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ObjectRepository;
-use Throwable;
-use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\ValueObject\Uuid;
-
-use function array_slice;
-use function intval;
 
 /** @template T of AggregateRoot */
 abstract class DoctrineRepository
@@ -36,6 +32,7 @@ abstract class DoctrineRepository
 
     /**
      * @phpstan-return T|null
+     *
      * @return T|null
      */
     public function ofId(Uuid $identifier): ?object
@@ -52,13 +49,15 @@ abstract class DoctrineRepository
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select('count(e.id)')->from($this->entityClass(), 'e');
 
-        return intval($queryBuilder->getQuery()->getSingleScalarResult());
+        return \intval($queryBuilder->getQuery()->getSingleScalarResult());
     }
 
     /**
      * @phpstan-return T
+     *
      * @return T
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function ofIdOrFail(Uuid $identifier): object
     {
@@ -76,7 +75,7 @@ abstract class DoctrineRepository
     public function exceptionClassName(): string
     {
         $classPath = explode('\\', $this->entityClass());
-        $domainNamespace = implode('\\', array_slice($classPath, 0, 3));
+        $domainNamespace = implode('\\', \array_slice($classPath, 0, 3));
         $aggregateName = end($classPath);
 
         return sprintf(
@@ -99,7 +98,9 @@ abstract class DoctrineRepository
 
     /**
      * @param array<string, mixed> $criteria the criteria
+     *
      * @phpstan-return T|null
+     *
      * @return T|null
      */
     protected function findOneBy(array $criteria): mixed

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\AuthorisationContext\Infrastructure\Domain\Service;
 
 use App\AuthorisationContext\Domain\Exception\ShallNotPassException;
+use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
+use App\AuthorisationContext\Infrastructure\Domain\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +18,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PreAuthenticate
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
-use App\AuthorisationContext\Infrastructure\Domain\Repository\UserRepository;
 
 final class Authenticator extends AbstractAuthenticator
 {
@@ -47,6 +47,7 @@ final class Authenticator extends AbstractAuthenticator
 
         if ($this->isAdminRequest($request, $token)) {
             $adminTokenUser = $this->userRepository->adminTokenUser($token);
+
             return new SelfValidatingPassport(
                 new UserBadge($adminTokenUser->getUserIdentifier()),
                 [new PreAuthenticatedUserBadge()],

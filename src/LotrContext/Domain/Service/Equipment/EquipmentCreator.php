@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Equipment;
 
+use App\LotrContext\Domain\Aggregate\Equipment;
+use App\LotrContext\Domain\Exception\Equipment\EquipmentAlreadyExistsException;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
 use App\LotrContext\Domain\Repository\RedisCacheEquipmentRepository;
 use App\Shared\Domain\Exception\Http\UuIdAlreadyExistsException;
-use App\LotrContext\Domain\Aggregate\Equipment;
-use App\LotrContext\Domain\Exception\Equipment\EquipmentAlreadyExistsException;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
 
@@ -34,6 +34,7 @@ final class EquipmentCreator
         );
 
         $this->equipmentRepository->save($equipment);
+
         return $equipment;
     }
 
@@ -54,7 +55,7 @@ final class EquipmentCreator
         Uuid $identifier,
         Name $name,
         Name $type,
-        Name $madeBy
+        Name $madeBy,
     ): void {
         $equipment = $this->equipmentRepository->ofId($identifier);
         if ($equipment instanceof Equipment) {

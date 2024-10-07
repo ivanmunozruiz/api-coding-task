@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Equipment\CreateEquipment;
 
-use Assert\Assertion;
 use App\Shared\Application\Command\Command;
+use Assert\Assertion;
 use Assert\AssertionFailedException;
 
 final class CreateEquipmentCommand implements Command

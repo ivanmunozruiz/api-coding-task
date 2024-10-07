@@ -7,11 +7,6 @@ namespace App\Shared\Domain;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
-use function strval;
-
-use const FILTER_NULL_ON_FAILURE;
-use const FILTER_VALIDATE_INT;
-
 trait DataMapping
 {
     /** @param array<string, mixed> $data */
@@ -51,7 +46,7 @@ trait DataMapping
     {
         $value = self::getValue($data, $key);
 
-        return filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+        return filter_var($value, \FILTER_VALIDATE_INT, \FILTER_NULL_ON_FAILURE);
     }
 
     /** @param array<string, mixed> $data */
@@ -68,6 +63,6 @@ trait DataMapping
         /** @var bool|float|int|resource|string|null $value */
         $value = self::getValue($data, $key);
 
-        return strval($value ?? $default);
+        return \strval($value ?? $default);
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Equipment\UpdateEquipment;
 
-use Assert\Assertion;
 use App\Shared\Application\Command\Command;
+use Assert\Assertion;
 
 final class UpdateEquipmentCommand implements Command
 {

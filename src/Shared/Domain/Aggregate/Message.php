@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Aggregate;
 
-use Assert\AssertionFailedException;
 use App\Shared\Domain\MessageExtractor;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use App\Shared\Domain\ValueObject\Uuid;
+use Assert\AssertionFailedException;
 
 abstract class Message
 {
@@ -35,6 +35,7 @@ abstract class Message
 
     /**
      * @param array<string, mixed> $payload
+     *
      * @return static
      */
     abstract public static function fromPrimitives(

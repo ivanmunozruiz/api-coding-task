@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Faction\DeleteFaction;
 
+use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
+use App\LotrContext\Domain\Service\Faction\FactionEraser;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Domain\ValueObject\Uuid;
-use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
-use App\LotrContext\Domain\Service\Faction\FactionEraser;
 
 final class DeleteFactionCommandHandler implements CommandHandler
 {

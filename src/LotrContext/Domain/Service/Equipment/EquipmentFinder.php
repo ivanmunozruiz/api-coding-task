@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Equipment;
 
-use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Aggregate\Equipment;
+use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
 use App\LotrContext\Domain\Repository\RedisCacheEquipmentRepository;
 use App\Shared\Domain\ValueObject\Name;
@@ -35,7 +35,7 @@ final class EquipmentFinder
             );
         }
 
-        /** @var Equipment */
+        /* @phpstan-ignore-next-line */
         return $this->equipmentRepository->ofIdOrFail($identifier);
     }
 }

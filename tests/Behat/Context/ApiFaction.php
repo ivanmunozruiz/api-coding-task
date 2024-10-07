@@ -9,10 +9,6 @@ use App\Shared\Domain\ValueObject\Uuid;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Behat\Gherkin\Node\TableNode;
-use Exception;
-
-use function is_array;
-use function strval;
 
 trait ApiFaction
 {
@@ -20,7 +16,7 @@ trait ApiFaction
     use Matchable;
 
     /** @Then /^the faction with id "(.*)" should exist$/
-     * @throws Exception
+     * @throws \Exception
      */
     public function theFactionWithIdShouldExist(string $id): void
     {
@@ -46,7 +42,7 @@ trait ApiFaction
                 continue;
             }
 
-            /** @phpstan-ignore-next-line */
+            /* @phpstan-ignore-next-line */
             $this->checkObjectAgainstExpected($faction, $row);
         }
     }
@@ -63,7 +59,7 @@ trait ApiFaction
             if (null === $faction) {
                 continue;
             }
-            /** @phpstan-ignore-next-line */
+            /* @phpstan-ignore-next-line */
             $this->checkObjectPropertiesAreFilled($faction, (string) $row['fields']);
         }
     }
@@ -76,11 +72,11 @@ trait ApiFaction
         $faction = $this->factionRepository->ofId(Uuid::from($id));
 
         if ($shouldExist === (!$faction instanceof Faction)) {
-            throw new Exception('Condition failed for :' . $id);
+            throw new \Exception('Condition failed for :' . $id);
         }
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     private function checkObjectPropertiesAreFilled(Faction $objectToCheck, string $fields): void
     {
         $factionArr = $objectToCheck->jsonSerialize();
@@ -90,16 +86,17 @@ trait ApiFaction
         foreach ($fields as $field) {
             $field = trim($field);
 
-            /** @phpstan-ignore-next-line */
+            /* @phpstan-ignore-next-line */
             if (null === $factionArr[$field]) {
-                throw new Exception(sprintf('Field %s was not empty as expected', $field));
+                throw new \Exception(sprintf('Field %s was not empty as expected', $field));
             }
         }
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      * @throws AssertionFailedException
+     *
      * @phpstan-ignore-next-line
      */
     private function checkArrayAgainstExpected(array $dataArray, array $row): void
@@ -107,9 +104,9 @@ trait ApiFaction
         foreach ($row as $field => $value) {
             $value = 'null' === $value ? null : $value;
 
-            $currentValue = is_array($dataArray[$field])
-                ? strval(json_encode($dataArray[$field]))
-                : strval(
+            $currentValue = \is_array($dataArray[$field])
+                ? \strval(json_encode($dataArray[$field]))
+                : \strval(
                     $dataArray[$field],
                 );
 
@@ -134,14 +131,14 @@ trait ApiFaction
     {
         $expectedValue = 'null' === $expectedValue ? null : $expectedValue;
 
-        $currentValue = is_array($currentValue)
+        $currentValue = \is_array($currentValue)
             ? json_encode($currentValue)
-            : strval(
+            : \strval(
                 $currentValue,
             );
 
         match ($expectedValue) {
-            default => Assertion::eq($expectedValue, $currentValue)
+            default => Assertion::eq($expectedValue, $currentValue),
         };
     }
 }

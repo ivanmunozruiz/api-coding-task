@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Equipment\CreateEquipment;
 
+use App\LotrContext\Domain\Exception\Equipment\EquipmentAlreadyExistsException;
 use App\LotrContext\Domain\Service\Equipment\EquipmentCreator;
-use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
+use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
-use App\LotrContext\Domain\Exception\Equipment\EquipmentAlreadyExistsException;
 
 final class CreateEquipmentCommandHandler implements CommandHandler
 {

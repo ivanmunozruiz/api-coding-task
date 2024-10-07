@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\AuthorisationContext\Infrastructure\Domain\Aggregate;
 
-use App\Shared\Domain\ValueObject\Email;
-use App\Shared\Domain\ValueObject\Token;
 use App\AuthorisationContext\Domain\ValueObject\CacheKey;
-use Symfony\Component\Security\Core\User\UserInterface;
 use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\ValueObject\Token;
 use App\Shared\Domain\ValueObject\Uuid;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 final class User extends AggregateRoot implements UserInterface
 {
@@ -76,6 +75,7 @@ final class User extends AggregateRoot implements UserInterface
 
     /**
      * @see UserInterface
+     *
      * @codeCoverageIgnore
      */
     public function eraseCredentials(): void
@@ -85,6 +85,7 @@ final class User extends AggregateRoot implements UserInterface
 
     /**
      * @see UserInterface
+     *
      * @return array<string> $roles
      */
     public function getRoles(): array

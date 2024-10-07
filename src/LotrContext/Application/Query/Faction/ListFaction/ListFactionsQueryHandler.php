@@ -20,7 +20,7 @@ final class ListFactionsQueryHandler implements QueryHandler
      * @param SearchFactionsByCriteria<T> $criteria
      */
     public function __construct(
-        private readonly SearchFactionsByCriteria $criteria
+        private readonly SearchFactionsByCriteria $criteria,
     ) {
     }
 

@@ -12,7 +12,7 @@ use Assert\AssertionFailedException;
 final class FetchCharacterQueryHandler implements QueryHandler
 {
     public function __construct(
-        private readonly CharacterFinder $characterFinder
+        private readonly CharacterFinder $characterFinder,
     ) {
     }
 

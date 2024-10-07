@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
+use App\Shared\Domain\Equalable;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Assert\InvalidArgumentException;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonTimeZone;
-use DateTimeInterface;
-use JsonSerializable;
-use Stringable;
-use Throwable;
-use App\Shared\Domain\Equalable;
 
-final class DateTimeValueObject implements JsonSerializable, Stringable, Equalable
+final class DateTimeValueObject implements \JsonSerializable, \Stringable, Equalable
 {
     private const TZ = 'UTC';
 
-    private readonly CarbonImmutable|DateTimeInterface $datetime;
+    private readonly CarbonImmutable|\DateTimeInterface $datetime;
 
     private function __construct(string $datetime, string $timezone)
     {
@@ -38,7 +34,7 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
 
     public static function now(): self
     {
-        $datetime = CarbonImmutable::now(self::TZ)->format(DateTimeInterface::RFC3339_EXTENDED);
+        $datetime = CarbonImmutable::now(self::TZ)->format(\DateTimeInterface::RFC3339_EXTENDED);
 
         return new self(datetime: $datetime, timezone: self::TZ);
     }
@@ -75,8 +71,8 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
     {
         Assertion::isInstanceOf($other, self::class);
 
-        return $this->datetime()->format(DateTimeInterface::RFC3339_EXTENDED) === $other->datetime()->format(
-            DateTimeInterface::RFC3339_EXTENDED,
+        return $this->datetime()->format(\DateTimeInterface::RFC3339_EXTENDED) === $other->datetime()->format(
+            \DateTimeInterface::RFC3339_EXTENDED,
         );
     }
 
@@ -92,7 +88,7 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
         return $this->datetime()->getTimestamp() > $limitDate;
     }
 
-    public function datetime(): DateTimeInterface
+    public function datetime(): \DateTimeInterface
     {
         return $this->datetime;
     }
@@ -109,7 +105,7 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
 
     public function toRfc3339String(): string
     {
-        return $this->datetime->format(DateTimeInterface::RFC3339_EXTENDED);
+        return $this->datetime->format(\DateTimeInterface::RFC3339_EXTENDED);
     }
 
     /** @throws AssertionFailedException */
@@ -117,11 +113,8 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
     {
         try {
             CarbonTimeZone::instance($timezone);
-        } catch (Throwable) {
-            throw new InvalidArgumentException(
-                message: sprintf('Timezone "%s" is invalid.', $timezone),
-                code: Assertion::INVALID_STRING,
-            );
+        } catch (\Throwable) {
+            throw new InvalidArgumentException(message: sprintf('Timezone "%s" is invalid.', $timezone), code: Assertion::INVALID_STRING);
         }
     }
 
@@ -131,10 +124,7 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
         $year = date_parse($datetime)['year'];
 
         if ((is_numeric($year) && $year < 1) || false === $year) {
-            throw new InvalidArgumentException(
-                message: sprintf('Date "%s" is invalid.', $datetime),
-                code: Assertion::INVALID_DATE,
-            );
+            throw new InvalidArgumentException(message: sprintf('Date "%s" is invalid.', $datetime), code: Assertion::INVALID_DATE);
         }
     }
 

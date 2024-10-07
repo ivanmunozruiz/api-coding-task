@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Equipment;
 
-use App\LotrContext\Domain\Repository\RedisCacheEquipmentRepository;
 use App\LotrContext\Domain\Aggregate\Equipment;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentAlreadyExistsException;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
+use App\LotrContext\Domain\Repository\RedisCacheEquipmentRepository;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
 
@@ -42,7 +42,7 @@ final class EquipmentUpdater
         Equipment $equipment,
         Name $name,
         Name $type,
-        Name $madeBy
+        Name $madeBy,
     ): void {
         $equipmentFind = $this->equipmentRepository->ofNameTypeAndMadeBy($name, $type, $madeBy);
 

@@ -10,7 +10,7 @@ use App\Shared\Infrastructure\Messaging\Formatter\AsyncApiDomainEventToMessageNa
 final class DomainMessageToArrayTransformer implements MessageToArrayTransformer
 {
     public function __construct(
-        private readonly AsyncApiDomainEventToMessageNameConverter $domainEventToMessageConverter
+        private readonly AsyncApiDomainEventToMessageNameConverter $domainEventToMessageConverter,
     ) {
     }
 

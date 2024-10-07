@@ -116,6 +116,9 @@ php-lint:
 phpstan:
 	$(EXEC_APP_NO_IT) ./vendor/bin/phpstan analyse -c phpstan.neon  --memory-limit=512M
 
+php-cs-fixe:
+	$(EXEC_APP_NO_IT) ./vendor/bin/php-cs-fixer fix --dry-run --diff
+
 composer-validate:
 	$(EXEC_APP_NO_IT) composer validate --no-check-lock
 

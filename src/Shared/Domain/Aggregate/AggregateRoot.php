@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Aggregate;
 
-use JsonSerializable;
-use Stringable;
-
-abstract class AggregateRoot implements JsonSerializable, Stringable
+abstract class AggregateRoot implements \JsonSerializable, \Stringable
 {
     /** @var array<Message> */
     private array $events = [];

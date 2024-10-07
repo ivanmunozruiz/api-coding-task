@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Messaging\Formatter;
 
+use App\Shared\Domain\Aggregate\Message;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use App\Shared\Domain\Aggregate\Message;
-use Stringable;
-use Throwable;
 
-use function sprintf;
-
-final class AsyncApiFormatter implements Stringable
+final class AsyncApiFormatter implements \Stringable
 {
     private string $application;
 
@@ -44,7 +40,7 @@ final class AsyncApiFormatter implements Stringable
     }
 
     /**
-     * @throws Throwable
+     * @throws \Throwable
      * @throws AssertionFailedException
      */
     public static function format(string $appName, Message $domainEvent): string
@@ -85,7 +81,7 @@ final class AsyncApiFormatter implements Stringable
 
     private function toAsyncApiFormat(): string
     {
-        return sprintf(
+        return \sprintf(
             '%s.%s.%s.%s.%s.%s',
             $this->application,
             $this->aggregateContext,

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Infrastructure\Domain\Repository;
 
-use App\LotrContext\Domain\Repository\FactionRepository;
-use App\Shared\Domain\ValueObject\Uuid;
-use App\Shared\Domain\ValueObject\StringValueObject;
-use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
 use App\LotrContext\Domain\Aggregate\Faction;
+use App\LotrContext\Domain\Repository\FactionRepository;
+use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Domain\ValueObject\StringValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
+use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
 
 /** @extends DoctrineRepository<Faction> */
 final class DoctrineFactionRepository extends DoctrineRepository implements FactionRepository
@@ -31,7 +31,6 @@ final class DoctrineFactionRepository extends DoctrineRepository implements Fact
             ->getQuery()
             ->getSingleScalarResult();
     }
-
 
     /** @return class-string<object> */
     protected function entityClass(): string

@@ -24,6 +24,7 @@ final class EquipmentEraser
         $this->equipmentRepository->remove($identifier);
         $equipment->delete();
         $this->redisCacheEquipmentRepository->removeData($identifier);
+
         return $equipment;
     }
 }

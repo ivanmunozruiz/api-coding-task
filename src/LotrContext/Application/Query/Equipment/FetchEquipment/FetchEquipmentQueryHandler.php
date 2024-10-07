@@ -13,7 +13,7 @@ use Assert\AssertionFailedException;
 final class FetchEquipmentQueryHandler implements QueryHandler
 {
     public function __construct(
-        private readonly EquipmentFinder $equipmentFinder
+        private readonly EquipmentFinder $equipmentFinder,
     ) {
     }
 

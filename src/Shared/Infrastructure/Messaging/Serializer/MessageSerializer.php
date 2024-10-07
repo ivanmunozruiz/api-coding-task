@@ -14,9 +14,6 @@ use Symfony\Component\Messenger\Stamp\BusNameStamp;
 use Symfony\Component\Messenger\Stamp\NonSendableStampInterface;
 use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
-use Throwable;
-
-use function assert;
 
 final class MessageSerializer implements SerializerInterface
 {
@@ -36,12 +33,8 @@ final class MessageSerializer implements SerializerInterface
 
         try {
             $array = $this->encoder->decode($encodedEnvelope['body']);
-        } catch (Throwable $throwable) {
-            throw new MessageDecodingFailedException(
-                message: 'Error when trying to json_decode message',
-                code: 0,
-                previous: $throwable,
-            );
+        } catch (\Throwable $throwable) {
+            throw new MessageDecodingFailedException(message: 'Error when trying to json_decode message', code: 0, previous: $throwable);
         }
 
         $meta = $array['meta'];
@@ -50,12 +43,8 @@ final class MessageSerializer implements SerializerInterface
             $message = $this->toDomainEventTransformer->toMessage($array);
             $envelope = new Envelope(message: $message);
             $envelope = $envelope->with(new AmqpStamp($array['data']['message_name']));
-        } catch (Throwable $throwable) {
-            throw new MessageDecodingFailedException(
-                message: 'Failed to decode message',
-                code: 0,
-                previous: $throwable,
-            );
+        } catch (\Throwable $throwable) {
+            throw new MessageDecodingFailedException(message: 'Failed to decode message', code: 0, previous: $throwable);
         }
 
         return $this->addMetaToEnvelope($meta, $envelope);
@@ -63,13 +52,14 @@ final class MessageSerializer implements SerializerInterface
 
     /**
      * @return array{headers: array{'Content-Type':string}, body: string}
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function encode(Envelope $envelope): array
     {
         $envelope = $envelope->withoutStampsOfType(NonSendableStampInterface::class);
         $message = $envelope->getMessage();
-        assert($message instanceof Message);
+        \assert($message instanceof Message);
         $message = $this->toArrayTransformer->toArray($message);
         $message['meta'] = $this->getMetaFromEnvelope($envelope) ?? [];
 

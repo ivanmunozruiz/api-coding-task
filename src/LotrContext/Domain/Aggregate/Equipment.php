@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Aggregate;
 
-use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\ValueObject\Uuid;
-use App\Shared\Domain\ValueObject\Name;
 use App\LotrContext\Domain\Event\Equipment\EquipmentCreated;
-use App\LotrContext\Domain\Event\Equipment\EquipmentUpdated;
 use App\LotrContext\Domain\Event\Equipment\EquipmentDeleted;
+use App\LotrContext\Domain\Event\Equipment\EquipmentUpdated;
+use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
 
 class Equipment extends AggregateRoot

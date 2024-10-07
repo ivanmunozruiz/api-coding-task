@@ -10,13 +10,12 @@ use Assert\AssertionFailedException;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
-use Throwable;
 
 final class MessageMiddleware implements MiddlewareInterface
 {
     /**
      * @throws AssertionFailedException
-     * @throws Throwable
+     * @throws \Throwable
      */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

@@ -27,12 +27,13 @@ final class ArrayToDomainMessageTransformer implements ArrayToMessageTransformer
         /** @var array<string, string> $body */
         $body = $payload['data']['payload'];
         $aggregateId = $body['aggregate_id'];
+
         return $eventClass::fromPrimitives(
             $aggregateId,
             $body,
             $payload['data']['message_id'],
             $payload['data']['message_version'],
-            (int) $payload['data']['occurred_on'], /** @phpstan-ignore-line */
+            (int) $payload['data']['occurred_on'], /* @phpstan-ignore-line */
         );
     }
 }

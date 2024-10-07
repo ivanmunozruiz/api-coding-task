@@ -4,27 +4,19 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit;
 
-use App\Tests\Unit\Shared\Infrastructure\Messaging\SpyMessageBus;
-use Carbon\CarbonImmutable;
-use App\Shared\Domain\Aggregate\DomainEventMessage;
-use Mockery;
-use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Matcher\Closure as MockeryClosure;
-use Mockery\MockInterface;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionMethod;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use App\Shared\Application\Command\Command;
 use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Application\Query\PaginatorQueryResponse;
 use App\Shared\Application\Query\Query;
 use App\Shared\Application\Query\QueryHandler;
 use App\Shared\Application\Query\QueryResponse;
-
-use function is_string;
+use App\Shared\Domain\Aggregate\DomainEventMessage;
+use App\Tests\Unit\Shared\Infrastructure\Messaging\SpyMessageBus;
+use Carbon\CarbonImmutable;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Mockery\Matcher\Closure as MockeryClosure;
+use Mockery\MockInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 abstract class UnitTestCase extends MockeryTestCase
 {
@@ -40,12 +32,13 @@ abstract class UnitTestCase extends MockeryTestCase
      * return a protected method from an object.
      *
      * @param class-string|object $object
-     * @throws ReflectionException
+     *
+     * @throws \ReflectionException
      */
-    public function getProtectedMethod(string|object $object, string $methodName): ReflectionMethod
+    public function getProtectedMethod(string|object $object, string $methodName): \ReflectionMethod
     {
-        $className = is_string($object) ? $object : $object::class;
-        $reflectionClass = new ReflectionClass($className);
+        $className = \is_string($object) ? $object : $object::class;
+        $reflectionClass = new \ReflectionClass($className);
         $method = $reflectionClass->getMethod($methodName);
         $method->setAccessible(true);
 
@@ -60,18 +53,18 @@ abstract class UnitTestCase extends MockeryTestCase
     /** @phpstan-return EventBus&MockInterface */
     protected function eventBus(): EventBus|MockInterface
     {
-        return $this->eventBus ??= Mockery::mock(EventBus::class);
+        return $this->eventBus ??= \Mockery::mock(EventBus::class);
     }
 
     /** @phpstan-return MessageBusInterface&MockInterface */
     protected function commandBus(): MessageBusInterface|MockInterface
     {
-        return $this->commandBus ??= Mockery::mock(MessageBusInterface::class);
+        return $this->commandBus ??= \Mockery::mock(MessageBusInterface::class);
     }
 
     protected function tearDown(): void
     {
-        Mockery::close();
+        \Mockery::close();
         CarbonImmutable::setTestNow();
 
         parent::tearDown();
@@ -106,12 +99,12 @@ abstract class UnitTestCase extends MockeryTestCase
 
     protected function customMock(string $class): MockInterface
     {
-        return Mockery::mock($class);
+        return \Mockery::mock($class);
     }
 
     /** @param array<mixed> $value */
     protected static function matchAgainstArray(array $value): MockeryClosure
     {
-        return Mockery::on(static fn ($argument): bool => $argument === $value);
+        return \Mockery::on(static fn ($argument): bool => $argument === $value);
     }
 }

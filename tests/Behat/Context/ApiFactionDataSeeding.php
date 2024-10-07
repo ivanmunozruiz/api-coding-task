@@ -15,6 +15,7 @@ trait ApiFactionDataSeeding
 {
     /**
      * @Given /^the following factions exist:$/
+     *
      * @throws AssertionFailedException
      */
     public function theFollowingUserExist(TableNode $table): void

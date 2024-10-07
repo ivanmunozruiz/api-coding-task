@@ -15,7 +15,7 @@ final class FetchEquipmentQueryTest extends UnitTestCase
      */
     public function testFetchEquipmentQueryHandlerWrongInputThrowAssertionException(
         string $id,
-        string $message
+        string $message,
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);
@@ -30,7 +30,7 @@ final class FetchEquipmentQueryTest extends UnitTestCase
             'empty_id' => [
                 'id' => '',
                 'message' => 'id is required',
-            ]
+            ],
         ];
     }
 }

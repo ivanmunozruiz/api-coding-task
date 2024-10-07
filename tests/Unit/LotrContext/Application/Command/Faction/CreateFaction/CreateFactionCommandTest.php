@@ -15,7 +15,7 @@ class CreateFactionCommandTest extends UnitTestCase
         string $id,
         string $name,
         string $description,
-        string $message
+        string $message,
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);
@@ -46,7 +46,7 @@ class CreateFactionCommandTest extends UnitTestCase
                 'name' => 'The Fellowship of the Ring',
                 'description' => '',
                 'message' => 'description field is required',
-            ]
+            ],
         ];
     }
 }

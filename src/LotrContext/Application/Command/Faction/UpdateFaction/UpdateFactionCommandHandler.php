@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Faction\UpdateFaction;
 
+use App\LotrContext\Domain\Exception\Faction\FactionAlreadyExistsException;
 use App\LotrContext\Domain\Service\Faction\FactionUpdater;
-use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Domain\ValueObject\StringValueObject;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
+use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Domain\ValueObject\StringValueObject;
 use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
-use App\LotrContext\Domain\Exception\Faction\FactionAlreadyExistsException;
 
 final class UpdateFactionCommandHandler implements CommandHandler
 {

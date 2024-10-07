@@ -17,15 +17,7 @@ use Behatch\Json\Json;
 use Behatch\Json\JsonInspector;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use FriendsOfBehat\SymfonyExtension\Context\Environment\InitializedSymfonyExtensionEnvironment;
-use JsonException;
-use RuntimeException;
-use Throwable;
-
-use function assert;
-
-use const JSON_THROW_ON_ERROR;
 
 abstract class BaseApiContext implements Context
 {
@@ -44,7 +36,7 @@ abstract class BaseApiContext implements Context
         $this->bodyArray = [];
         $environment = $scope->getEnvironment();
 
-        assert($environment instanceof InitializedSymfonyExtensionEnvironment);
+        \assert($environment instanceof InitializedSymfonyExtensionEnvironment);
 
         $jsonContext = $environment->getContext(JsonContext::class);
         $restContext = $environment->getContext(RestContext::class);
@@ -58,7 +50,8 @@ abstract class BaseApiContext implements Context
      * provided previously for creating an object (assuming that it was created).
      *
      * @Then response should contain the identifier created
-     * @throws Exception|AssertionFailedException
+     *
+     * @throws \Exception|AssertionFailedException
      */
     public function responseShouldContainsTheIdentifierCreated(): void
     {
@@ -68,9 +61,7 @@ abstract class BaseApiContext implements Context
             /** @var string $id */
             $id = $this->bodyArray['id'];
 
-            throw new RuntimeException(
-                sprintf('the id created %s is not the one specified before: %s', $actual, $id),
-            );
+            throw new \RuntimeException(sprintf('the id created %s is not the one specified before: %s', $actual, $id));
         }
 
         Assertion::uuid($actual);
@@ -90,12 +81,13 @@ abstract class BaseApiContext implements Context
 
     /**
      * @When /^I send a GET api request to "([^"]*)" with query parameters:$/
-     * @throws JsonException
+     *
+     * @throws \JsonException
      */
     public function iSendAGETApiRequestToWithQueryParameters(string $url, PyStringNode $queryParameters): void
     {
         /** @var array<string, mixed> $parameters */
-        $parameters = json_decode($queryParameters->getRaw(), true, 512, JSON_THROW_ON_ERROR);
+        $parameters = json_decode($queryParameters->getRaw(), true, 512, \JSON_THROW_ON_ERROR);
         $query = http_build_query($parameters);
         $url .= '?' . $query;
 
@@ -105,7 +97,8 @@ abstract class BaseApiContext implements Context
 
     /**
      * @When /^I send a GET api request to "([^"]*)"/
-     * @throws JsonException
+     *
+     * @throws \JsonException
      */
     public function iSendAGETRequestTo(string $url): void
     {
@@ -118,6 +111,7 @@ abstract class BaseApiContext implements Context
      * Empties the body to be sent a puts just a valid id.
      *
      * @Given /^a (?:nonexistent|non\-existing|non\ existing) (\w+) in the database$/
+     *
      * @throws AssertionFailedException
      */
     public function aNonExistentAggregateInTheDatabase(): void
@@ -140,19 +134,20 @@ abstract class BaseApiContext implements Context
      * Assuming we received an error compares a field of the response json with the one given.
      *
      * @Then /the error (\w+) should be (.+)$/
-     * @throws Exception
+     *
+     * @throws \Exception
      */
     public function theErrorSomethingShouldBeThis(string $something, string $expected): void
     {
         $field = match ($something) {
             'message' => 'detail',
-            default => $something
+            default => $something,
         };
 
         $actual = $this->jsonContext->theJsonNodeShouldExist($field);
 
         if ($expected !== $actual) {
-            throw new RuntimeException(sprintf('the error %s is %s', $something, $actual));
+            throw new \RuntimeException(sprintf('the error %s is %s', $something, $actual));
         }
     }
 
@@ -160,7 +155,8 @@ abstract class BaseApiContext implements Context
      * Checks, that given JSON nodes are equal to givens values.
      *
      * @Then the JSON nodes should be similar to:
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function theJsonNodesShouldBeSimilarTo(TableNode $nodes): void
     {
@@ -176,6 +172,7 @@ abstract class BaseApiContext implements Context
 
     /**
      * @Given /^the "(\w+)" are empty$/
+     *
      * @throws \Doctrine\DBAL\Exception
      */
     public function theFollowingTablesAreEmpty(string $tableName): void
@@ -196,7 +193,7 @@ abstract class BaseApiContext implements Context
 
     abstract protected function entityManager(): EntityManagerInterface;
 
-    /** @throws Throwable */
+    /** @throws \Throwable */
     private function theJsonNodeShouldBeEqualTo(string|int $node, string|int $text): void
     {
         $json = new Json($this->getLastResponse());

@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Delivery\Rest;
 
+use App\Shared\Application\Query\Query;
+use App\Shared\Infrastructure\Traits\CurrentUserInRequest;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
-use App\Shared\Application\Query\Query;
-use App\Shared\Infrastructure\Traits\CurrentUserInRequest;
-
-use function assert;
 
 abstract class ApiQueryPage
 {
@@ -25,7 +22,7 @@ abstract class ApiQueryPage
         $this->messageBus = $queryBus;
     }
 
-    /** @throws Throwable */
+    /** @throws \Throwable */
     protected function ask(Query|Envelope $message): mixed
     {
         try {
@@ -37,11 +34,11 @@ abstract class ApiQueryPage
         }
     }
 
-    protected function raiseException(Throwable $e): Throwable
+    protected function raiseException(\Throwable $e): \Throwable
     {
         while ($e instanceof HandlerFailedException) {
             $e = $e->getPrevious();
-            assert($e instanceof Throwable);
+            \assert($e instanceof \Throwable);
         }
 
         return $e;

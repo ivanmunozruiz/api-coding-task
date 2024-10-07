@@ -32,6 +32,7 @@ final class ResultsByCriteria
 
     /**
      * @param T[] $results
+     *
      * @return self<T>
      */
     public static function from(array $results, int $numResults, int $page, int $limit): self

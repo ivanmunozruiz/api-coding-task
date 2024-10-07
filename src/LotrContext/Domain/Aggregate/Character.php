@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Aggregate;
 
+use App\LotrContext\Domain\Event\Character\CharacterCreated;
+use App\LotrContext\Domain\Event\Character\CharacterDeleted;
+use App\LotrContext\Domain\Event\Character\CharacterUpdated;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\Name;
-use App\LotrContext\Domain\Event\Character\CharacterCreated;
-use App\LotrContext\Domain\Event\Character\CharacterUpdated;
-use App\LotrContext\Domain\Event\Character\CharacterDeleted;
+use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
 
 class Character extends AggregateRoot
@@ -100,7 +100,6 @@ class Character extends AggregateRoot
             'kingdom' => $this->kingdom()->value(),
             'equipment_id' => $this->equipmentId()->id(),
             'faction_id' => $this->factionId()->id(),
-
         ];
     }
 

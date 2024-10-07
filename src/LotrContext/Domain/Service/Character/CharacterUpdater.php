@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Character;
 
+use App\LotrContext\Domain\Aggregate\Character;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
-use App\LotrContext\Domain\Repository\RedisCacheCharacterRepository;
-use App\LotrContext\Domain\Aggregate\Character;
 use App\LotrContext\Domain\Repository\CharacterRepository;
+use App\LotrContext\Domain\Repository\RedisCacheCharacterRepository;
 use App\LotrContext\Domain\Service\Equipment\EquipmentFinder;
 use App\LotrContext\Domain\Service\Faction\FactionFinder;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
@@ -35,7 +35,7 @@ final class CharacterUpdater
         DateTimeValueObject $birthDate,
         Name $kingdom,
         Uuid $equipmentId,
-        Uuid $factionId
+        Uuid $factionId,
     ): Character {
         /** @var Character $character */
         $character = $this->characterRepository->ofIdOrFail($identifier);

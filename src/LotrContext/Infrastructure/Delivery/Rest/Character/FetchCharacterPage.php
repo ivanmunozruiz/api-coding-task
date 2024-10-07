@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Infrastructure\Delivery\Rest\Character;
 
+use App\LotrContext\Application\Query\Character\FetchCharacter\FetchCharacterQuery;
+use App\Shared\Domain\DataMapping;
+use App\Shared\Infrastructure\Delivery\Rest\ApiQueryPage;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Shared\Domain\DataMapping;
-use App\Shared\Infrastructure\Delivery\Rest\ApiQueryPage;
-use App\LotrContext\Application\Query\Character\FetchCharacter\FetchCharacterQuery;
 
 final class FetchCharacterPage extends ApiQueryPage
 {

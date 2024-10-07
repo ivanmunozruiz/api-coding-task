@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\AuthorisationContext\Infrastructure\Domain\Repository;
 
 use App\AuthorisationContext\Domain\ValueObject\CacheKey;
+use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
 use App\Shared\Domain\ValueObject\Token;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Traits\Cacheable;
 use Assert\AssertionFailedException;
-use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
 use Predis\Client as RedisClient;
 
 final class UserRepository
@@ -38,6 +38,7 @@ final class UserRepository
         }
 
         $storageKey = $this->prepareStorageKey($token);
+
         return $this->getTokenCacheData($storageKey);
     }
 

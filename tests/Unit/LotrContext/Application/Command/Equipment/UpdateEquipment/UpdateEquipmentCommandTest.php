@@ -10,6 +10,7 @@ class UpdateEquipmentCommandTest extends UnitTestCase
 {
     /**
      * @dataProvider invalidDataProvider
+     *
      * @throws AssertionFailedException
      */
     public function testUpdateEquipmentCommandHandlerWrongInputThrowAssertionException(
@@ -17,7 +18,7 @@ class UpdateEquipmentCommandTest extends UnitTestCase
         string $name,
         string $type,
         string $madeBy,
-        string $message
+        string $message,
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);

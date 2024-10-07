@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Infrastructure\Domain\Repository;
 
+use App\LotrContext\Domain\Aggregate\Character;
 use App\LotrContext\Domain\Repository\CharacterRepository;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
-use App\LotrContext\Domain\Aggregate\Character;
 
 /** @extends DoctrineRepository<Character> */
 final class DoctrineCharacterRepository extends DoctrineRepository implements CharacterRepository

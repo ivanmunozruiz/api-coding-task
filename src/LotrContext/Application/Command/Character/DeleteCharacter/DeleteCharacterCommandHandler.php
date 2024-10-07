@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Character\DeleteCharacter;
 
+use App\LotrContext\Domain\Exception\Character\CharacterNotFoundException;
+use App\LotrContext\Domain\Service\Character\CharacterEraser;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Domain\ValueObject\Uuid;
-use App\LotrContext\Domain\Exception\Character\CharacterNotFoundException;
-use App\LotrContext\Domain\Service\Character\CharacterEraser;
 
 final class DeleteCharacterCommandHandler implements CommandHandler
 {

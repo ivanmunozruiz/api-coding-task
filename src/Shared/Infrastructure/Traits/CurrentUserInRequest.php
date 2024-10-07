@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Traits;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\AuthorisationContext\Infrastructure\Domain\Service\Authenticator;
-
-use function strval;
+use Symfony\Component\HttpFoundation\Request;
 
 trait CurrentUserInRequest
 {
@@ -16,6 +14,6 @@ trait CurrentUserInRequest
         /** @phpstan-var string $userId */
         $userId = $request->attributes->get(Authenticator::REQUEST_USER_ID);
 
-        return strval($userId);
+        return \strval($userId);
     }
 }

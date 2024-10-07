@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\ErrorHandler;
 
+use App\Shared\Domain\ClassFunctions;
+use App\Shared\Domain\DomainException;
+use App\Shared\Domain\Exception\Http\BadRequestException;
+use App\Shared\Domain\Exception\Http\ConflictException;
+use App\Shared\Domain\Exception\Http\ForbiddenException;
+use App\Shared\Domain\Exception\Http\NotFoundException;
+use App\Shared\Domain\Exception\Http\UnprocessableEntityException;
 use Assert\Assert;
 use Assert\AssertionFailedException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\ORM\OptimisticLockException;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,15 +24,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Throwable;
-use ValueError;
-use App\Shared\Domain\ClassFunctions;
-use App\Shared\Domain\DomainException;
-use App\Shared\Domain\Exception\Http\BadRequestException;
-use App\Shared\Domain\Exception\Http\ConflictException;
-use App\Shared\Domain\Exception\Http\ForbiddenException;
-use App\Shared\Domain\Exception\Http\NotFoundException;
-use App\Shared\Domain\Exception\Http\UnprocessableEntityException;
 
 /** @see https://datatracker.ietf.org/doc/html/rfc7807 */
 final class ErrorHandler
@@ -44,7 +41,7 @@ final class ErrorHandler
         NotFoundHttpException::class => Response::HTTP_NOT_FOUND,
         Assert::class => Response::HTTP_UNPROCESSABLE_ENTITY,
         AssertionFailedException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
-        ValueError::class => Response::HTTP_UNPROCESSABLE_ENTITY,
+        \ValueError::class => Response::HTTP_UNPROCESSABLE_ENTITY,
         NotFoundException::class => Response::HTTP_NOT_FOUND,
         UnprocessableEntityException::class => Response::HTTP_UNPROCESSABLE_ENTITY,
         BadRequestException::class => Response::HTTP_BAD_REQUEST,
@@ -61,7 +58,7 @@ final class ErrorHandler
         $this->logger = $errorHandlerLogger;
     }
 
-    /** @throws InvalidArgumentException */
+    /** @throws \InvalidArgumentException */
     public function __invoke(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -90,7 +87,7 @@ final class ErrorHandler
         ));
     }
 
-    private function httpStatusCodeFor(Throwable $exception): int
+    private function httpStatusCodeFor(\Throwable $exception): int
     {
         if ($exception instanceof HttpExceptionInterface) {
             return $exception->getStatusCode();
@@ -107,13 +104,13 @@ final class ErrorHandler
         return self::DEFAULT_STATUS;
     }
 
-    private function titleFor(Throwable $exception): string
+    private function titleFor(\Throwable $exception): string
     {
         if ($exception instanceof DomainException) {
             return strtoupper($exception->code());
         }
 
-        if ($exception instanceof \Assert\InvalidArgumentException || $exception instanceof ValueError) {
+        if ($exception instanceof \Assert\InvalidArgumentException || $exception instanceof \ValueError) {
             return 'BAD_REQUEST';
         }
 
@@ -124,7 +121,7 @@ final class ErrorHandler
         return self::DEFAULT_TITLE;
     }
 
-    private function detailFor(Throwable $exception): string
+    private function detailFor(\Throwable $exception): string
     {
         if ($exception instanceof DomainException) {
             return $exception->detail();
@@ -133,12 +130,12 @@ final class ErrorHandler
         return $exception->getMessage();
     }
 
-    private function typeFor(Throwable $exception): string
+    private function typeFor(\Throwable $exception): string
     {
         return self::BASE_PROBLEM_TYPE_URI . $this->codeFor($exception);
     }
 
-    private function codeFor(Throwable $exception): string
+    private function codeFor(\Throwable $exception): string
     {
         if ($exception instanceof DomainException) {
             return $exception->code();

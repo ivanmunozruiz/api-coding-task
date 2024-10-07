@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Infrastructure\Delivery\Rest\Faction;
 
+use App\LotrContext\Application\Query\Faction\FetchFaction\FetchFactionQuery;
+use App\Shared\Domain\DataMapping;
+use App\Shared\Infrastructure\Delivery\Rest\ApiQueryPage;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Shared\Domain\DataMapping;
-use App\Shared\Infrastructure\Delivery\Rest\ApiQueryPage;
-use App\LotrContext\Application\Query\Faction\FetchFaction\FetchFactionQuery;
 
 final class FetchFactionPage extends ApiQueryPage
 {

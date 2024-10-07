@@ -20,7 +20,7 @@ final class ListCharactersQueryHandler implements QueryHandler
      * @param SearchCharactersByCriteria<T> $criteria
      */
     public function __construct(
-        private readonly SearchCharactersByCriteria $criteria
+        private readonly SearchCharactersByCriteria $criteria,
     ) {
     }
 

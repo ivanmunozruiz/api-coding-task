@@ -20,7 +20,7 @@ final class ListEquipmentsQueryHandler implements QueryHandler
      * @param SearchEquipmentsByCriteria<T> $criteria
      */
     public function __construct(
-        private readonly SearchEquipmentsByCriteria $criteria
+        private readonly SearchEquipmentsByCriteria $criteria,
     ) {
     }
 

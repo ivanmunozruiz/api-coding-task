@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Delivery\Rest;
 
+use App\Shared\Application\Command\Command;
+use App\Shared\Infrastructure\Traits\CurrentUserInRequest;
 use Assert\InvalidArgumentException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
-use ValueError;
-use App\Shared\Application\Command\Command;
-use App\Shared\Infrastructure\Traits\CurrentUserInRequest;
-
-use function assert;
 
 abstract class ApiCommandPage
 {
@@ -26,7 +22,7 @@ abstract class ApiCommandPage
         $this->messageBus = $commandBus;
     }
 
-    /** @throws Throwable */
+    /** @throws \Throwable */
     protected function dispatch(Command $message): mixed
     {
         try {
@@ -38,14 +34,14 @@ abstract class ApiCommandPage
         }
     }
 
-    protected function raiseException(Throwable $e): Throwable
+    protected function raiseException(\Throwable $e): \Throwable
     {
         while ($e instanceof HandlerFailedException) {
             $e = $e->getPrevious();
-            assert($e instanceof Throwable);
+            \assert($e instanceof \Throwable);
         }
 
-        if ($e instanceof ValueError) {
+        if ($e instanceof \ValueError) {
             throw new InvalidArgumentException(message: $e->getMessage(), code: $e->getCode());
         }
 

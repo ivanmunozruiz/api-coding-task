@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain;
 
-use Throwable;
-
 trait MessageExtractor
 {
     public function messageAggregateContext(): string
@@ -16,7 +14,7 @@ trait MessageExtractor
         return str_replace('-context', '', $aggregateContext);
     }
 
-    /** @throws Throwable */
+    /** @throws \Throwable */
     public function messageAggregateAction(): string
     {
         $value = ClassFunctions::extractClassName($this);

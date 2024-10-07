@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Faction;
 
-use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
 use App\LotrContext\Domain\Aggregate\Faction;
+use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
 use App\LotrContext\Domain\Repository\FactionRepository;
 use App\LotrContext\Domain\Repository\RedisCacheFactionRepository;
 use App\Shared\Domain\ValueObject\Name;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Character;
 
+use App\LotrContext\Domain\Aggregate\Character;
 use App\LotrContext\Domain\Exception\Character\CharacterAlreadyExistsException;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
@@ -12,7 +13,6 @@ use App\LotrContext\Domain\Repository\RedisCacheCharacterRepository;
 use App\LotrContext\Domain\Service\Equipment\EquipmentFinder;
 use App\LotrContext\Domain\Service\Faction\FactionFinder;
 use App\Shared\Domain\Exception\Http\UuIdAlreadyExistsException;
-use App\LotrContext\Domain\Aggregate\Character;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -23,7 +23,7 @@ final class CharacterCreator
         private readonly CharacterRepository $characterRepository,
         private readonly RedisCacheCharacterRepository $redisCacheCharacterRepository,
         private readonly EquipmentFinder $equipmentFinder,
-        private readonly FactionFinder $factionFinder
+        private readonly FactionFinder $factionFinder,
     ) {
     }
 
@@ -38,7 +38,7 @@ final class CharacterCreator
         DateTimeValueObject $birthDate,
         Name $kingdom,
         Uuid $equipmentId,
-        Uuid $factionId
+        Uuid $factionId,
     ): Character {
         $this->ensureEquipmentExists($equipmentId);
         $this->ensureFactionExists($factionId);
@@ -54,8 +54,7 @@ final class CharacterCreator
         );
 
         $this->characterRepository->save($character);
-        //TODO: migrate this to async event ON CREATE
-
+        // TODO: migrate this to async event ON CREATE
 
         return $character;
     }
@@ -66,7 +65,7 @@ final class CharacterCreator
         DateTimeValueObject $birthDate,
         Name $kingdom,
         Uuid $equipmentId,
-        Uuid $factionId
+        Uuid $factionId,
     ): void {
         $character = Character::from(
             $identifier,
@@ -90,7 +89,7 @@ final class CharacterCreator
         DateTimeValueObject $birthDate,
         Name $kingdom,
         Uuid $equipmentId,
-        Uuid $factionId
+        Uuid $factionId,
     ): void {
         $character = $this->characterRepository->ofId($identifier);
         if ($character instanceof Character) {
@@ -103,7 +102,7 @@ final class CharacterCreator
                 'birthDate' => $birthDate,
                 'kingdom' => $kingdom,
                 'equipmentId' => $equipmentId,
-                'factionId' => $factionId
+                'factionId' => $factionId,
             ]
         );
 
@@ -116,7 +115,7 @@ final class CharacterCreator
      * @throws FactionNotFoundException
      */
     private function ensureFactionExists(
-        Uuid $factionId
+        Uuid $factionId,
     ): void {
         $this->factionFinder->ofIdOrFail($factionId);
     }
@@ -125,7 +124,7 @@ final class CharacterCreator
      * @throws EquipmentNotFoundException
      */
     private function ensureEquipmentExists(
-        Uuid $equipmentId
+        Uuid $equipmentId,
     ): void {
         $this->equipmentFinder->ofIdOrFail($equipmentId);
     }

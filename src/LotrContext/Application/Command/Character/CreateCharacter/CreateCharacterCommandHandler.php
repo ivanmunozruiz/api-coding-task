@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Character\CreateCharacter;
 
+use App\LotrContext\Domain\Exception\Character\CharacterAlreadyExistsException;
 use App\LotrContext\Domain\Service\Character\CharacterCreator;
-use App\Shared\Domain\ValueObject\DateTimeValueObject;
-use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
+use App\Shared\Domain\ValueObject\DateTimeValueObject;
+use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
 use Assert\AssertionFailedException;
-use App\LotrContext\Domain\Exception\Character\CharacterAlreadyExistsException;
 
 final class CreateCharacterCommandHandler implements CommandHandler
 {

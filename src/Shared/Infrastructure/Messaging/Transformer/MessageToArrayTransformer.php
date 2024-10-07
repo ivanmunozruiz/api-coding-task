@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Messaging\Transformer;
 
-use Throwable;
 use App\Shared\Domain\Aggregate\Message;
 
 interface MessageToArrayTransformer
@@ -20,7 +19,8 @@ interface MessageToArrayTransformer
      *      },
      *     meta: array{}
      *     }
-     * @throws Throwable
+     *
+     * @throws \Throwable
      */
     public function toArray(Message $message): array;
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Infrastructure\Domain\Repository;
 
-use App\LotrContext\Domain\Repository\EquipmentRepository;
-use App\Shared\Domain\ValueObject\Uuid;
-use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
 use App\LotrContext\Domain\Aggregate\Equipment;
+use App\LotrContext\Domain\Repository\EquipmentRepository;
+use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Domain\ValueObject\Uuid;
+use App\Shared\Infrastructure\Domain\Repository\DoctrineRepository;
 
 /** @extends DoctrineRepository<Equipment> */
 final class DoctrineEquipmentRepository extends DoctrineRepository implements EquipmentRepository
@@ -16,7 +16,7 @@ final class DoctrineEquipmentRepository extends DoctrineRepository implements Eq
     public function ofNameTypeAndMadeBy(
         Name $name,
         Name $type,
-        Name $madeBy
+        Name $madeBy,
     ): ?Equipment {
         return $this->repository()->findOneBy([
             'name' => $name->value(),
@@ -34,7 +34,6 @@ final class DoctrineEquipmentRepository extends DoctrineRepository implements Eq
             ->getQuery()
             ->getSingleScalarResult();
     }
-
 
     /** @return class-string<object> */
     protected function entityClass(): string

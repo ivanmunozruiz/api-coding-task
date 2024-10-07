@@ -11,7 +11,6 @@ use Behat\Gherkin\Node\PyStringNode;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Predis\Client as RedisClient;
-use RuntimeException;
 
 final class ApiContext extends BaseApiContext
 {
@@ -121,7 +120,7 @@ final class ApiContext extends BaseApiContext
         return match ($tableName) {
             'users', 'user_access', 'roles' => sprintf('user_context.%s', $tableName),
             'stored_events' => sprintf('shared.%s', $tableName),
-            default => throw new RuntimeException(sprintf('Table %s is not configured.', $tableName)),
+            default => throw new \RuntimeException(sprintf('Table %s is not configured.', $tableName)),
         };
     }
 

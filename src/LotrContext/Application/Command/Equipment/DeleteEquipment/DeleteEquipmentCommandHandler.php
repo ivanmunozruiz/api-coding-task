@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Application\Command\Equipment\DeleteEquipment;
 
+use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
+use App\LotrContext\Domain\Service\Equipment\EquipmentEraser;
 use App\Shared\Application\Command\CommandHandler;
 use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Domain\ValueObject\Uuid;
-use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
-use App\LotrContext\Domain\Service\Equipment\EquipmentEraser;
 
 final class DeleteEquipmentCommandHandler implements CommandHandler
 {

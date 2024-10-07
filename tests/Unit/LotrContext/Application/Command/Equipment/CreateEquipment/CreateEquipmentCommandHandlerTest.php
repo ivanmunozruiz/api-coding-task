@@ -15,7 +15,6 @@ use App\Tests\Unit\Shared\Domain\ValueObject\NameMother;
 use App\Tests\Unit\Shared\Domain\ValueObject\UuidMother;
 use App\Tests\Unit\UnitTestCase;
 use Assert\AssertionFailedException;
-use Assert\InvalidArgumentException;
 use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\Exception;
 

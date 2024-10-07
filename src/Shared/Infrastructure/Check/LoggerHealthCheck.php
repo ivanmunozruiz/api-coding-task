@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Check;
 
 use Psr\Log\LoggerInterface;
-use Throwable;
 
 final class LoggerHealthCheck implements HealthCheck
 {
@@ -24,7 +23,7 @@ final class LoggerHealthCheck implements HealthCheck
             $this->logger->info('Checking if logs are writable');
 
             return Status::SUCCESS->value;
-        } catch (Throwable) {
+        } catch (\Throwable) {
             return Status::FAIL->value;
         }
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Delivery\Rest;
 
-use Symfony\Component\Messenger\Envelope;
 use App\Shared\Application\Query\Query;
 use App\Shared\Domain\DomainException;
+use Symfony\Component\Messenger\Envelope;
 
 final class QueryNotRegisteredException extends DomainException
 {

@@ -7,7 +7,6 @@ namespace App\Shared\Infrastructure\Check;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Throwable;
 
 final class DatabaseHealthCheck implements HealthCheck
 {
@@ -27,7 +26,7 @@ final class DatabaseHealthCheck implements HealthCheck
             Assertion::isInstanceOf($entityManager, EntityManager::class);
             $con = $entityManager->getConnection();
             $con->executeQuery($con->getDatabasePlatform()->getDummySelectSQL())->free();
-        } catch (Throwable) {
+        } catch (\Throwable) {
             return Status::FAIL->value;
         }
 

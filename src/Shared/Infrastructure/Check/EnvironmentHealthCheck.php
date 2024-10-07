@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Check;
 
-use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use function is_string;
 
 final class EnvironmentHealthCheck implements HealthCheck
 {
@@ -24,8 +21,8 @@ final class EnvironmentHealthCheck implements HealthCheck
     {
         $kernelEnvironment = $this->container->getParameter('kernel.environment');
 
-        if (!is_string($kernelEnvironment)) {
-            throw new Exception('kernel.environment is not a string');
+        if (!\is_string($kernelEnvironment)) {
+            throw new \Exception('kernel.environment is not a string');
         }
 
         return $kernelEnvironment;

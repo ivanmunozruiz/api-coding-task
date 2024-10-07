@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\AuthorisationContext\Infrastructure\Domain\Service;
 
+use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
 use App\AuthorisationContext\Infrastructure\Domain\Repository\UserRepository;
-use Exception;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use App\AuthorisationContext\Infrastructure\Domain\Aggregate\User;
 
 /** @template-implements UserProviderInterface<User> */
 final class UserProvider implements UserProviderInterface
@@ -35,7 +34,7 @@ final class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername(string $username): never
     {
-        throw new Exception('Not Implemented');
+        throw new \Exception('Not Implemented');
     }
 
     /**
@@ -44,7 +43,7 @@ final class UserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $user): UserInterface
     {
-        throw new Exception('Not Implemented');
+        throw new \Exception('Not Implemented');
     }
 
     /**

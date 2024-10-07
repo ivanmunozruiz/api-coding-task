@@ -43,7 +43,7 @@ class EquipmentUpdated extends DomainEventMessage
         int $messageVersion,
         int $occurredOn,
     ): self {
-        /** @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         return new self(
             $aggregateId,
             $payload['aggregate_id'],

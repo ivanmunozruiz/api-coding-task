@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Aggregate;
 
-use Throwable;
-
 abstract class DomainEvent
 {
     /**
@@ -22,6 +20,7 @@ abstract class DomainEvent
 
     /**
      * @param array<string, mixed> $payload
+     *
      * @return static
      */
     abstract public static function fromPrimitives(
@@ -56,7 +55,6 @@ abstract class DomainEvent
     {
         return $this->messageVersion;
     }
-
 
     abstract public function messageName(): string;
 

@@ -10,14 +10,13 @@ use Predis\Client as RedisClient;
 
 abstract class RedisCacheRepository
 {
-    protected const CACHE_KEY_PREFIX = 'redis:';
-
-    protected const CACHE_EXPIRY = 300;
-
-
     use Cacheable {
         Cacheable::__construct as private traitConstruct;
     }
+
+    protected const CACHE_KEY_PREFIX = 'redis:';
+
+    protected const CACHE_EXPIRY = 300;
 
     public function __construct(RedisClient $redis)
     {

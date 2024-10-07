@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Messaging;
 
-use App\Shared\Domain\Aggregate\Message;
 use App\Shared\Application\Messaging\Bus\EventBus;
+use App\Shared\Domain\Aggregate\Message;
 
 final class SpyMessageBus implements EventBus
 {

@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Domain\Repository;
 
+use App\Shared\Domain\Criteria\Criteria;
 use Assert\AssertionFailedException;
 use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\QueryException;
-use App\Shared\Domain\Criteria\Criteria;
-
-use function is_array;
-use function is_int;
 
 /** @template T */
 trait DoctrinePageableRepository
@@ -40,7 +37,7 @@ trait DoctrinePageableRepository
             ->getQuery()
             ->getSingleScalarResult();
 
-        if (!is_int($results)) {
+        if (!\is_int($results)) {
             throw new NoResultException();
         }
 
@@ -49,6 +46,7 @@ trait DoctrinePageableRepository
 
     /**
      * @return array<T>
+     *
      * @throws AssertionFailedException
      * @throws QueryException
      */
@@ -65,7 +63,7 @@ trait DoctrinePageableRepository
             ->getQuery()
             ->getResult();
 
-        if (!is_array($results)) {
+        if (!\is_array($results)) {
             return [];
         }
 

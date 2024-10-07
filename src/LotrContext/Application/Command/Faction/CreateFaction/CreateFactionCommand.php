@@ -14,9 +14,9 @@ final class CreateFactionCommand implements Command
         private readonly string $factionName,
         private readonly string $description,
     ) {
-        Assertion::notEmpty($identifier, 'The id is required');
-        Assertion::notEmpty($factionName, 'The faction name is required');
-        Assertion::notEmpty($description, 'The description is required');
+        Assertion::notEmpty($identifier, 'id is required');
+        Assertion::notEmpty($factionName, 'name field is required');
+        Assertion::notEmpty($description, 'description field is required');
     }
 
     public function identifier(): string

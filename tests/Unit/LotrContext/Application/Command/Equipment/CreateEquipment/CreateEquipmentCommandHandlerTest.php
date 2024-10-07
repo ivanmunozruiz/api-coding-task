@@ -15,6 +15,7 @@ use App\Tests\Unit\Shared\Domain\ValueObject\NameMother;
 use App\Tests\Unit\Shared\Domain\ValueObject\UuidMother;
 use App\Tests\Unit\UnitTestCase;
 use Assert\AssertionFailedException;
+use Assert\InvalidArgumentException;
 use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\Exception;
 
@@ -88,6 +89,45 @@ final class CreateEquipmentCommandHandlerTest extends UnitTestCase
             ->shouldReceive('setData')
             ->with($uuid->id(), $equipment->jsonSerialize())
             ->once();
+
+        $this->commandHandler->__invoke($command);
+    }
+
+    /**
+     * @throws EquipmentAlreadyExistsException
+     * @throws AssertionFailedException
+     */
+    public function testCreateEquipmentCommandHandlerThrowsEquipmentAlreadyExistsException(): void
+    {
+        $name = NameMother::create('The One Ring');
+        $type = NameMother::create('Ring');
+        $madeBy = NameMother::create('Sauron');
+        $uuid = UuidMother::random();
+        $command = new CreateEquipmentCommand(
+            $uuid->id(),
+            $name->value(),
+            $type->value(),
+            $madeBy->value()
+        );
+        $equipment = EquipmentMother::create(
+            $uuid,
+            $name,
+            $type,
+            $madeBy
+        );
+
+        $this->equipmentRepository
+            ->shouldReceive('ofId')
+            ->with($uuid->id())
+            ->andReturnNull()
+            ->once();
+        $this->equipmentRepository
+            ->shouldReceive('ofNameTypeAndMadeBy')
+            ->with($name->value(), $type->value(), $madeBy->value())
+            ->andReturn($equipment)
+            ->once();
+
+        $this->expectException(EquipmentAlreadyExistsException::class);
 
         $this->commandHandler->__invoke($command);
     }

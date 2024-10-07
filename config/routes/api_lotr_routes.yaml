@@ -42,3 +42,10 @@ lotr_context.rest.equipment.update_equipment.page:
   path: /equipments/{id}
   methods: PUT
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\UpdateEquipmentPage'
+
+
+# FACTION ROUTES
+lotr_context.rest.character.create_character.page:
+  path: /characters
+  methods: POST
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\CreateCharacterPage'

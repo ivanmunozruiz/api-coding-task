@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\LotrContext\Domain\Aggregate\Character" table="characters">
+        <id name="id" type="uuid" column="id" length="36">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="name" type="short_string" column="name" length="128"/>
+        <field name="kingdom" type="short_string" column="kingdom"/>
+        <field name="birthDate" type="date_custom" column="birth_date"/>
+        <field name="equipmentId" type="uuid" column="equipment_id" length="36"/>
+        <field name="factionId" type="uuid" column="faction_id" length="36"/>
+    </entity>
+</doctrine-mapping>

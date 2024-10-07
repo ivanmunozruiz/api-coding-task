@@ -12,6 +12,7 @@ doctrine:
           short_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\NameType
           long_string:  App\Shared\Infrastructure\Persistence\Doctrine\Type\LongTextType
           uuid: App\Shared\Infrastructure\Persistence\Doctrine\Type\UuidType
+          date_custom: App\Shared\Infrastructure\Persistence\Doctrine\Type\CarbonTzImmutableType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

@@ -10,5 +10,5 @@ final class RedisEquipmentRepository extends RedisCacheRepository implements Red
 {
     protected const CACHE_KEY_PREFIX = 'equipment:';
 
-    protected const CACHE_EXPIRY = 300;
+    protected const CACHE_EXPIRY = 3000;
 }

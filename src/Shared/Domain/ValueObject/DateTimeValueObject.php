@@ -49,6 +49,15 @@ final class DateTimeValueObject implements JsonSerializable, Stringable, Equalab
         return null === $value ? null : self::withDatetime($value);
     }
 
+    /**
+     * @throws AssertionFailedException
+     */
+    public static function from(string $value): self
+    {
+        Assertion::date($value, 'Y-m-d', 'Invalid date format');
+        return self::withDatetime($value);
+    }
+
     /** @throws AssertionFailedException */
     public static function fromTimestamp(int $timestamp): self
     {

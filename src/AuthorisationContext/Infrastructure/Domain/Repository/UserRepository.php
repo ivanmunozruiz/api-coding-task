@@ -38,13 +38,7 @@ final class UserRepository
         }
 
         $storageKey = $this->prepareStorageKey($token);
-        $validTokenUser = $this->getTokenCacheData($storageKey);
-
-        if (!$validTokenUser instanceof User) {
-            return null;
-        }
-
-        return $validTokenUser;
+        return $this->getTokenCacheData($storageKey);
     }
 
     /** @throws AssertionFailedException */

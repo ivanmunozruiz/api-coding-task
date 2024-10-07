@@ -20,4 +20,9 @@ class CharacterDeleted extends CharacterEvent
             $character->factionId()->id(),
         );
     }
+
+    public function messageAggregateAction(): string
+    {
+        return 'deleted';
+    }
 }

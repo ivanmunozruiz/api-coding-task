@@ -15,8 +15,10 @@ interface RedisCacheCharacterRepository
     /** @return null|array{
      *     id: string,
      *     name: string,
-     *     type: string,
-     *     made_by: string,
+     *     birth_date: string,
+     *     kingdom: string,
+     *     equipment_id: string,
+     *     faction_id: string,
      * }
      */
     public function getData(Uuid $uuid): ?array;

@@ -23,7 +23,6 @@ final class RoutingKeyMiddleware implements MiddlewareInterface
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
         $message = $envelope->getMessage();
-
         if ($message instanceof Message) {
             $envelope = $envelope->withoutStampsOfType(AmqpStamp::class);
             $envelope = $envelope->with(new AmqpStamp($this->toMessageNameConverter->convert($message)));

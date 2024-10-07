@@ -4,32 +4,20 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Aggregate;
 
-use Assert\AssertionFailedException;
 use Throwable;
-use App\Shared\Domain\ClassFunctions;
-use App\Shared\Domain\ValueObject\DateTimeValueObject;
-use App\Shared\Domain\ValueObject\Uuid;
 
 abstract class DomainEvent
 {
-    protected const MESSAGE_VERSION = 1;
-
-    private readonly string $messageId;
-
-    private readonly int $messageVersion;
-
-    private readonly string $occurredOn;
-
-    /** @throws AssertionFailedException */
+    /**
+     * @param array<string, mixed> $payload
+     */
     protected function __construct(
         private readonly string $aggregateId,
-        ?string $messageId = null,
-        ?int $messageVersion = null,
-        ?string $occurredOn = null,
+        private readonly string $messageId,
+        private readonly int $messageVersion,
+        protected readonly array $payload,
+        private readonly int $occurredOn,
     ) {
-        $this->messageId = $messageId ?? Uuid::random()->id();
-        $this->messageVersion = $messageVersion ?? self::MESSAGE_VERSION;
-        $this->occurredOn = $occurredOn ?? DateTimeValueObject::now()->toRfc3339String();
     }
 
     /**
@@ -41,7 +29,7 @@ abstract class DomainEvent
         array $payload,
         string $messageId,
         int $messageVersion,
-        string $occurredOn,
+        int $occurredOn,
     ): self;
 
     /** @return array<string, mixed> */
@@ -57,17 +45,9 @@ abstract class DomainEvent
         return $this->messageId;
     }
 
-    public function messageAggregateContext(): string
-    {
-        $classNameSplit = explode('\\', $this->aggregateName());
-        $aggregateContext = ClassFunctions::toKebabCase($classNameSplit[1]);
-
-        return str_replace('-context', '', $aggregateContext);
-    }
-
     abstract public function aggregateName(): string;
 
-    public function occurredOn(): string
+    public function occurredOn(): int
     {
         return $this->occurredOn;
     }
@@ -77,24 +57,14 @@ abstract class DomainEvent
         return $this->messageVersion;
     }
 
-    public function messageType(): string
+
+    abstract public function messageName(): string;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function payload(): array
     {
-        return 'domain-event';
-    }
-
-    /** @throws Throwable */
-    public function messageAggregateAction(): string
-    {
-        $value = ClassFunctions::extractClassName($this);
-        $actionName = ClassFunctions::toKebabCase($value);
-
-        return str_replace($this->messageAggregateName() . '-', '', $actionName);
-    }
-
-    public function messageAggregateName(): string
-    {
-        $aggregateName = ClassFunctions::extractClassNameFromString($this->aggregateName(), '');
-
-        return ClassFunctions::toKebabCase($aggregateName);
+        return $this->payload;
     }
 }

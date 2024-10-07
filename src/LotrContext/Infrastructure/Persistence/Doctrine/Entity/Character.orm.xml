@@ -8,7 +8,7 @@
         </id>
         <field name="name" type="short_string" column="name" length="128"/>
         <field name="kingdom" type="short_string" column="kingdom"/>
-        <field name="birthDate" type="date_custom" column="birth_date"/>
+        <field name="birthDate" type="birth_date_type" column="birth_date"/>
         <field name="equipmentId" type="uuid" column="equipment_id" length="36"/>
         <field name="factionId" type="uuid" column="faction_id" length="36"/>
     </entity>

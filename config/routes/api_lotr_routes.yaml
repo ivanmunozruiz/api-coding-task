@@ -49,3 +49,7 @@ lotr_context.rest.character.create_character.page:
   path: /characters
   methods: POST
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\CreateCharacterPage'
+lotr_context.rest.character.fetch_character.page:
+  path: /characters/{id}
+  methods: GET
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\FetchCharacterPage'

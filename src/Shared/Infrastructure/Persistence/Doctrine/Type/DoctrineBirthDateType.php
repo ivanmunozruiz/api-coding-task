@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 
+use App\Shared\Domain\ClassFunctions;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
+use Assert\AssertionFailedException;
 use Carbon\CarbonImmutable;
-use Carbon\Doctrine\CarbonDoctrineType;
 use Carbon\Doctrine\CarbonTypeConverter;
 use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\DateTimeTzImmutableType as DateTimeTzType;
+use Doctrine\DBAL\Types\Type;
 
-final class CarbonTzImmutableType extends DateTimeTzType implements CarbonDoctrineType
+final class DoctrineBirthDateType extends Type
 {
     /** @use CarbonTypeConverter<CarbonImmutable> */
     use CarbonTypeConverter;
 
-    /**
-     * @template T of DateTimeInterface
-     * @throws ConversionException
-     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
@@ -43,7 +40,30 @@ final class CarbonTzImmutableType extends DateTimeTzType implements CarbonDoctri
 
     public function getName(): string
     {
-        return 'carbon_tz_immutable';
+        $className = ClassFunctions::extractClassNameFromString($this->entityClass());
+
+        return ClassFunctions::toSnakeCase($className);
+    }
+
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTimeValueObject
+    {
+        if (null === $value) {
+            return null;
+        }
+
+        try {
+            /** @var DateTimeValueObject $className */
+            $className = $this->entityClass();
+
+            return $className::from(($value));
+        } catch (AssertionFailedException) {
+            throw new ConversionException('Invalid value');
+        }
+    }
+
+    public function canRequireSQLConversion(): bool
+    {
+        return true;
     }
 
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
@@ -51,8 +71,8 @@ final class CarbonTzImmutableType extends DateTimeTzType implements CarbonDoctri
         return true;
     }
 
-    protected function getCarbonClassName(): string
+    public function entityClass(): string
     {
-        return CarbonImmutable::class;
+        return DateTimeValueObject::class;
     }
 }

@@ -44,7 +44,7 @@ class FactionEvent extends DomainEventMessage
         /** @phpstan-ignore-next-line  */
         return new self(
             $aggregateId,
-            strval($payload['id']),
+            $payload['aggregate_id'],
             $payload['name'],
             $payload['description'],
             $messageId,

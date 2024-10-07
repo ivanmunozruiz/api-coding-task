@@ -46,12 +46,32 @@ final class CharacterCreator
 
         $this->characterRepository->save($character);
         //TODO: migrate this to async event ON CREATE
+
+
+        return $character;
+    }
+
+    public function createInCache(
+        Uuid $identifier,
+        Name $name,
+        DateTimeValueObject $birthDate,
+        Name $kingdom,
+        Uuid $equipmentId,
+        Uuid $factionId
+    ): void {
+        $character = Character::from(
+            $identifier,
+            $name,
+            $birthDate,
+            $kingdom,
+            $equipmentId,
+            $factionId
+        );
+
         $this->redisCacheCharacterRepository->setData(
             $identifier,
             $character->jsonSerialize()
         );
-
-        return $character;
     }
 
     /** @throws UuIdAlreadyExistsException */

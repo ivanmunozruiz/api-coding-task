@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+  api-coding-task.mapping.events:
+    'api-coding-task.lotr.1.domain-event.character.created': 'App\LotrContext\Domain\Event\Character\CharacterCreated'
 
 services:
     # default configuration for services in *this* file
@@ -52,3 +54,9 @@ services:
     Predis\Client:
       arguments:
         $parameters: "redis://%env(REDIS_HOST)%:%env(int:REDIS_PORT)%/%env(int:REDIS_DB)%"
+
+
+    App\Shared\Infrastructure\Messaging\Transformer\ArrayToDomainMessageTransformer:
+        public: true
+        arguments:
+            $mappings: '%api-coding-task.mapping.events%'

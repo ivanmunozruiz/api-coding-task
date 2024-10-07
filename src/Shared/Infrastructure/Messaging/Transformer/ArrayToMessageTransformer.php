@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Messaging\Transformer;
 
-use App\Shared\Domain\Aggregate\DomainEvent;
+use App\Shared\Domain\Aggregate\Message;
 
 interface ArrayToMessageTransformer
 {
@@ -23,5 +23,5 @@ interface ArrayToMessageTransformer
      * }
      * } $payload
      */
-    public function toMessage(array $payload): DomainEvent;
+    public function toMessage(array $payload): Message;
 }

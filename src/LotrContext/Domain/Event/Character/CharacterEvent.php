@@ -50,7 +50,7 @@ class CharacterEvent extends DomainEventMessage
         /** @phpstan-ignore-next-line  */
         return new self(
             $aggregateId,
-            strval($payload['id']),
+            $payload['aggregate_id'],
             $payload['name'],
             $payload['birthDate'],
             $payload['kingdom'],

@@ -6,6 +6,8 @@
 parameters:
   api-coding-task.mapping.events:
     'api-coding-task.lotr.1.domain-event.character.created': 'App\LotrContext\Domain\Event\Character\CharacterCreated'
+    'api-coding-task.lotr.1.domain-event.faction.created': 'App\LotrContext\Domain\Event\Faction\FactionCreated'
+    'api-coding-task.lotr.1.domain-event.equipment.created': 'App\LotrContext\Domain\Event\Equipment\EquipmentCreated'
 
 services:
     # default configuration for services in *this* file

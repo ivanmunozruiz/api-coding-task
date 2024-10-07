@@ -34,10 +34,19 @@ final class EquipmentCreator
         );
 
         $this->equipmentRepository->save($equipment);
-        //TODO: migrate this to async event ON CREATE
-        $this->redisCacheEquipmentRepository->setData($identifier, $equipment->jsonSerialize());
-
         return $equipment;
+    }
+
+    public function createInCache(Uuid $identifier, Name $name, Name $type, Name $madeBy): void
+    {
+        $equipment = Equipment::from(
+            $identifier,
+            $name,
+            $type,
+            $madeBy
+        );
+
+        $this->redisCacheEquipmentRepository->setData($identifier, $equipment->jsonSerialize());
     }
 
     /** @throws EquipmentAlreadyExistsException */

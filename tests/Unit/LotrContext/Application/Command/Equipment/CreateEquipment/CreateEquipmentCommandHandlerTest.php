@@ -88,7 +88,7 @@ final class CreateEquipmentCommandHandlerTest extends UnitTestCase
         $this->redisCacheEquipmentRepository
             ->shouldReceive('setData')
             ->with($uuid->id(), $equipment->jsonSerialize())
-            ->once();
+            ->never();
 
         $this->commandHandler->__invoke($command);
     }

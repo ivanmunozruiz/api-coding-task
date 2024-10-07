@@ -34,10 +34,18 @@ final class FactionCreator
         );
 
         $this->factionRepository->save($faction);
-        //TODO: migrate this to async event ON CREATE
-        $this->redisCacheFactionRepository->setData($identifier, $faction->jsonSerialize());
-
         return $faction;
+    }
+
+    public function createInCache(Uuid $identifier, Name $name, StringValueObject $description): void
+    {
+        $faction = Faction::from(
+            $identifier,
+            $name,
+            $description,
+        );
+
+        $this->redisCacheFactionRepository->setData($identifier, $faction->jsonSerialize());
     }
 
     /** @throws FactionAlreadyExistsException */

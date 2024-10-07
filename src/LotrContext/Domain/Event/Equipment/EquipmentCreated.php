@@ -48,7 +48,7 @@ class EquipmentCreated extends DomainEventMessage
             $aggregateId,
             $payload['aggregate_id'],
             $payload['name'],
-            $payload['type'],
+            $payload['type'] ?? '',
             $payload['madeBy'],
             $messageId,
             $messageVersion,
@@ -86,7 +86,7 @@ class EquipmentCreated extends DomainEventMessage
         return [
             'entityId' => $this->entityId(),
             'name' => $this->name(),
-            'description' => $this->type(),
+            'type' => $this->type(),
             'madeBy' => $this->madeBy(),
         ];
     }

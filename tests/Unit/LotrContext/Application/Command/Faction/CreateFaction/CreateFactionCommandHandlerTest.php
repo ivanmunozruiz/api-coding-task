@@ -79,7 +79,7 @@ final class CreateFactionCommandHandlerTest extends UnitTestCase
         $this->redisCacheFactionRepository
             ->shouldReceive('setData')
             ->with($uuid->id(), $faction->jsonSerialize())
-            ->once();
+            ->never();
 
         $this->commandHandler->__invoke($command);
     }

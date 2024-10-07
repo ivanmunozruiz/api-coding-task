@@ -1,10 +1,8 @@
 <?php
 
-namespace App\LotrContext\Application\Event;
+namespace App\LotrContext\Application\Event\Character;
 
 use App\LotrContext\Domain\Event\Character\CharacterCreated;
-use App\LotrContext\Domain\Message\Character\CharacterCreatedMessage;
-use App\LotrContext\Domain\Repository\RedisCacheCharacterRepository;
 use App\LotrContext\Domain\Service\Character\CharacterCreator;
 use App\Shared\Application\Event\EventHandler;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;

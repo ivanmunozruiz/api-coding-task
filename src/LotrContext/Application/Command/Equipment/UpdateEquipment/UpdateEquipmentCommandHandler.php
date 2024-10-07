@@ -30,13 +30,13 @@ final class UpdateEquipmentCommandHandler implements CommandHandler
         $madeBy = Name::from($command->madeBy());
         $identifier = Uuid::from($command->identifier());
 
-        $faction = $this->equipmentUpdater->update(
+        $equipment = $this->equipmentUpdater->update(
             $identifier,
             $name,
             $type,
             $madeBy,
         );
 
-        $this->eventBus->publish(...$faction->events());
+        $this->eventBus->publish(...$equipment->events());
     }
 }

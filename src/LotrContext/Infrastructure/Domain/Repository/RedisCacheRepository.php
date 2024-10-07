@@ -40,7 +40,6 @@ abstract class RedisCacheRepository
     }
 
     /**
-     * @param Uuid $uuid
      * @param array<mixed> $data
      */
     public function setData(Uuid $uuid, array $data): void

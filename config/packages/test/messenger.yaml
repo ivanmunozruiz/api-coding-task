@@ -19,5 +19,4 @@ framework:
           - 'doctrine_ping_connection'
           - 'doctrine_close_connection'
           - App\Shared\Infrastructure\Messaging\Middleware\MessageMiddleware
-          #- App\Tests\Functional\Shared\Infrastructure\Messenger\DoctrineFlushMiddleware
           - 'doctrine_transaction'

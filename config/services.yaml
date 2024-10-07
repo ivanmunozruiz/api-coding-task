@@ -60,7 +60,18 @@ services:
       public: true
       bind:
         $adminId: '%env(resolve:ADMIN_USER_ID)%'
-
+    Symfony\Component\DependencyInjection\ContainerInterface:
+        alias: 'service_container'
+    App\Shared\Infrastructure\Delivery\Rest\HealthCheck\HealthCheckGetPage:
+        public: true
+        bind:
+            $dependencyFactory: '@doctrine.migrations.dependency_factory'
+            $healthChecks:
+                - '@App\Shared\Infrastructure\Check\EnvironmentHealthCheck'
+                - '@App\Shared\Infrastructure\Check\LoggerHealthCheck'
+                - '@App\Shared\Infrastructure\Check\DatabaseHealthCheck'
+                - '@App\Shared\Infrastructure\Check\StatusHealthCheck'
+                - '@App\Shared\Infrastructure\Check\TimeStampHealthCheck'
 
     App\Shared\Infrastructure\Messaging\Transformer\ArrayToDomainMessageTransformer:
         public: true

@@ -1,0 +1,4 @@
+shared.rest.get_health_check:
+  path: /health-check
+  methods:  GET
+  controller: 'App\Shared\Infrastructure\Delivery\Rest\HealthCheck\HealthCheckGetPage'

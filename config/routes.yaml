@@ -1,3 +1,6 @@
 lotr_context:
   resource: ./routes/api_lotr_routes.yaml
   prefix: /api/v1
+shared_context:
+  resource: ./routes/api_shared_routes.yaml
+  prefix: /api

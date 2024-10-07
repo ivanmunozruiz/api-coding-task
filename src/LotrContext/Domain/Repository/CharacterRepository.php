@@ -17,7 +17,6 @@ interface CharacterRepository extends DomainRepository
 
     /**
      * @phpstan-return Character|null
-     * @return Character|null
      * @param array<string, string> $criteria
      */
     public function findOneBy(array $criteria): ?Character;

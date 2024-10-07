@@ -19,7 +19,7 @@ final class ApiContext extends BaseApiContext
     use AuthorisationContext;
 
     private const LOTR_TABLES = [
-        'lotr.factions',
+        'factions',
     ];
 
     public function __construct(

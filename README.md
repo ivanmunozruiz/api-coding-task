@@ -1,5 +1,8 @@
 # LOTR CRUD Project - Api coding task
 
+<div align="center">
+  <img src="public/you-shall-not-pass-lotr.gif" alt="LOTR Ring" />
+</div>
 **A comprehensive CRUD application based on The Lord of the Rings universe, developed using Symfony and Domain-Driven Design (DDD). The project incorporates API documentation with AsyncAPI and OpenAPI, testing tools, and Dockerized environments.**
 
 ## Table of Contents

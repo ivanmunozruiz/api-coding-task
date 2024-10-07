@@ -19,14 +19,12 @@ use Mockery\MockInterface;
 final class ListEquipmentsQueryHandlerTest extends UnitTestCase
 {
     private EquipmentRepository|MockInterface $equipmentRepository;
-    private RedisCacheEquipmentRepository|MockInterface $redisCacheEquipmentRepository;
     private ListEquipmentsQueryHandler $commandHandler;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->equipmentRepository = $this->customMock(EquipmentRepository::class);
-        $this->redisCacheEquipmentRepository = $this->customMock(RedisCacheEquipmentRepository::class);
         $searchEquipmentsByCriteria = new SearchEquipmentsByCriteria(
             $this->equipmentRepository
         );

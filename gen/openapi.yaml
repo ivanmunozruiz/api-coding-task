@@ -9,7 +9,7 @@ info:
     url: http://localhost:8080/support
     email: ivan.sazo@gmail.com
 servers:
-  - url: http://localhost:8080/api/v1
+  - url: http://localhost:8080/api
     description: Servidor local
 components:
   securitySchemes:
@@ -23,7 +23,48 @@ tags:
   - name: Characters
     description: Operaciones relacionadas con los personajes
 paths:
-  /characters:
+  /health-check:
+    get:
+      summary: Comprobar el estado de la API
+      description: Devuelve un mensaje de éxito si la API está en funcionamiento.
+      operationId: healthCheck
+      tags:
+        - Health Check
+      responses:
+        "200":
+          description: API en funcionamiento
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  time_zone:
+                    type: string
+                    example: UTC
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: 2024-10-07T17:24:38.641+00:00
+                  environment:
+                    type: string
+                    example: dev
+                  logger:
+                    type: string
+                    example: OK
+                  database:
+                    type: string
+                    example: OK
+                  status:
+                    type: string
+                    example: OK
+                  timestamp:
+                    type: string
+                    format: timestamp
+                    example: "1728321878"
+                  migrations:
+                    type: string
+                    example: OK
+  /v1/characters:
     get:
       summary: Obtener todos los personajes
       description: Devuelve una lista de todos los personajes disponibles.
@@ -115,7 +156,7 @@ paths:
                   faction_id:
                     type: string
                     format: uuid
-  "/characters/{id}":
+  "/v1/characters/{id}":
     get:
       summary: Obtener un personaje por ID
       description: Devuelve un personaje específico basado en su ID.
@@ -214,7 +255,7 @@ paths:
           description: Personaje eliminado
         "404":
           description: Personaje no encontrado
-  /factions:
+  /v1/factions:
     get:
       summary: Obtener todos los factions
       description: Devuelve una lista de todos los factions disponibles.
@@ -280,7 +321,7 @@ paths:
               schema:
                 type: object
                 properties: null
-  "/factions/{id}":
+  "/v1/factions/{id}":
     get:
       summary: Obtener un faction por ID
       description: Devuelve un faction específico basado en su ID.
@@ -361,7 +402,7 @@ paths:
           description: Faction eliminado
         "404":
           description: Faction no encontrado
-  /equipments:
+  /v1/equipments:
     get:
       summary: Obtener todos los equipments
       description: Devuelve una lista de todos los equipments disponibles.
@@ -431,7 +472,7 @@ paths:
               schema:
                 type: object
                 properties: null
-  "/equipments/{id}":
+  "/v1/equipments/{id}":
     get:
       summary: Obtener un equipment por ID
       description: Devuelve un equipment específico basado en su ID.

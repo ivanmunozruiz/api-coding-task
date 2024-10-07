@@ -34,3 +34,7 @@ lotr_context.rest.equipment.delete_equipment.page:
   path: /equipments/{id}
   methods: DELETE
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\DeleteEquipmentPage'
+lotr_context.rest.faction.list_equipment.page:
+  path: /equipments
+  methods: GET
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\ListEquipmentPage'

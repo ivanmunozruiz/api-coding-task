@@ -36,8 +36,12 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
+      - name: Import init-test.sql
+      run: |
+        mysql -h 127.0.0.1 -u root --password=root lotr_test < opt/db/init-test.sql
+
       - name: Run tests
         run: |
           ./vendor/bin/phpunit
-          ./vendor/bin/behat
+          ./vendor/bin/behat --no-snippets --strict --colors
 

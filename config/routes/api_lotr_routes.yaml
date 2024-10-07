@@ -57,3 +57,7 @@ lotr_context.rest.character.list_equipment.page:
   path: /characters
   methods: GET
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\ListCharacterPage'
+lotr_context.rest.character.delete_character.page:
+  path: /characters/{id}
+  methods: DELETE
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\DeleteCharacterPage'

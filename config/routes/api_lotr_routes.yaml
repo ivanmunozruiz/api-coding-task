@@ -1,3 +1,4 @@
+# EQUIPMENT ROUTES
 lotr_context.rest.faction.create_faction.page:
   path: /factions
   methods: POST
@@ -18,3 +19,15 @@ lotr_context.rest.faction.delete_faction.page:
   path: /factions/{id}
   methods: DELETE
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\DeleteFactionPage'
+
+
+# FACTION ROUTES
+lotr_context.rest.equipment.create_equipment.page:
+  path: /equipments
+  methods: POST
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\CreateEquipmentPage'
+
+lotr_context.rest.equipment.delete_equipment.page:
+  path: /equipments/{id}
+  methods: DELETE
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\DeleteEquipmentPage'

@@ -17,8 +17,15 @@ framework:
               queues:
                   api-coding-task-async-events:
                       binding_keys: [
+                        # Faction events
                         'api-coding-task.lotr.1.domain-event.faction.created',
+                        'api-coding-task.lotr.1.domain-event.faction.updated',
                         'api-coding-task.lotr.1.domain-event.faction.deleted',
+
+                        # Equipment events
+                        'api-coding-task.lotr.1.domain-event.equipment.created',
+                        'api-coding-task.lotr.1.domain-event.equipment.updated',
+                        'api-coding-task.lotr.1.domain-event.equipment.deleted',
                       ]
                       arguments:
                         x-dead-letter-exchange: '%env(APP_NAME)%-dead-letter'

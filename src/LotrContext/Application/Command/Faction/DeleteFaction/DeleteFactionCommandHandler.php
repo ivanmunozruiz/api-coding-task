@@ -9,7 +9,6 @@ use App\Shared\Application\Messaging\Bus\EventBus;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
 use App\LotrContext\Domain\Service\Faction\FactionEraser;
-use App\LotrContext\Domain\Event\Faction\FactionDeleted;
 
 final class DeleteFactionCommandHandler implements CommandHandler
 {

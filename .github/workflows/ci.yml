@@ -1,0 +1,55 @@
+name: CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: lotr
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+      redis:
+        image: redis:7.2-alpine3.19
+        ports:
+          - 6379:6379
+      rabbitmq:
+        image: rabbitmq:3.9-management-alpine
+        ports:
+          - 5672:5672
+          - 15672:15672
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        extensions: mbstring, xdebug, redis, amqp
+        ini-values: |
+          memory_limit = -1
+          xdebug.mode = coverage
+        tools: composer, phpunit
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Run database migrations
+      run: docker exec -i api-coding-task-php bin/console doctrine:migrations:migrate --no-interaction
+
+    - name: Run Unit Tests
+      run: vendor/bin/phpunit --coverage-text --colors=never
+
+    - name: Run Behat Tests
+      run: vendor/bin/behat --no-snippets --strict
+

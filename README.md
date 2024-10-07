@@ -6,7 +6,7 @@
 **A comprehensive CRUD application based on The Lord of the Rings universe, developed using Symfony and Domain-Driven Design (DDD). The project incorporates API documentation with AsyncAPI and OpenAPI, testing tools, and Dockerized environments.**
 
 
-This project includes a POSTMAN collection with the requests
+This project includes a POSTMAN 2.1 collection with the requests
 
 [Click here to download the file](./postmanCollection/LOTR.postman_collection.json)
 

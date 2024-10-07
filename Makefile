@@ -133,7 +133,9 @@ local-ci:
 setup-hooks: ## Configure git hooks
 	@git config core.hooksPath ./hooks/
 
-
+# RABBIT COMMANDS ------------------------------------------------------------------------------------------------------
+consume-async-events: ## Run the rabbit consumer
+	docker exec -i api-coding-task-php bin/console messenger:consume -q events_async
 
 ##@ Testing
 UNIT_TEST_PATH :=

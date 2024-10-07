@@ -38,3 +38,7 @@ lotr_context.rest.faction.list_equipment.page:
   path: /equipments
   methods: GET
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\ListEquipmentPage'
+lotr_context.rest.equipment.update_equipment.page:
+  path: /equipments/{id}
+  methods: PUT
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\UpdateEquipmentPage'

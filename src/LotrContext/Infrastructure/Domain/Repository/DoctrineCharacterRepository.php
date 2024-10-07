@@ -22,6 +22,11 @@ final class DoctrineCharacterRepository extends DoctrineRepository implements Ch
             ->getSingleScalarResult();
     }
 
+    public function findOneBy(array $criteria): ?Character
+    {
+        return $this->repository()->findOneBy($criteria);
+    }
+
     /** @return class-string<object> */
     protected function entityClass(): string
     {

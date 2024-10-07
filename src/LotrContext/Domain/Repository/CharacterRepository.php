@@ -14,4 +14,10 @@ use App\Shared\Domain\ValueObject\Uuid;
 interface CharacterRepository extends DomainRepository
 {
     public function remove(Uuid $identifier): void;
+
+    /**
+     * @return Character|null
+     * @param array<string, mixed> $criteria
+     */
+    public function findOneBy(array $criteria): ?Character;
 }

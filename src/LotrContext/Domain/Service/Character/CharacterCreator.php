@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Character;
 
+use App\LotrContext\Domain\Exception\Character\CharacterAlreadyExistsException;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
 use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
 use App\LotrContext\Domain\Repository\CharacterRepository;
@@ -39,11 +40,10 @@ final class CharacterCreator
         Uuid $equipmentId,
         Uuid $factionId
     ): Character {
-        $this->ensureCharacterDoesntExist(
-            $identifier
-        );
         $this->ensureEquipmentExists($equipmentId);
         $this->ensureFactionExists($factionId);
+        $this->ensureCharacterDoesntExist($identifier, $name, $birthDate, $kingdom, $equipmentId, $factionId);
+
         $character = Character::from(
             $identifier,
             $name,
@@ -85,11 +85,30 @@ final class CharacterCreator
 
     /** @throws UuIdAlreadyExistsException */
     private function ensureCharacterDoesntExist(
-        Uuid $identifier
+        Uuid $identifier,
+        Name $name,
+        DateTimeValueObject $birthDate,
+        Name $kingdom,
+        Uuid $equipmentId,
+        Uuid $factionId
     ): void {
         $character = $this->characterRepository->ofId($identifier);
         if ($character instanceof Character) {
             throw UuIdAlreadyExistsException::from($identifier);
+        }
+
+        $character = $this->characterRepository->findOneBy(
+            [
+                'name' => $name,
+                'birthDate' => $birthDate,
+                'kingdom' => $kingdom,
+                'equipmentId' => $equipmentId,
+                'factionId' => $factionId
+            ]
+        );
+
+        if ($character instanceof Character) {
+            throw CharacterAlreadyExistsException::from();
         }
     }
 

@@ -36,6 +36,12 @@ BEHAT = ./vendor/bin/behat
 COVERAGE_DIR = coverage/
 EXEC_APP = docker exec -it api-coding-task-php
 EXEC_APP_NO_IT = docker exec api-coding-task-php
+OS_NAME := $(shell uname -s | tr A-Z a-z)
+ifeq ($(OS_NAME),darwin)
+	NUM_PROCESSORS := $(shell sysctl -n hw.ncpu)
+else
+	NUM_PROCESSORS := $(shell nproc)
+endif
 
 
 # DEFAULT COMMANDS -----------------------------------------------------------------------------------------------------
@@ -155,11 +161,7 @@ unit-test-coverage: clean-reports ## Execute unit tests with coverage
 MUTANT_TEST_PATH :=
 
 mutant-test: unit-test-coverage ## Execute mutant tests
-	ifneq ($(strip $(MUTANT_TEST_PATH)),)
-		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/infection --filter=$(MUTANT_TEST_PATH) --threads=${NUM_PROCESSORS} --coverage=report --skip-initial-tests --show-mutations
-	else
-		$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/infection --threads=${NUM_PROCESSORS} --coverage=report --skip-initial-tests --show-mutations
-	endif
+	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/infection --threads=${NUM_PROCESSORS} --coverage=report --skip-initial-tests --show-mutations
 
 
 BDD_TEST_PATH :=

@@ -1,0 +1,20 @@
+{
+  "source": {
+    "directories": [
+      "src/LotrContext/Application/*",
+      "tests"
+    ],
+    "excludes": [
+      "Kernel.php",
+      "{.*/Infrastructure/.*}"
+    ]
+  },
+  "timeout": 20,
+  "logs": {
+    "text": "report/mutant-testing/code-mutations.log",
+    "summary": "report/mutant-testing/summary.log",
+    "perMutator": "report/mutant-testing/effects.md"
+  },
+  "minMsi": 100,
+  "minCoveredMsi": 100
+}

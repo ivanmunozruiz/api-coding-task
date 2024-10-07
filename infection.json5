@@ -1,0 +1,24 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "source": {
+        "directories": [
+          "src/LotrContext/Application/*",
+          "tests"
+        ],
+        "excludes": [
+          "Kernel.php",
+          "{.*/Infrastructure/.*}"
+        ]
+    },
+    "mutators": {
+        "@default": true
+    },
+    "timeout": 20,
+    "logs": {
+        "text": "report/mutant-testing/code-mutations.log",
+        "summary": "report/mutant-testing/summary.log",
+        "perMutator": "report/mutant-testing/effects.md"
+    },
+    "minMsi": 100,
+    "minCoveredMsi": 100
+}

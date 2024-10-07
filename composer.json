@@ -96,6 +96,7 @@
         "friends-of-behat/mink-extension": "^2.6",
         "friends-of-behat/symfony-extension": "^2.4",
         "infection/infection": "^0.29.6",
+        "mockery/mockery": "^1.5",
         "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^10.5",
         "rector/rector": "^1.2",

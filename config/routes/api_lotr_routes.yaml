@@ -1,4 +1,4 @@
-# EQUIPMENT ROUTES
+# FACTION ROUTES
 lotr_context.rest.faction.create_faction.page:
   path: /factions
   methods: POST
@@ -21,7 +21,7 @@ lotr_context.rest.faction.delete_faction.page:
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Faction\DeleteFactionPage'
 
 
-# FACTION ROUTES
+# EQUIPMENT ROUTES
 lotr_context.rest.equipment.create_equipment.page:
   path: /equipments
   methods: POST
@@ -34,7 +34,7 @@ lotr_context.rest.equipment.delete_equipment.page:
   path: /equipments/{id}
   methods: DELETE
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\DeleteEquipmentPage'
-lotr_context.rest.faction.list_equipment.page:
+lotr_context.rest.equipment.list_equipment.page:
   path: /equipments
   methods: GET
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\ListEquipmentPage'
@@ -44,7 +44,7 @@ lotr_context.rest.equipment.update_equipment.page:
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\UpdateEquipmentPage'
 
 
-# FACTION ROUTES
+# CHARACTER ROUTES
 lotr_context.rest.character.create_character.page:
   path: /characters
   methods: POST
@@ -53,3 +53,7 @@ lotr_context.rest.character.fetch_character.page:
   path: /characters/{id}
   methods: GET
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\FetchCharacterPage'
+lotr_context.rest.character.list_equipment.page:
+  path: /characters
+  methods: GET
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\ListCharacterPage'

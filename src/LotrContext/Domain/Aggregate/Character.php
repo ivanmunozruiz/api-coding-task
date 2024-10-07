@@ -96,7 +96,7 @@ class Character extends AggregateRoot
         return [
             'id' => $this->id()->id(),
             'name' => $this->name()->value(),
-            'birth_date' => $this->birthDate()->toRfc3339String(),
+            'birth_date' => $this->birthDate()->datetime()->format('Y-m-d'),
             'kingdom' => $this->kingdom()->value(),
             'equipment_id' => $this->equipmentId()->id(),
             'faction_id' => $this->factionId()->id(),

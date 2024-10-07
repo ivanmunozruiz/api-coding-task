@@ -29,7 +29,9 @@ jobs:
         with:
           php-version: '8.1'
           extensions: mbstring, pdo_mysql
-          coverage: none
+
+      - name: Clear Composer cache
+        run: composer clear-cache
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
@@ -37,3 +39,4 @@ jobs:
       - name: Run tests
         run: |
           ./vendor/bin/phpunit
+

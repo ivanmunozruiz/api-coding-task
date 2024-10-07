@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\AuthorisationContext\Infrastructure\Domain\Service;
 
+use App\AuthorisationContext\Domain\Exception\ShallNotPassException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PreAuthenticatedUserBadge;
@@ -52,19 +52,7 @@ final class Authenticator extends AbstractAuthenticator
             );
         }
 
-        throw new AccessDeniedException();
-
-        //TODO: dont have time to implement this
-        /**$validTokenUser = $this->userRepository->findOneByToken($token);
-
-        if (!$validTokenUser instanceof User) {
-            throw new AccessDeniedException();
-        }
-
-        return new SelfValidatingPassport(
-            new UserBadge($validTokenUser->key()->value()),
-            [new PreAuthenticatedUserBadge()],
-        );**/
+        throw ShallNotPassException::from($token);
     }
 
     public function isAdminRequest(Request $request, ?string $token = null): bool

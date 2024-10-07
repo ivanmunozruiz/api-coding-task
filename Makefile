@@ -56,6 +56,8 @@ build: build-container composer-install setup-hooks ## Construye las dependencia
 	$(EXEC_APP) /var/www/wait-for-db.sh
 	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init.sql
 	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init-test.sql
+	$(EXEC_APP) /var/www/wait-for-rabbit.sh
+	$(EXEC_APP) bin/console messenger:setup-transports
 
 build-container: ## Construye el contenedor de la aplicación
 	docker build --no-cache --target development -t $(IMAGE_NAME):$(IMAGE_TAG_DEV) .
@@ -77,8 +79,6 @@ enter-container-php: ## Entra en el contenedor de PHP
 
 up:
 	docker compose up -d
-	$(EXEC_APP) /var/www/wait-for-db.sh
-	$(EXEC_APP) bin/console doctrine:migrations:migrate --no-interaction || true
 
 stop:
 	docker compose down

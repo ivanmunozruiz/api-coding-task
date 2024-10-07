@@ -35,7 +35,7 @@ Feature: Update Faction
       | detail | Faction with identifier 9c38a6c9-8066-4f27-bcb3-9bc686c8b393 not found   |
       | type   | http://google.com/ur-to-errors-doc/faction_not_found                     |
       | code   | faction_not_found                                                        |
-    
+
 
   Scenario: AC-1d: Update faction with valid auth token
     When I send a PUT api request to "/api/v1/factions/f1d1b2b3-4b5c-6d7e-8f9a-0b1c2d3e4f5a" with body:

@@ -35,12 +35,7 @@ final class EquipmentFinder
             );
         }
 
-        $equipment = $this->equipmentRepository->ofId($identifier);
-
-        if (!$equipment instanceof Equipment) {
-            throw EquipmentNotFoundException::from($identifier);
-        }
-
-        return $equipment;
+        /** @var Equipment */
+        return $this->equipmentRepository->ofIdOrFail($identifier);
     }
 }

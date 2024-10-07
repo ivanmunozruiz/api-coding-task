@@ -10,9 +10,8 @@ class CreateFactionCommandTest extends UnitTestCase
 {
     /**
      * @dataProvider invalidDataProvider
-     * @throws AssertionFailedException
      */
-    public function testCreateFactionCommandHandlerEmptyId(
+    public function testCreateFactionCommandHandlerWrongInputThrowAssertionException(
         string $id,
         string $name,
         string $description,

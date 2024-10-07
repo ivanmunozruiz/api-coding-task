@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Tests\Unit\LotrContext\Application\Command\Equipment\CreateEquipment;
+namespace App\Tests\Unit\LotrContext\Application\Command\Equipment\UpdateEquipment;
 
-use App\LotrContext\Application\Command\Equipment\CreateEquipment\CreateEquipmentCommand;
+use App\LotrContext\Application\Command\Equipment\UpdateEquipment\UpdateEquipmentCommand;
 use App\Tests\Unit\UnitTestCase;
 use Assert\AssertionFailedException;
 
-class CreateEquipmentCommandTest extends UnitTestCase
+class UpdateEquipmentCommandTest extends UnitTestCase
 {
     /**
      * @dataProvider invalidDataProvider
      * @throws AssertionFailedException
      */
-    public function testCreateEquipmentCommandHandlerWrongInputThrowAssertionException(
+    public function testUpdateEquipmentCommandHandlerWrongInputThrowAssertionException(
         string $id,
         string $name,
         string $type,
@@ -21,7 +21,7 @@ class CreateEquipmentCommandTest extends UnitTestCase
     ): void {
         $this->expectException(AssertionFailedException::class);
         $this->expectExceptionMessage($message);
-        new CreateEquipmentCommand(
+        new UpdateEquipmentCommand(
             $id,
             $name,
             $type,

@@ -31,7 +31,6 @@ final class SearchEquipmentsByCriteria
         PositiveIntegerValueObject $limit
     ): ResultsByCriteria {
         $criteria = new Criteria(page: $page->value(), limit: $limit->value());
-
         return ResultsByCriteria::from(
             $this->equipmentRepository->matching($criteria), /* @phpstan-ignore-next-line */
             $this->equipmentRepository->count($criteria),

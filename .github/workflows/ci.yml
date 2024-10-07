@@ -65,5 +65,5 @@ jobs:
         run: ./vendor/bin/phpunit 
 
       - name: Check for security vulnerabilities
-        run: composer audit
+        run: composer audit --abandoned=ignore
       

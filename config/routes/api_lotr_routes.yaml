@@ -26,7 +26,10 @@ lotr_context.rest.equipment.create_equipment.page:
   path: /equipments
   methods: POST
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\CreateEquipmentPage'
-
+lotr_context.rest.equipment.fetch_equipment.page:
+  path: /equipments/{id}
+  methods: GET
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Equipment\FetchEquipmentPage'
 lotr_context.rest.equipment.delete_equipment.page:
   path: /equipments/{id}
   methods: DELETE

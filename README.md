@@ -34,8 +34,8 @@ Follow the steps below to set up the project:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/lotr-crud-project.git
-    cd lotr-crud-project
+    git clone https://github.com/ivanmunozruiz/api-coding-task.git
+    cd api-coding-task
     ```
 
 2. **Build and start the Docker containers**:

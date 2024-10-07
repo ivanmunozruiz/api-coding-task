@@ -1,0 +1,23 @@
+framework:
+  messenger:
+    transports:
+      events:
+        dsn: 'in-memory://'
+      events_async:
+        dsn: 'sync://'
+      failed:
+        dsn: 'in-memory://'
+
+    routing:
+      App\Shared\Domain\Aggregate\DomainEventMessage:  events_async
+
+    buses:
+      event.bus:
+        default_middleware: allow_no_handlers
+        middleware:
+          - 'send_message'
+          - 'doctrine_ping_connection'
+          - 'doctrine_close_connection'
+          - App\Shared\Infrastructure\Messaging\Middleware\MessageMiddleware
+          #- App\Tests\Functional\Shared\Infrastructure\Messenger\DoctrineFlushMiddleware
+          - 'doctrine_transaction'

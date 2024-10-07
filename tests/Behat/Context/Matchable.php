@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Context;
+namespace App\Tests\Behat\Context;
 
 use Assert\Assertion;
 use Assert\AssertionFailedException;

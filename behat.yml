@@ -1,10 +1,8 @@
 default:
   suites:
     default:
-      paths:
-        - "%paths.base%/tests/Functional"
       contexts:
-        - App\Tests\Functional\Context\ApiContext
+        - App\Tests\Behat\Context\ApiContext
         - Behat\MinkExtension\Context\MinkContext
         - Behatch\Context\RestContext
         - behatch:context:json
@@ -20,8 +18,5 @@ default:
     FriendsOfBehat\SymfonyExtension:
       bootstrap: tests/bootstrap.php
       kernel:
-        class: App\Kernel
-        path: src/Kernel.php
         environment: test
-        debug: ~
 

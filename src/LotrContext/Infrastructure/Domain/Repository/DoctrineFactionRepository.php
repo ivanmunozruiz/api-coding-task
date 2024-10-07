@@ -14,13 +14,6 @@ use App\LotrContext\Domain\Aggregate\Faction;
 /** @extends DoctrineRepository<Faction> */
 final class DoctrineFactionRepository extends DoctrineRepository implements FactionRepository
 {
-    public function ofId(Uuid $identifier): ?Faction
-    {
-        return $this->repository()->findOneBy([
-            'id' => $identifier->id(),
-        ]);
-    }
-
     public function ofNameAndDescription(Name $name, StringValueObject $description): ?Faction
     {
         return $this->repository()->findOneBy([

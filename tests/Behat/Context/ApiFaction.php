@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Context;
+namespace App\Tests\Behat\Context;
 
 use App\LotrContext\Domain\Aggregate\Faction;
+use App\Shared\Domain\ValueObject\Uuid;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Behat\Gherkin\Node\TableNode;
-use DateTimeInterface;
 use Exception;
-use App\Shared\Domain\ValueObject\Uuid;
 
 use function is_array;
 use function strval;
@@ -47,6 +46,7 @@ trait ApiFaction
                 continue;
             }
 
+            /** @phpstan-ignore-next-line */
             $this->checkObjectAgainstExpected($faction, $row);
         }
     }
@@ -63,7 +63,7 @@ trait ApiFaction
             if (null === $faction) {
                 continue;
             }
-
+            /** @phpstan-ignore-next-line */
             $this->checkObjectPropertiesAreFilled($faction, (string) $row['fields']);
         }
     }

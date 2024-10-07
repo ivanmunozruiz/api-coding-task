@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UserContext\Domain\Aggregate;
+namespace App\Tests\Unit\LotrContext\Domain\Aggregate;
 
+use App\LotrContext\Domain\Aggregate\Faction;
+use App\Shared\Domain\ValueObject\Name;
+use App\Shared\Domain\ValueObject\StringValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Shared\Domain\ValueObject\NameMother;
 use App\Tests\Unit\Shared\Domain\ValueObject\StringValueObjectMother;
-use Assert\AssertionFailedException;
-use App\Shared\Domain\ValueObject\StringValueObject;
-use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\Unit\Shared\Domain\ValueObject\UuidMother;
-use App\LotrContext\Domain\Aggregate\Faction;
+use Assert\AssertionFailedException;
 
 final class FactionMother
 {

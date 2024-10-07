@@ -56,7 +56,6 @@ build: build-container composer-install setup-hooks ## Construye las dependencia
 	$(EXEC_APP) /var/www/wait-for-db.sh
 	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init.sql
 	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init-test.sql
-	$(EXEC_APP) bin/console messenger:setup-transports || true
 
 build-container: ## Construye el contenedor de la aplicación
 	docker build --no-cache --target development -t $(IMAGE_NAME):$(IMAGE_TAG_DEV) .
@@ -122,7 +121,7 @@ pre-commit: php-lint phpstan rector unit-test-no-tty  ## Execute precommit tasks
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
-	#make bdd-test-no-tty
+	make bdd-test
 
 # HELPER COMMANDS -------------------------------------------------------------------------------------------------------
 setup-hooks: ## Configure git hooks
@@ -166,6 +165,8 @@ mutant-test: unit-test-coverage ## Execute mutant tests
 BDD_TEST_PATH :=
 
 bdd-test: ## Execute behat tests
+	rm -rf ./var/cache/*
+	rm -rf /tmp/symfony-cache
 	docker exec -it api-coding-task-php vendor/bin/behat --no-snippets --strict
 
 bdd-test-no-tty: ## Execute behat tests

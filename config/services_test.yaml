@@ -3,8 +3,8 @@ services:
         autowire: true
         autoconfigure: true
 
-    App\Tests\Functional\:
-        resource: '../tests/Functional/*'
+    App\Tests\Behat\:
+        resource: '../tests/Behat/*'
 
     Predis\Client:
         arguments:

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Context;
+namespace App\Tests\Behat\Context;
 
-use Assert\AssertionFailedException;
-use Behat\Gherkin\Node\TableNode;
+use App\Tests\Unit\LotrContext\Domain\Aggregate\FactionMother;
 use App\Tests\Unit\Shared\Domain\ValueObject\NameMother;
 use App\Tests\Unit\Shared\Domain\ValueObject\StringValueObjectMother;
 use App\Tests\Unit\Shared\Domain\ValueObject\UuidMother;
-use App\Tests\Unit\UserContext\Domain\Aggregate\FactionMother;
+use Assert\AssertionFailedException;
+use Behat\Gherkin\Node\TableNode;
 
 trait ApiFactionDataSeeding
 {

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Context;
+namespace App\Tests\Behat\Context;
 
+use App\Tests\Unit\Shared\Domain\ValueObject\UuidMother;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Behat\Behat\Context\Context;
@@ -21,7 +22,6 @@ use FriendsOfBehat\SymfonyExtension\Context\Environment\InitializedSymfonyExtens
 use JsonException;
 use RuntimeException;
 use Throwable;
-use App\Tests\Unit\Shared\Domain\ValueObject\UuidMother;
 
 use function assert;
 
@@ -48,6 +48,7 @@ abstract class BaseApiContext implements Context
 
         $jsonContext = $environment->getContext(JsonContext::class);
         $restContext = $environment->getContext(RestContext::class);
+
         $this->jsonContext = $jsonContext;
         $this->restContext = $restContext;
     }
@@ -99,6 +100,17 @@ abstract class BaseApiContext implements Context
         $url .= '?' . $query;
 
         $this->restContext->theHeaderIsSetEqualTo('Content-Type', 'application/json');
+        $this->restContext->iSendARequestTo('GET', $url);
+    }
+
+    /**
+     * @When /^I send a GET api request to "([^"]*)"/
+     * @throws JsonException
+     */
+    public function iSendAGETRequestTo(string $url): void
+    {
+        $this->restContext->theHeaderIsSetEqualTo('Content-Type', 'application/json');
+        $this->restContext->theHeaderIsSetEqualTo('Accept', 'application/json');
         $this->restContext->iSendARequestTo('GET', $url);
     }
 

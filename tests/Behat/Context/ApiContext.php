@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Context;
+namespace App\Tests\Behat\Context;
 
+use App\LotrContext\Domain\Repository\FactionRepository;
+use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\PyStringNode;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Predis\Client as RedisClient;
 use RuntimeException;
-use App\Shared\Domain\ValueObject\DateTimeValueObject;
-use App\LotrContext\Domain\Repository\FactionRepository;
 
 final class ApiContext extends BaseApiContext
 {
@@ -19,7 +19,7 @@ final class ApiContext extends BaseApiContext
     use AuthorisationContext;
 
     private const LOTR_TABLES = [
-        'lotr_test.factions',
+        'lotr.factions',
     ];
 
     public function __construct(

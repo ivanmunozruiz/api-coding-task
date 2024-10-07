@@ -1,0 +1,760 @@
+{
+	"info": {
+		"_postman_id": "29e17ce1-ac12-4ee2-b0fe-b600ca65f488",
+		"name": "LOTR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23615057"
+	},
+	"item": [
+		{
+			"name": "Faction",
+			"item": [
+				{
+					"name": "Get 1 Faction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/factions/71e884d1-b0e1-4e2d-b782-4c6cb56babe0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"factions",
+								"71e884d1-b0e1-4e2d-b782-4c6cb56babe0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Factions collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/factions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"factions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update faction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mordor 23\",\n    \"description\": \"mordor 14\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/factions/71e884d1-b0e1-4e2d-b782-4c6cb56babe0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"factions",
+								"71e884d1-b0e1-4e2d-b782-4c6cb56babe0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 1 Faction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/factions/71e884d1-b0e1-4e2d-b782-4c6cb56babe0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"factions",
+								"71e884d1-b0e1-4e2d-b782-4c6cb56babe0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create faction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"Mordor 111waa2ssaa\",\n    \"description\": \"mordor 5qqq\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/factions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"factions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Equipment",
+			"item": [
+				{
+					"name": "Create Equipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"test2222asaaaa\",\n    \"type\": \"armardura2\",\n    \"madeBy\": \"me\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/equipments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"equipments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 1 Equipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/equipments/fcad12c3-8714-4728-a18c-9f27e1db5177",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"equipments",
+								"fcad12c3-8714-4728-a18c-9f27e1db5177"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get 1 Equipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/equipments/fcad12c3-8714-4728-a18c-9f27e1db5177",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"equipments",
+								"fcad12c3-8714-4728-a18c-9f27e1db5177"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Equipment collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/equipments?page=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"equipments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Equipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test3\",\n    \"type\": \"armardura2\",\n    \"madeBy\": \"me\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/equipments/fcad12c3-8714-4728-a18c-9f27e1db5177",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"equipments",
+								"fcad12c3-8714-4728-a18c-9f27e1db5177"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Character",
+			"item": [
+				{
+					"name": "Create Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"test4\",\n    \"birthDate\": \"3019-03-26\",\n    \"kingdom\": \"testa\",\n    \"equipmentId\": \"fcad12c3-8714-4728-a18c-9f27e1db5177\",\n    \"factionId\": \"71e884d1-b0e1-4e2d-b782-4c6cb56babe0\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get 1 Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/characters/b1d3a1de-abc5-45bb-a3fb-883ebd68d20f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"characters",
+								"b1d3a1de-abc5-45bb-a3fb-883ebd68d20f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Character collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 1 Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/characters/b1d3a1de-abc5-45bb-a3fb-883ebd68d20f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"characters",
+								"b1d3a1de-abc5-45bb-a3fb-883ebd68d20f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-AUTH-TOKEN",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRlMmU0ZjgyLTQ2ZTMtNGE2MC1hNmRiLTkzODQ4Mjg3NGEzYiIsImVtYWl",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Actualizoooo\",\n    \"birthDate\": \"2024-03-26\",\n    \"kingdom\": \"Actualizoooo\",\n    \"equipmentId\": \"fcad12c3-8714-4728-a18c-9f27e1db5177\",\n    \"factionId\": \"71e884d1-b0e1-4e2d-b782-4c6cb56babe0\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/characters/b1d3a1de-abc5-45bb-a3fb-883ebd68d20f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"characters",
+								"b1d3a1de-abc5-45bb-a3fb-883ebd68d20f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

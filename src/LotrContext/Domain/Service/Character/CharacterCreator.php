@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Character;
 
+use App\LotrContext\Domain\Exception\Equipment\EquipmentNotFoundException;
+use App\LotrContext\Domain\Exception\Faction\FactionNotFoundException;
 use App\LotrContext\Domain\Repository\CharacterRepository;
 use App\LotrContext\Domain\Repository\RedisCacheCharacterRepository;
+use App\LotrContext\Domain\Service\Equipment\EquipmentFinder;
+use App\LotrContext\Domain\Service\Faction\FactionFinder;
 use App\Shared\Domain\Exception\Http\UuIdAlreadyExistsException;
 use App\LotrContext\Domain\Aggregate\Character;
-use App\LotrContext\Domain\Exception\Character\CharacterAlreadyExistsException;
 use App\Shared\Domain\ValueObject\DateTimeValueObject;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
@@ -18,11 +21,15 @@ final class CharacterCreator
     public function __construct(
         private readonly CharacterRepository $characterRepository,
         private readonly RedisCacheCharacterRepository $redisCacheCharacterRepository,
+        private readonly EquipmentFinder $equipmentFinder,
+        private readonly FactionFinder $factionFinder
     ) {
     }
 
     /**
-     * @throws CharacterAlreadyExistsException|UuIdAlreadyExistsException
+     * @throws UuIdAlreadyExistsException
+     * @throws EquipmentNotFoundException
+     * @throws FactionNotFoundException
      */
     public function create(
         Uuid $identifier,
@@ -35,6 +42,8 @@ final class CharacterCreator
         $this->ensureCharacterDoesntExist(
             $identifier
         );
+        $this->ensureEquipmentExists($equipmentId);
+        $this->ensureFactionExists($factionId);
         $character = Character::from(
             $identifier,
             $name,
@@ -82,5 +91,23 @@ final class CharacterCreator
         if ($character instanceof Character) {
             throw UuIdAlreadyExistsException::from($identifier);
         }
+    }
+
+    /**
+     * @throws FactionNotFoundException
+     */
+    private function ensureFactionExists(
+        Uuid $factionId
+    ): void {
+        $this->factionFinder->ofIdOrFail($factionId);
+    }
+
+    /**
+     * @throws EquipmentNotFoundException
+     */
+    private function ensureEquipmentExists(
+        Uuid $equipmentId
+    ): void {
+        $this->equipmentFinder->ofIdOrFail($equipmentId);
     }
 }

@@ -3,7 +3,7 @@ Feature: Create Faction
   I want to create a faction
 
   @adminToken
-  Scenario: AC-1b: Create faction with valid auth token
+  Scenario: AC-1a: Create faction with valid auth token
     When I send a POST api request to "/api/v1/factions" with body:
     """
     {
@@ -13,7 +13,7 @@ Feature: Create Faction
     }
     """
     Then the response status code should be 201
-  Scenario: AC-1a: Try to create faction with an invalid auth token
+  Scenario: AC-1b: Try to create faction with an invalid auth token
     When I send a POST api request to "/api/v1/factions" with body:
     """
     {

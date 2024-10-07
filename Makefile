@@ -121,7 +121,7 @@ pre-commit: php-lint phpstan rector unit-test-no-tty  ## Execute precommit tasks
 local-ci:
 	make openapi-resolve
 	make asyncapi-resolve
-	make bdd-test
+	make bdd-test-no-tty
 
 # HELPER COMMANDS -------------------------------------------------------------------------------------------------------
 setup-hooks: ## Configure git hooks
@@ -170,6 +170,8 @@ bdd-test: ## Execute behat tests
 	docker exec -it api-coding-task-php vendor/bin/behat --no-snippets --strict
 
 bdd-test-no-tty: ## Execute behat tests
+	rm -rf ./var/cache/*
+	rm -rf /tmp/symfony-cache
 	docker exec api-coding-task-php vendor/bin/behat --no-snippets --strict
 
 

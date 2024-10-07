@@ -11,7 +11,7 @@ use Symfony\Component\Messenger\Middleware\StackInterface;
 
 final class DoctrineFlushMiddleware implements MiddlewareInterface
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 

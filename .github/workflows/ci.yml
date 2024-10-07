@@ -42,6 +42,10 @@ jobs:
 
       - name: Run tests
         run: |
+          export DB_HOST=db
+          export DB_DATABASE=lotr_test
+          export DATABASE_URL="mysql://root:root@db:3306/lotr?serverVersion=8.0.32&charset=utf8mb4"
           ./vendor/bin/phpunit
           ./vendor/bin/behat --no-snippets --strict --colors
+
 

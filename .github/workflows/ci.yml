@@ -52,7 +52,7 @@ jobs:
       - name: Run tests
         run: |
           export DATABASE_URL="mysql://root:root@127.0.0.1:3306/lotr?serverVersion=8.0.32&charset=utf8mb4"
-          export REDIS_HOST=redis
+          export REDIS_HOST=127.0.0.1
           export REDIS_PORT=6379
           export REDIS_PASS=null
           export REDIS_DB=0

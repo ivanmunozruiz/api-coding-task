@@ -37,8 +37,8 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
       - name: Import init-test.sql
-      run: |
-        mysql -h 127.0.0.1 -u root --password=root lotr_test < opt/db/init-test.sql
+        run: |
+          mysql -h 127.0.0.1 -u root --password=root lotr_test < opt/db/init-test.sql
 
       - name: Run tests
         run: |

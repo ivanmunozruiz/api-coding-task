@@ -10,7 +10,7 @@ use Assert\AssertionFailedException;
 
 class FactionEvent extends DomainEventMessage
 {
-    private function __construct(
+    protected function __construct(
         string $aggregateId,
         private readonly ?string $entityId,
         private readonly string $factionName,

@@ -13,7 +13,7 @@ use App\LotrContext\Domain\Service\Equipment\EquipmentEraser;
 final class DeleteEquipmentCommandHandler implements CommandHandler
 {
     public function __construct(
-        private readonly EquipmentEraser $factionEraser,
+        private readonly EquipmentEraser $equipmentEraser,
         private readonly EventBus $eventBus,
     ) {
     }
@@ -24,8 +24,8 @@ final class DeleteEquipmentCommandHandler implements CommandHandler
     public function __invoke(DeleteEquipmentCommand $command): void
     {
         $id = Uuid::from($command->id());
-        $faction = $this->factionEraser->erase($id);
+        $equipment = $this->equipmentEraser->erase($id);
 
-        $this->eventBus->publish(...$faction->events());
+        $this->eventBus->publish(...$equipment->events());
     }
 }

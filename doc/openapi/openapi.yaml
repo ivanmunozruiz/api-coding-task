@@ -370,3 +370,162 @@ paths:
           description: Faction eliminado
         '404':
           description: Faction no encontrado
+  /equipments:
+    get:
+      summary: Obtener todos los equipments
+      description: Devuelve una lista de todos los equipments disponibles.
+      operationId: getEquipments
+      tags:
+        - Equipments
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Page number. Si no se especifica, por defecto son 1.
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          description: Límite de equipments a devolver. Si no se especifica, por defecto son 10.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de equipments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    type:
+                      type: string
+                    madeBy:
+                      type: string
+
+    post:
+      summary: Crear un nuevo equipment
+      description: Crea un nuevo equipment en la base de datos.
+      operationId: createEquipment
+      tags:
+        - Equipments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                type:
+                  type: string
+                madeBy:
+                  type: string
+      responses:
+        '201':
+          description: Equipment creado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+
+  /equipments/{id}:
+    get:
+      summary: Obtener un equipment por ID
+      description: Devuelve un equipment específico basado en su ID.
+      operationId: getEquipmentById
+      tags:
+        - Equipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del equipment que se desea obtener.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Equipment encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                      type: string
+                      format: uuid
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  madeBy:
+                    type: string
+        '404':
+          description: Equipment no encontrado
+
+    put:
+      summary: Actualizar un equipment
+      description: Actualiza la información de un equipment existente.
+      operationId: updateEquipment
+      tags:
+        - Equipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del equipment que se desea actualizar.
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                madeBy:
+                  type: string
+
+      responses:
+        '200':
+          description: Equipment actualizado
+        '404':
+          description: Equipment no encontrado
+
+    delete:
+      summary: Eliminar un equipment
+      description: Elimina un equipment de la base de datos.
+      operationId: deleteCharacter
+      tags:
+        - Equipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID del equipment que se desea eliminar.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Equipment eliminado
+        '404':
+          description: Equipment no encontrado

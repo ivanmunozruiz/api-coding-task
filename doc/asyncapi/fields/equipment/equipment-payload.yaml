@@ -1,0 +1,25 @@
+title: Equipment payload
+type: object
+required:
+  - aggregate_id
+  - name
+  - type
+  - madeBy
+properties:
+  aggregate_id:
+    type: string
+    example: 123e4567-e89b-12d3-a456-426614174000
+    description: Equipment id
+  name:
+    type: string
+    example: Maza de Sauron
+    description: Equipment name
+  type:
+    type: string
+    example: arma
+    description: Equipment type
+  made_by:
+    type: string
+    example: me
+    description: Equipment creator
+additionalProperties: false

@@ -34,12 +34,6 @@ doctrine:
             type: xml
             dir: '%kernel.project_dir%/src/UserContext/Infrastructure/Persistence/Doctrine/Entity'
             prefix: 'App\UserContext'
-          shared_context:
-            mapping: true
-            is_bundle: false
-            type: xml
-            dir: '%kernel.project_dir%/src/Shared/Infrastructure/Persistence/Doctrine/Entity'
-            prefix: 'App\Shared\Domain\Aggregate'
 
 when@test:
     doctrine:

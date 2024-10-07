@@ -61,3 +61,7 @@ lotr_context.rest.character.delete_character.page:
   path: /characters/{id}
   methods: DELETE
   controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\DeleteCharacterPage'
+lotr_context.rest.character.update_character.page:
+  path: /characters/{id}
+  methods: PUT
+  controller: 'App\LotrContext\Infrastructure\Delivery\Rest\Character\UpdateCharacterPage'

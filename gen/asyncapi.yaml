@@ -31,6 +31,24 @@ channels:
       operationId: api-coding-task.lotr.1.domain-event.character.created
       message:
         $ref: "#/components/messages/CharacterCreatedEvent"
+  api-coding-task.lotr.1.domain-event.character.updated:
+    publish:
+      tags:
+        - name: Characters
+      summary: Character was updated
+      description: This event is published when a character is updated.
+      operationId: api-coding-task.lotr.1.domain-event.character.updated
+      message:
+        $ref: "#/components/messages/CharacterUpdatedEvent"
+  api-coding-task.lotr.1.domain-event.character.deleted:
+    publish:
+      tags:
+        - name: Characters
+      summary: Character was deleted
+      description: This event is published when a character is deleted.
+      operationId: api-coding-task.lotr.1.domain-event.character.deleted
+      message:
+        $ref: "#/components/messages/CharacterDeletedEvent"
   api-coding-task.lotr.1.domain-event.faction.created:
     publish:
       tags:
@@ -39,7 +57,52 @@ channels:
       description: This event is published when a faction is created.
       operationId: api-coding-task.lotr.1.domain-event.faction.created
       message:
-        $ref: "#/components/messages/CharacterCreatedEvent"
+        $ref: "#/components/messages/FactionCreatedEvent"
+  api-coding-task.lotr.1.domain-event.faction.updated:
+    publish:
+      tags:
+        - name: Factions
+      summary: Faction was updated
+      description: This event is published when a faction is updated.
+      operationId: api-coding-task.lotr.1.domain-event.faction.updated
+      message:
+        $ref: "#/components/messages/FactionUpdatedEvent"
+  api-coding-task.lotr.1.domain-event.faction.deleted:
+    publish:
+      tags:
+        - name: Factions
+      summary: Faction was deleted
+      description: This event is published when a faction is deleted.
+      operationId: api-coding-task.lotr.1.domain-event.faction.deleted
+      message:
+        $ref: "#/components/messages/FactionDeletedEvent"
+  api-coding-task.lotr.1.domain-event.equipment.created:
+    publish:
+      tags:
+        - name: Equipments
+      summary: Equipment was created
+      description: This event is published when a equipment is created.
+      operationId: api-coding-task.lotr.1.domain-event.equipment.created
+      message:
+        $ref: "#/components/messages/EquipmentCreatedEvent"
+  api-coding-task.lotr.1.domain-event.equipment.updated:
+    publish:
+      tags:
+        - name: Equipments
+      summary: Equipment was updated
+      description: This event is published when a equipment is updated.
+      operationId: api-coding-task.lotr.1.domain-event.equipment.updated
+      message:
+        $ref: "#/components/messages/EquipmentUpdatedEvent"
+  api-coding-task.lotr.1.domain-event.equipment.deleted:
+    publish:
+      tags:
+        - name: Equipments
+      summary: Equipment was deleted
+      description: This event is published when a equipment is deleted.
+      operationId: api-coding-task.lotr.1.domain-event.equipment.deleted
+      message:
+        $ref: "#/components/messages/EquipmentDeletedEvent"
 components:
   messages:
     CharacterCreatedEvent:
@@ -51,6 +114,24 @@ components:
         - $ref: "#/components/messageTraits/commonHeaders"
       payload:
         $ref: "#/components/schemas/CharacterCreated"
+    CharacterUpdatedEvent:
+      name: api-coding-task.lotr.1.domain-event.character.updated
+      title: Character was updated
+      summary: Character was updated
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/CharacterUpdated"
+    CharacterDeletedEvent:
+      name: api-coding-task.lotr.1.domain-event.character.deleted
+      title: Character was deleted
+      summary: Character was deleted
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/CharacterDeleted"
     FactionCreatedEvent:
       name: api-coding-task.lotr.1.domain-event.faction.created
       title: Faction was created
@@ -60,6 +141,51 @@ components:
         - $ref: "#/components/messageTraits/commonHeaders"
       payload:
         $ref: "#/components/schemas/FactionCreated"
+    FactionUpdatedEvent:
+      name: api-coding-task.lotr.1.domain-event.faction.updated
+      title: Faction was updated
+      summary: Faction was updated
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/FactionUpdated"
+    FactionDeletedEvent:
+      name: api-coding-task.lotr.1.domain-event.faction.deleted
+      title: Faction was deleted
+      summary: Faction was deleted
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/FactionDeleted"
+    EquipmentCreatedEvent:
+      name: api-coding-task.lotr.1.domain-event.equipment.created
+      title: Equipment was created
+      summary: Equipment was created
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/EquipmentCreated"
+    EquipmentUpdatedEvent:
+      name: api-coding-task.lotr.1.domain-event.equipment.updated
+      title: Equipment was updated
+      summary: Equipment was updated
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/EquipmentUpdated"
+    EquipmentDeletedEvent:
+      name: api-coding-task.lotr.1.domain-event.equipment.deleted
+      title: Equipment was deleted
+      summary: Equipment was deleted
+      contentType: application/json
+      traits:
+        - $ref: "#/components/messageTraits/commonHeaders"
+      payload:
+        $ref: "#/components/schemas/EquipmentDeleted"
   schemas:
     CharacterCreated:
       title: Character payload
@@ -98,6 +224,10 @@ components:
           example: 4135ddaf-368e-4b43-a737-6ea4a49b0cf0
           description: Character faction id
       additionalProperties: false
+    CharacterUpdated:
+      $ref: "#/components/schemas/CharacterCreated"
+    CharacterDeleted:
+      $ref: "#/components/schemas/CharacterCreated"
     FactionCreated:
       title: Faction payload
       type: object
@@ -119,6 +249,40 @@ components:
           example: The Dark Lord Sauron's realm
           description: Faction description
       additionalProperties: false
+    FactionUpdated:
+      $ref: "#/components/schemas/FactionCreated"
+    FactionDeleted:
+      $ref: "#/components/schemas/FactionCreated"
+    EquipmentCreated:
+      title: Equipment payload
+      type: object
+      required:
+        - aggregate_id
+        - name
+        - type
+        - madeBy
+      properties:
+        aggregate_id:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Equipment id
+        name:
+          type: string
+          example: Maza de Sauron
+          description: Equipment name
+        type:
+          type: string
+          example: arma
+          description: Equipment type
+        made_by:
+          type: string
+          example: me
+          description: Equipment creator
+      additionalProperties: false
+    EquipmentUpdated:
+      $ref: "#/components/schemas/EquipmentCreated"
+    EquipmentDeleted:
+      $ref: "#/components/schemas/EquipmentCreated"
   messageTraits:
     commonHeaders:
       bindings:

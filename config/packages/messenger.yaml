@@ -26,6 +26,11 @@ framework:
                         'api-coding-task.lotr.1.domain-event.equipment.created',
                         'api-coding-task.lotr.1.domain-event.equipment.updated',
                         'api-coding-task.lotr.1.domain-event.equipment.deleted',
+
+                        # Character events
+                        'api-coding-task.lotr.1.domain-event.character.created',
+                        'api-coding-task.lotr.1.domain-event.character.updated',
+                        'api-coding-task.lotr.1.domain-event.character.deleted',
                       ]
                       arguments:
                         x-dead-letter-exchange: '%env(APP_NAME)%-dead-letter'

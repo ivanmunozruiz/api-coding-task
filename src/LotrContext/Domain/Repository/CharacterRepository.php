@@ -14,10 +14,4 @@ use App\Shared\Domain\ValueObject\Uuid;
 interface CharacterRepository extends DomainRepository
 {
     public function remove(Uuid $identifier): void;
-
-    /**
-     * @phpstan-return Character|null
-     * @param array<string, string> $criteria
-     */
-    public function findOneBy(array $criteria): ?Character;
 }

@@ -33,12 +33,7 @@ final class CharacterCreator
         Uuid $factionId
     ): Character {
         $this->ensureCharacterDoesntExist(
-            $identifier,
-            $name,
-            $birthDate,
-            $kingdom,
-            $equipmentId,
-            $factionId
+            $identifier
         );
         $character = Character::from(
             $identifier,
@@ -59,30 +54,13 @@ final class CharacterCreator
         return $character;
     }
 
-    /** @throws CharacterAlreadyExistsException|UuIdAlreadyExistsException */
+    /** @throws UuIdAlreadyExistsException */
     private function ensureCharacterDoesntExist(
-        Uuid $identifier,
-        Name $name,
-        DateTimeValueObject $birthDate,
-        Name $kingdom,
-        Uuid $equipmentId,
-        Uuid $factionId
+        Uuid $identifier
     ): void {
         $character = $this->characterRepository->ofId($identifier);
         if ($character instanceof Character) {
             throw UuIdAlreadyExistsException::from($identifier);
-        }
-
-        $character = $this->characterRepository->findOneBy([
-            'name' => $name->value(),
-            'birthDate' => $birthDate->datetime()->format('Y-m-d'),
-            'kingdom' => $kingdom->value(),
-            'equipmentId' => $equipmentId->id(),
-            'factionId' => $factionId->id()
-        ]);
-
-        if ($character instanceof Character) {
-            throw CharacterAlreadyExistsException::from();
         }
     }
 }

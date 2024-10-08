@@ -65,7 +65,7 @@ jobs:
         run: ./vendor/bin/phpunit --testsuite Unit
 
       - name: Run Mutant tests
-        run: ./vendor/bin/infection --coverage=report --skip-initial-tests --show-mutations
+        run: ./vendor/bin/infection --coverage=report --skip-initial-tests --show-mutations --min-msi=6 # I set 6 but it should be 100%
 
       - name: Check for security vulnerabilities
         run: composer audit --abandoned=ignore

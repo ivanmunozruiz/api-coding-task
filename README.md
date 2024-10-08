@@ -158,6 +158,8 @@ The project also includes AsyncAPI documentation for asynchronous message-based 
     ```
 
 The generated AsyncAPI documentation is located in `gen/asyncapi.yaml`. if you want to visualize it, copy yml content and paste it in [AsyncAPI Playground](https://playground.asyncapi.io/).
+[Click here to download the file](./gen/asyncapi.yaml)
+
 
 ---
 

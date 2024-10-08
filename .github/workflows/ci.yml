@@ -70,6 +70,9 @@ jobs:
       - name: Run PHPUnit with coverage
         run: ./vendor/bin/phpunit --testsuite Unit
 
+      - name: Run Mutant tests
+        run: ./vendor/bin/infection --coverage=report --skip-initial-tests --show-mutations
+
       - name: Check for security vulnerabilities
         run: composer audit --abandoned=ignore
       

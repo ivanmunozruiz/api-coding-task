@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Faction;
 
+use App\LotrContext\Domain\Aggregate\Character;
 use App\LotrContext\Domain\Aggregate\Faction;
 use App\LotrContext\Domain\Exception\Faction\FactionInUseException;
 use App\LotrContext\Domain\Repository\FactionRepository;
@@ -40,7 +41,7 @@ final class FactionEraser
     private function ensureFactionIsNotInUse(Faction $faction): void
     {
         $character = $this->characterFinder->findByFactionId($faction->id());
-        if (null !== $character) {
+        if ($character instanceof Character) {
             throw FactionInUseException::from($faction->id());
         }
     }

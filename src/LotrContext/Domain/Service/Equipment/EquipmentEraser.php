@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\LotrContext\Domain\Service\Equipment;
 
+use App\LotrContext\Domain\Aggregate\Character;
 use App\LotrContext\Domain\Aggregate\Equipment;
 use App\LotrContext\Domain\Exception\Equipment\EquipmentInUseException;
 use App\LotrContext\Domain\Repository\EquipmentRepository;
@@ -35,7 +36,7 @@ final class EquipmentEraser
     private function ensureEquipmentIsNotInUse(Equipment $equipment): void
     {
         $character = $this->characterFinder->findByEquipmentId($equipment->id());
-        if (null !== $character) {
+        if ($character instanceof Character) {
             throw EquipmentInUseException::from($equipment->id());
         }
     }

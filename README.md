@@ -103,23 +103,24 @@ password: guest
 
 Below is a list of available commands in the `Makefile`. You can use `make <command>` to run them:
 
-| Command                    | Description                                          |
-|----------------------------|------------------------------------------------------|
-| `make build`               | Build the Docker containers and install dependencies |
-| `make composer-install`    | Install PHP dependencies via Composer                |
-| `make composer-update`     | Update Composer dependencies                         |
-| `make enter-container-php` | Enter the PHP container                              |
-| `make asyncapi-resolve`    | Generate AsyncAPI documentation                      |
-| `make openapi-resolve`     | Generate OpenAPI documentation                       |
-| `make php-lint`            | Run PHP code linter                                  |
-| `make phpstan`             | Run PHPStan static analysis                          |
-| `make rector`              | Apply code improvements using Rector                 |
-| `make unit-test`           | Run unit tests                                       |
-| `make mutant-test`         | Run mutant tests                                     |
-| `make bdd-test`            | Run Behat BDD tests                                  |
-| `make up`                  | Start the Docker containers                          |
-| `make stop`                | Stop the Docker containers                           |
-| `make consume-async-events`| Start Consumer async events exchange consumer        |
+| Command                     | Description                                          |
+|-----------------------------|------------------------------------------------------|
+| `make build`                | Build the Docker containers and install dependencies |
+| `make composer-install`     | Install PHP dependencies via Composer                |
+| `make composer-update`      | Update Composer dependencies                         |
+| `make enter-container-php`  | Enter the PHP container                              |
+| `make asyncapi-resolve`     | Generate AsyncAPI documentation                      |
+| `make openapi-resolve`      | Generate OpenAPI documentation                       |
+| `make php-lint`             | Run PHP code linter                                  |
+| `make phpstan`              | Run PHPStan static analysis                          |
+| `make rector`               | Apply code improvements using Rector                 |
+| `make unit-test`            | Run unit tests                                       |
+| `make mutant-test`          | Run mutant tests                                     |
+| `make bdd-test`             | Run Behat BDD tests                                  |
+| `make functional-test`      | Run Functional tests                                 |
+| `make up`                   | Start the Docker containers                          |
+| `make stop`                 | Stop the Docker containers                           |
+| `make consume-async-events` | Start Consumer async events exchange consumer        |
 
 For a full list of commands, run `make help`.
 

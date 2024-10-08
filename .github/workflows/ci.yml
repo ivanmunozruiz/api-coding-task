@@ -51,7 +51,7 @@ jobs:
 
       - name: Run Functional tests
         run: |
-          export DATABASE_URL="mysql://root:root@127.0.0.1:3306/lotr_test?serverVersion=8.0.32&charset=utf8mb4"
+          export DATABASE_URL="mysql://root:root@127.0.0.1:3306/lotr?serverVersion=8.0.32&charset=utf8mb4"
           ./bin/console doctrine:fixtures:load --env=test
           ./vendor/bin/phpunit --testsuite Functional --no-coverage
 

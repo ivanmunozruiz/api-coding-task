@@ -15,7 +15,7 @@ use Assert\AssertionFailedException;
 final class CharacterFinder
 {
     public function __construct(
-        private readonly CharacterRepository $equipmentRepository,
+        private readonly CharacterRepository $characterRepository,
         private readonly RedisCacheCharacterRepository $redisCacheCharacterRepository,
     ) {
     }
@@ -38,6 +38,16 @@ final class CharacterFinder
         }
 
         /* @phpstan-ignore-next-line */
-        return $this->equipmentRepository->ofIdOrFail($identifier);
+        return $this->characterRepository->ofIdOrFail($identifier);
+    }
+
+    public function findByFactionId(Uuid $factionId): ?Character
+    {
+        return $this->characterRepository->findOneBy(['factionId' => $factionId]);
+    }
+
+    public function findByEquipmentId(Uuid $equipmentId): ?Character
+    {
+        return $this->characterRepository->findOneBy(['equipmentId' => $equipmentId]);
     }
 }

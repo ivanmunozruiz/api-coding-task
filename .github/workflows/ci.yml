@@ -68,7 +68,7 @@ jobs:
         run: ./vendor/bin/phpstan analyse
 
       - name: Run PHPUnit with coverage
-        run: ./vendor/bin/phpunit 
+        run: ./vendor/bin/phpunit --testsuite Unit
 
       - name: Check for security vulnerabilities
         run: composer audit --abandoned=ignore

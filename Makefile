@@ -140,46 +140,31 @@ setup-hooks: ## Configure git hooks
 consume-async-events: ## Run the rabbit consumer
 	docker exec -i api-coding-task-php bin/console messenger:consume -q events_async
 
-##@ Testing
-UNIT_TEST_PATH :=
-
+# TESTING COMMANDS ------------------------------------------------------------------------------------------------------
 clean-reports:
 	@rm -rf report/*
 
 unit-test-no-tty: clean-reports ## Execute unit tests with no coverage
-ifneq ($(strip $(UNIT_TEST_PATH)),)
-	$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage ${UNIT_TEST_PATH}
-else
-	$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage --stop-on-failure
-endif
+	$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/phpunit --testsuite Unit --no-coverage --stop-on-failure
 
 unit-test: clean-reports ## Execute unit tests with no coverage
-ifneq ($(strip $(UNIT_TEST_PATH)),)
-	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage ${UNIT_TEST_PATH}
-else
-	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --no-coverage --stop-on-failure
-endif
+	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --testsuite Unit --no-coverage --stop-on-failure
 
 unit-test-coverage: clean-reports ## Execute unit tests with coverage
 	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --stop-on-failure
 
-MUTANT_TEST_PATH :=
-
 mutant-test: unit-test-coverage ## Execute mutant tests
 	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/infection --threads=${NUM_PROCESSORS} --coverage=report --skip-initial-tests --show-mutations
-
-
-BDD_TEST_PATH :=
 
 bdd-test: ## Execute behat tests
 	rm -rf ./var/cache/*
 	rm -rf /tmp/symfony-cache
-	docker exec -it api-coding-task-php vendor/bin/behat --no-snippets --strict
+	$(EXEC_APP) vendor/bin/behat --no-snippets --strict
 
 bdd-test-no-tty: ## Execute behat tests
 	rm -rf ./var/cache/*
 	rm -rf /tmp/symfony-cache
-	docker exec api-coding-task-php vendor/bin/behat --no-snippets --strict
+	${EXEC_APP_NO_IT} vendor/bin/behat --no-snippets --strict
 
 
 functional-test:

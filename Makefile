@@ -164,6 +164,7 @@ bdd-test: ## Execute behat tests
 bdd-test-no-tty: ## Execute behat tests
 	rm -rf ./var/cache/*
 	rm -rf /tmp/symfony-cache
+	docker exec -i api-coding-task-db mysql -uroot -proot lotr < ./opt/db/init-test.sql
 	${EXEC_APP_NO_IT} vendor/bin/behat --no-snippets --strict
 
 

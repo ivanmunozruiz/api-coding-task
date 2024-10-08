@@ -13,6 +13,9 @@
     <testsuite name="Project Test Suite">
       <directory>tests</directory>
     </testsuite>
+    <testsuite name="Functional">
+      <directory>tests/Functional</directory>
+    </testsuite>
   </testsuites>
   <logging>
     <junit outputFile="report/logging.junit.xml"/>

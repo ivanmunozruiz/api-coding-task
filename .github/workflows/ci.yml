@@ -49,6 +49,11 @@ jobs:
         run: |
           mysql -h 127.0.0.1 -u root --password=root < opt/db/init-test.sql
 
+      - name: Run Functional tests
+        run: |
+          ./bin/console doctrine:fixtures:load --env=test
+          ./vendor/bin/phpunit --testsuite Functional --no-coverage
+
       - name: Run BDD tests
         run: |
           export DATABASE_URL="mysql://root:root@127.0.0.1:3306/lotr?serverVersion=8.0.32&charset=utf8mb4"

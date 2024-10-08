@@ -182,3 +182,7 @@ bdd-test-no-tty: ## Execute behat tests
 	docker exec api-coding-task-php vendor/bin/behat --no-snippets --strict
 
 
+functional-test:
+	$(EXEC_APP) bin/console doctrine:fixtures:load --env=test --no-interaction
+	$(EXEC_APP) php -d memory_limit=-1 ./vendor/bin/phpunit --testsuite Functional --no-coverage --stop-on-failure
+

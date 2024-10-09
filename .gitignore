@@ -21,3 +21,6 @@
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 .DS_Store
+
+# code coverage
+tests/coverage/*

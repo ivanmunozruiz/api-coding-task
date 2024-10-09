@@ -37,7 +37,7 @@ final class CharacterFinder
             );
         }
 
-        /* @phpstan-ignore-next-line */
+        /** @var Character */
         return $this->characterRepository->ofIdOrFail($identifier);
     }
 

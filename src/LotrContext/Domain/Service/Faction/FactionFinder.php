@@ -34,12 +34,7 @@ final class FactionFinder
             );
         }
 
-        $faction = $this->factionRepository->ofId($identifier);
-
-        if (!$faction instanceof Faction) {
-            throw FactionNotFoundException::from($identifier);
-        }
-
-        return $faction;
+        /** @var Faction */
+        return $this->factionRepository->ofIdOrFail($identifier);
     }
 }

@@ -35,7 +35,7 @@ final class EquipmentFinder
             );
         }
 
-        /* @phpstan-ignore-next-line */
+        /** @var Equipment */
         return $this->equipmentRepository->ofIdOrFail($identifier);
     }
 }

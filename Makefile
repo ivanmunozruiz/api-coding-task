@@ -125,7 +125,7 @@ composer-validate:
 rector:
 	$(EXEC_APP_NO_IT) ./vendor/bin/rector process
 
-pre-commit: php-lint phpstan rector unit-test-no-tty  ## Execute precommit tasks
+pre-commit: php-lint phpstan rector unit-test-coverage-checker  ## Execute precommit tasks
 
 local-ci:
 	make openapi-resolve
@@ -143,6 +143,9 @@ consume-async-events: ## Run the rabbit consumer
 # TESTING COMMANDS ------------------------------------------------------------------------------------------------------
 clean-reports:
 	@rm -rf report/*
+
+unit-test-coverage-checker:
+	$(EXEC_APP_NO_IT) ./coverage-checker.sh
 
 unit-test-no-tty: clean-reports ## Execute unit tests with no coverage
 	$(EXEC_APP_NO_IT) php -d memory_limit=-1 ./vendor/bin/phpunit --testsuite Unit --no-coverage --stop-on-failure

@@ -36,7 +36,8 @@
         "symfony/security-bundle": "6.*",
         "symfony/serializer": "6.4.*",
         "symfony/uid": "6.4.*",
-        "symfony/yaml": "6.4.*"
+        "symfony/yaml": "6.4.*",
+        "ext-simplexml": "*"
     },
     "config": {
         "allow-plugins": {

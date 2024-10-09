@@ -62,7 +62,7 @@ jobs:
         run: ./vendor/bin/phpstan analyse
 
       - name: Run PHPUnit with coverage
-        run: ./vendor/bin/phpunit --testsuite Unit
+        run: ./coverage-checker.sh
 
       - name: Run Mutant tests
         run: ./vendor/bin/infection --coverage=report --skip-initial-tests --show-mutations --min-msi=6 # I set 6 but it should be 100%
